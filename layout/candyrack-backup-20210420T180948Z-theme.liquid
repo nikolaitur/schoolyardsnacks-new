@@ -1,0 +1,216 @@
+{% if template contains 'article' and blog.metafields.blogfeeder.use_canonical == 'yes' %}
+  {% assign canonical_url = article.metafields.blogfeeder.canonical %}
+{% endif %}
+
+<!DOCTYPE html>
+<html data-template="{{template}}" lang="en" fontify-lang="{{ shop.locale }}">
+<head>
+
+<script>
+/* >> TriplePixel :: start*/
+~function(W,H,A,L,E){try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0))}catch(e){}function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}A=window,A[H]||(L=function(){return"tp.."+Date.now().toString(36)+Math.random().toString(36)},E=A[H]=function(t,e,n){return W=L(),(E._q=E._q||[]).push([W,e,n]),W},E.ch=W,O(5))}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
+
+
+  <meta name="facebook-domain-verification" content="8n9ek5rtiy2rtifr2dp60rxk0v0t7z" />
+    <script>{% include 'civilpixel-loader' %}</script>
+  {% render 'google-tag-manager', tag: 'head' %}
+
+  {% include 'head-meta' %}
+  {% include 'head-css' %}
+  {% include 'head-scripts' %}
+
+  {{ content_for_header }} 
+ {{ shop.metafields.fontify.stylesheets }}
+  {% include 'judgeme_core' %}
+  {% render 'shogun-head' %}
+</head>
+
+{% comment %}Finding and adding body classes below{% endcomment %}
+{% capture bodyClasses %}{{ template | split: '.' | first | remove: '/' | remove: '_' | replace:'404','error-404' }}-template {{ template | handle | replace:'.','-' | replace:'/','-' | replace:'_','-' | replace:'404','error-404' }}-template{% if template contains 'collection' %}{% if collection.image %} has-collection-image{% endif %}{% endif %}{% if customer %} customer-logged-in{% endif %} {{page.handle}} {{product.handle}}{% endcapture %}
+
+<body {{template}} id="{% if template contains 'gift_card' %}gift-card-id{% else %}{{ page_title | truncatewords: 3 | handle }}-id{% endif %}" class="precart--disabled {{ bodyClasses | split: ' ' | uniq | join: ' ' }}">
+  {% render 'google-tag-manager', tag: 'body' %}
+  <div class="wrapper">
+    {% section 'header' %}
+    {{content_for_layout}}
+    {% section 'footer' %}
+  </div>
+  {% section 'cart-drawer' %}
+  {% section 'checkout-toggles' %}
+
+  {% include 'footer-scripts' %}
+<div class='better-cart-element-better-cart-theme'>{% include 'better-cart-theme' %}</div>
+  
+<span id="gift_product_info" style="position: absolute; opacity: 0; z-index: -1;">
+  <span id="gift5_info" 
+        data-product-title="{{ all_products["5-gift-card"].title }}"
+        data-product-id="{{ all_products["5-gift-card"].variants[0].id }}"></span>
+  <span id="gift10_info" 
+        data-product-title="{{ all_products["10-gift-card"].title }}"
+        data-product-id="{{ all_products["10-gift-card"].variants[0].id }}"></span>
+</span>
+
+{% include 'apple-modal' %}
+{% include 'line-modal' %}
+
+<!-- Pre-upsell function -->
+<script type="application/json" id="prepaid_product_variant__json">
+  {% assign upsell_product1 = all_products[settings.product_cereal] %}
+  {% assign upsell_product2 = all_products[settings.product_puff] %}
+  {
+      {% for varint in upsell_product1.variants %}
+        "{{ varint.title }}": [
+            {{ varint.metafields.subscriptions.discount_variant_id | json }}
+        ]
+        {% if forloop.index > 0 and forloop.last == false %},{% endif %}
+      {% endfor %}
+      {% if upsell_product2 and upsell_product1 != blank %}
+        ,
+        {% for varint in upsell_product2.variants %}
+          "{{ varint.title }}": [
+              {{ varint.metafields.subscriptions.discount_variant_id | json }}
+          ]
+          {% if forloop.index > 0 and forloop.last == false %},{% endif %}
+        {% endfor %}
+      {% endif %}
+  }
+</script>
+  
+  {% if template contains 'product' %}
+<script>
+//REPLACE HERE
+var atcButtonID = "add-to-cart";
+
+var atcButton = document.getElementById(atcButtonID);
+if(atcButton){
+	atcButton.addEventListener("click", function(event) {
+    {% if product.selected_or_first_available_variant.price %}
+		var cartValue = {{ product.selected_or_first_available_variant.price }}/100;
+                var productId = {{ product.selected_or_first_available_variant.id }};
+                var productType = "{{ product.type }}";
+                var currency = "{{ shop.currency }}";
+                twttr.conversion.trackPid('o4pec', { tw_sale_amount: cartValue, tw_order_quantity: 1 });
+
+    {% endif %}
+	});
+}
+</script>
+{% endif %}
+  
+<!-- Hotjar Tracking Code for thecerealschool.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1054969,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!--  Email collection script  -->
+  <script type="text/javascript">!function(){var geq=window.geq=window.geq||[];if(geq.initialize) return;if (geq.invoked){if (window.console && console.error){console.error("GE snippet included twice.");}return;}geq.invoked=true;geq.methods=["page", "suppress", "trackOrder", "identify", "addToCart"];geq.factory=function(method){return function(){var args=Array.prototype.slice.call(arguments);args.unshift(method);geq.push(args);return geq;};};for (var i=0; i < geq.methods.length; i++){var key=geq.methods[i];geq[key]=geq.factory(key);}geq.load=function(key){var script=document.createElement("script");script.type="text/javascript";script.async=true; if(location.href.includes("vge=true")){script.src="https://s3-us-west-2.amazonaws.com/storejs/a/" + key + "/ge.js?v=" + Math.random();}else{script.src="https://s3-us-west-2.amazonaws.com/storejs/a/" + key + "/ge.js";}var first=document.getElementsByTagName("script")[0];first.parentNode.insertBefore(script,first);};geq.SNIPPET_VERSION="1.5.1"; geq.load("Y2QHNG3");}();</script><script>geq.page()</script>
+  </body>
+<!-- Retention engine code -->
+<script src="//bellwethragents.s3.amazonaws.com/js/embedded_experience.js"></script>
+<script>
+  (function() {
+    var loadScript = function(url, callback){
+      var script = document.createElement('SCRIPT');
+      script.src = url;
+      script.type = 'text/javascript';
+      script.onload = function() { callback(window.jQuery) };
+      document.getElementsByTagName('head')[0].appendChild(script);
+    };
+    var loadRetentionEngine = function($){
+   function checkSubscriptionsPage() {
+    $(".rc_subscriptions__subscription__item").each(function() {
+    if ($(this).find(".rc_subscriptions__subscription__item__cancel > a").length) {
+     let oldHref = $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].href;
+     let subscriptionId = oldHref.match(new RegExp('subscriptions/' + "(.*)" + '/cancel'))[1];
+     let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+     $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].href = "javascript:void(0)";
+     $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].onclick = 
+       function () {openReModal(link)}
+   }})}
+   function checkEditPage() {
+    if ($("#rc_subscriptions__items__cancel > a").length) {
+     let oldHref = $("#rc_subscriptions__items__cancel > a")[0].href;
+     let subscriptionId = oldHref.match(new RegExp('subscriptions/' + "(.*)" + '/cancel'))[1];
+     let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+     $("#rc_subscriptions__items__cancel > a")[0].href = "javascript:void(0)";
+     $("#rc_subscriptions__items__cancel > a")[0].onclick = 
+       function () {openReModal(link)}
+    }}
+   function checkNovum() {
+    let cancelBtn = $('.rc_cancel-btn')[0];
+    cancelBtn.removeEventListener("click", cancelSubscriptionFlow);
+    let subscriptionId = $(cancelBtn).data('id');
+    let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+    let linkHtml = `<a href='javascript:void(0)' onclick='openReModal("${link}")'></a>`;
+    $(cancelBtn).wrap(linkHtml);
+   }
+   function checkRechargePlusPage() {
+     let query = $('a').filter(function (index) {
+       return $(this).text().toUpperCase().trim() === 'Cancel My Subscription'.toUpperCase() ||
+         $(this).text().toUpperCase().trim() === 'Cancel Subscription'.toUpperCase();
+     });
+     if (query.length) {
+       const rechargeData = query.data('rcData');
+       let subscriptionId;
+       if (rechargeData) {
+         subscriptionId = rechargeData['subscription_id'];
+       } else {
+         let oldHref = query[0].href;
+         subscriptionId = oldHref.match(new RegExp('subscriptions/' + '(.*)' + '/cancel'))[1];
+       }
+       let newHref = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+       query[0].href = 'javascript:void(0)';
+       query[0].onclick = function () { openReModal(newHref) };
+       query.attr('data-rc-modal', 'disable');
+     }
+   }
+    buildEmbeddedExperience();
+    checkRechargePlusPage();
+    checkSubscriptionsPage();
+    checkEditPage();
+    checkNovum();
+    }
+    if ((typeof jQuery === 'undefined') || (parseFloat(jQuery.fn.jquery) < 1.7)) {
+      loadScript("{{ 'jquery.min.js' | asset_url }}", function(jq){
+        const jQueryInstance = jq.noConflict(true);
+        loadRetentionEngine(jQueryInstance);
+      });
+    } else {
+      loadRetentionEngine(jQuery);
+    }
+  })();
+</script>
+
+<script type="text/javascript">
+    var AddShoppersWidgetOptions = { 'loadCss': false };
+    (!function(){
+        var t=document.createElement("script");
+        t.type="text/javascript",
+        t.async=!0,
+        t.id="AddShoppers",
+        t.src="https://shop.pe/widget/widget_async.js#602eda0893f3c37a7f659701",
+        document.getElementsByTagName("head")[0].appendChild(t)
+    }());
+</script>
+
+<script type="text/javascript" id="free_gift_product__json">
+  var is_free_gift_product = {{ settings.is_active_gift }};
+  var free_gift_product_id = "{{ all_products[settings.free_gift_product].selected_or_first_available_variant.id }}";
+  var free_gift_product_sku = "{{ all_products[settings.free_gift_product].selected_or_first_available_variant.sku }}";
+  // {{ settings.free_gift_product }}
+</script>
+
+<script>
+  var isSticky = false; 
+  var isNoSticky = false; 
+</script>
+
+</html>

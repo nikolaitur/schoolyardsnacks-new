@@ -1,0 +1,39 @@
+{% schema %}
+{
+  "name": "Image with Text Blocks",
+  "blocks": [
+    {
+      "name": "Image with Text",
+      "type": "image_with_text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Text",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,354 @@
+
+{% if product.handle == 'copy-of-the-cereal-school' %}
+{% assign is_alternate_template = true %}
+{% endif %}
+{% if request.path contains 'free-gift' %}
+{% assign is_free_gift_template = true %}
+{% endif %}
+
+{% if template.suffix contains 'alt1' %}
+{% assign displayPricesInBag = true %}
+{% endif %}
+
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+<div class="product-container__side product-container__side--left">
+  <div class="product__part product__part--gallery">
+    <div class="gallery swiper-container">
+      <div class="swiper-wrapper">
+        {% for image in product.images %}
+          <div class="swiper-slide" data-index="{{ forloop.index0 }}">
+            <div class="gallery__item-wrapper">
+              {% comment %}<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }} 1x, {{ image | img_url: '1120x' }} 2x" />{% endcomment %}
+              {% assign img_url = image | img_url: '600x' %}
+              {% if template.suffix == 'image_variant_1' %}
+                {% if forloop.index == 2 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4v1_hannah.png?v=1643133234' %}
+                {% endif %}
+                {% if forloop.index == 3 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2v1_nicki.png?v=1643133234' %}
+                {% endif %}
+                {% if forloop.index == 4 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1v1_gemma.png?v=1643133234' %}
+                {% endif %}
+              {% endif %}
+              {% if template.suffix == 'image_variant_2' %}
+                {% if forloop.index == 2 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4v2_hannah.png?v=1643133234' %}
+                {% endif %}
+                {% if forloop.index == 3 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2v2_nikki.png?v=1643133238' %}
+                {% endif %}
+                {% if forloop.index == 4 %}
+                  {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1v2_gemma.png?v=1643133234' %}
+                {% endif %}
+              {% endif %}
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="product image {{ forloop.index }}" data-src="{{ img_url }}" data-srcset="{{ img_url }}" />
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'next' %}</div>
+      <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'prev' %}</div>
+    </div>
+    <div class="thumbs">
+      {% for image in product.images %}
+      {% assign img_url = image | img_url: '200x' %}
+      {% if template.suffix == 'image_variant_1' %}
+        {% if forloop.index == 2 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4v1_hannah.png?v=1643133234' %}
+        {% endif %}
+        {% if forloop.index == 3 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2v1_nicki.png?v=1643133234' %}
+        {% endif %}
+        {% if forloop.index == 4 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1v1_gemma.png?v=1643133234' %}
+        {% endif %}
+      {% endif %}
+      {% if template.suffix == 'image_variant_2' %}
+        {% if forloop.index == 2 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4v2_hannah.png?v=1643133234' %}
+        {% endif %}
+        {% if forloop.index == 3 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2v2_nikki.png?v=1643133238' %}
+        {% endif %}
+        {% if forloop.index == 4 %}
+          {% assign img_url = 'https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1v2_gemma.png?v=1643133234' %}
+        {% endif %}
+      {% endif %}
+        <div class="thumbs__item" data-index="{{ forloop.index0 }}">
+          <div class="thumbs__item-image-wrapper">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="thumbs__item-image lazy" alt="{{ image.alt | escape }}" data-src="{{ img_url }}" />
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="product-container__side product-container__side--right">
+  <div class="product__part product__part--form">
+    <header class="product-header">
+      <h1 class="product-header__title h6" {{product.metafields.wqwe.qweqweq}}>{{ section.settings.title | replace: '|', ' <br>' }}</h1>
+      <div class="product-header__reviews">
+        {% assign backup = product %}
+        {% assign product = all_products['cereal'] %}
+        <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+        {% assign product = backup %}
+        <div class="sold-in">
+          <span class="sold-in-emoji">🔥 </span><span class="sold-in-number">...</span> sold in the last 22 hours
+        </div>
+      </div>
+      <div class="product-header__tagline">
+          
+        Keto<span>·</span>Sugar Free<span>·</span>1-2g Net Carbs<span>·</span>High Protein
+      </div>
+      
+      <div class="cro_text cro_text_1">
+        <img class="hide--mobile" src="{{ 't_d_1.png' | asset_url }}" alt="text 1">
+        <img class="hide--desktop" src="{{ 't_m_1.png' | asset_url }}" alt="text 1">
+      </div>
+    </header>
+
+    <div class="product-header__description product-header__description-top">
+      <style>
+        div.product-header__description>ul {
+          margin: 10px 0 0 0;
+        }
+        div.product-header__description>ul li:last-child {
+          margin-bottom:0;    
+        }
+        div.product-header__description {
+          max-width: 100% !important;
+          padding: .8rem 0 2.8rem 0 !important;
+        }
+      </style>
+      <ul>
+      <li style="text-decoration: underline;">Sold Out 4 Times Already.</li>
+      <li>Over 3 million bags sold in 2020.</li>
+      <li>Join 300,000 other people who switched to Schoolyard Snacks!</li>
+      </ul>
+    </div>
+
+    {% include 'add-to-cart-form-cereal2', product_type: "cereal", section: section %}
+
+    <div class="product-disclaimer">
+      <p><strong>30&nbsp;Day&nbsp;Money&nbsp;Back&nbsp;Guarantee!</strong><br>Cancel subscriptions at anytime</p>
+
+      {% if template contains 'product' %}
+        <div class="accordion-wrap" style="margin-top: 25px;">
+          <div class="accordion-panel">
+            <h3 class="accordion-header">
+              <span>What If I Don’t Like The Taste or Texture?</span>
+              <span>{% render 'arrow-down' %}</span>
+            </h3>
+            <div class="accordion-body">
+              We get it: Most keto-friendly treats taste like cardboard!
+            </br>That’s why we’ve gone to extreme lengths to perfect the taste and guilt-free crunch. 
+            </br>In fact, we hired a New York Times featured food scientist to develop over 100 formulations to find one that passed our taste-test with flying colors.
+            </br>But don’t just take our word for it, go check out the 10,000+ reviews from men and women who won’t compromise on taste (and the guilt-free crunch).
+            </br>Best part, you’re covered by our courteous 30-day money back guarantee. You’re either blown away by the guilt-free crunch, or we don’t want your money.
+
+            </div>
+          </div>
+          <div class="accordion-panel">
+            <h3 class="accordion-header">
+              <span>Is This Actually Keto-Friendly?</span>
+              <span>{% render 'arrow-down' %}</span>
+            </h3>
+            <div class="accordion-body">
+              We get it, many products claim to be keto-friendly but are full of awful ingredients or are actually high in carbs. 
+              </br>In contrast, looking at our ingredient list you’ll realize each bag is:
+              </br>✔️1-2g net carbs so you can devour these without any guilt.
+              </br>✔️Most flavors are only 100 calories (nearly half your average protein bar).
+              </br>✔️Grain-free, soy-free and no weird ingredients only a scientist could pronounce.
+            </div>
+          </div>
+          <div class="accordion-panel">
+            <h3 class="accordion-header">
+              <span>Can I Buy Fewer Bags To Try?</span>
+              <span>{% render 'arrow-down' %}</span>
+            </h3>
+            <div class="accordion-body">
+              It sounds like a simple request, until you realize that offering a handful of any single flavor means we have to charge up to $10 just to cover labor costs.
+              </br>Not to mention the logistical hoops of opening a case of each flavor, pulling out one bag, and repackaging into a new custom case. Our small warehouse doesn’t have the space to run this operation!
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>
+
+{% if template contains 'product' %}
+<div class="best-macros">
+<div class="best-macros-heading container">
+  <img class="blob-img1" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/airplane_400x_6c1c7471-6254-44a1-ad42-36ee5896672a_400x_1.png?v=1643036442" alt="blob1">
+  <h1 class="section-title center">The Best Macros On The Market</h1>
+  <img class="blob-img2" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/heart-arrow_160x_d92dcec0-7417-4a72-a1fa-88ca96ecd505.png?v=1643036453" alt="blob2">
+</div>
+<img class="img-table hide--desktop" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cereal_desktop_3.png?v=1644507818" alt="">
+<img class="img-table hide--mobile" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cereal_desktop_3.png?v=1644507818" alt="">
+</div>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
+
+<script>
+  $('.product-option-row--cereal1 .product-option').on('click', function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    $('.product-option-row--cereal1 .product-option').removeClass('product-option--selected');
+    $(this).addClass('product-option--selected');
+    $('.cereal1-variant-id').val($(this).find('input').val());
+    $('.discount-amount').text($(this).find('input').data('discount'));
+    if($(this).find('input').data('discount') == '') {
+      $('.discount-info').hide();
+    } else {
+      $('.discount-info').show();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Upper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Pre cart upsell settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_preupsell",
+      "label": "Enable Pre cart upsell function",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "upsell_product1",
+      "label": "Onetime product 1"
+    },
+    {
+      "type": "product",
+      "id": "upsell_product2",
+      "label": "Onetime product 2"
+    },
+    {
+      "type": "product",
+      "id": "upsell_product3",
+      "label": "Subscription product"
+    },
+    {
+      "type":"richtext",
+      "id":"subscription_text",
+      "label":"Subscription text",
+      "default": "<p>Prepay for 3 shipments and Save Additional $10</p>"
+    },
+    {
+      "type":"text",
+      "id":"title",
+      "label":"Title",
+      "info":"Use a pipe (|) for a forced line break"
+    },
+    {
+      "type":"text",
+      "id":"tagline",
+      "label":"Tagline",
+      "info":"Use a pipe (|) to create dots between items",
+      "default":"Keto|Sugar Free|1g Net Carb|16g Protein"
+    },
+    {
+      "type":"richtext",
+      "id":"description",
+      "label":"Description",
+      "info": "Use the Dynamic Description block below if you need different values on one-time vs subscription pages."
+    },
+    {
+      "type":"text",
+      "id":"add_to_cart_text",
+      "label":"CTA Text",
+      "default":"Add to Cart"
+    },
+    {
+      "type":"richtext",
+      "id":"disclaimer",
+      "label":"Disclaimer",
+      "info":"Displayed beneath the product CTA"
+    },
+    {
+      "type":"text",
+      "id":"bundle_label",
+      "label":"Bundle Label",
+      "default":"1. Select Bundle:"
+    },
+    {
+      "type":"text",
+      "id":"flavor_label",
+      "label":"Flavor Label",
+      "default":"2. Choose Flavors:"
+    },
+    {
+      "type":"text",
+      "id":"frequency_label",
+      "label":"Frequency Label",
+      "default":"3. Select Frequency:"
+    },
+    {
+      "type":"textarea",
+      "id":"variety_default_selected",
+      "label":"Default Selected: variety",
+      "info":"Use a pipe (|) between items"
+    },
+    {
+      "type":"textarea",
+      "id":"bundle_default_selected",
+      "label":"Default Selected: bundle",
+      "info":"Use a pipe (|) between items"
+    },
+    {
+      "type":"textarea",
+      "id":"single_default_selected",
+      "label":"Default Selected: single",
+      "info":"Use a pipe (|) between items"
+    },
+    {
+      "type":"textarea",
+      "id":"singlesm_default_selected",
+      "label":"Default Selected: single-sm",
+      "info":"Use a pipe (|) between items"
+    },
+{
+  "type": "checkbox",
+  "id": "enable_free_gift",
+  "label": "Enable Free Gift Promo?",
+  "info": "Use this with the promo in the cart drawer settings",
+  "default": false
+}
+  ],
+  "blocks":[    
+    {
+      "type": "dynamic_description",
+      "name": "Dynamic Description",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Product Handle",
+          "info": "Must match the product handle you want it visible on"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

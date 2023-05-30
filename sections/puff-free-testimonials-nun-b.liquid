@@ -1,0 +1,54 @@
+<div class="ytlander-4 ytlander-section">
+  <div class="container ">
+    <h2 class="title">Our Biggest Fans</h2>  
+    <div class="review-images hide--mobile">
+      <div class="half-column">
+        <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/noah.png?v=1655662831" alt="review image">
+        <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/michele.png?v=1655662831" alt="review image">    
+        <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/kylie_s.png?v=1655662831" alt="review image">
+      </div>
+      <div class="half-column">
+        <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cyn_s_super_savings.png?v=1655662831" alt="review image">  
+        <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Brittany_K.png?v=1655662831" alt="review image">
+      </div>   
+    </div>    
+    <a href="#" class="btn btn-flavor-select hide--mobile">Choose Your Flavors</a>
+    <div class="image-slider2 image-slider social hide--desktop">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/noah.png?v=1655662831" alt="review image">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/michele.png?v=1655662831" alt="review image">    
+        </div>
+        <div class="swiper-slide">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/kylie_s.png?v=1655662831" alt="review image">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cyn_s_super_savings.png?v=1655662831" alt="review image">  
+        </div>      
+        <div class="swiper-slide">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Brittany_K.png?v=1655662831" alt="review image">
+        </div>
+      </div>
+      <div class="swiper__button swiper__button--next swiper__button--next2">{% include 'icon', handle: 'next' %}</div>
+      <div class="swiper__button swiper__button--prev swiper__button--prev2">{% include 'icon', handle: 'prev' %}</div>
+    </div>
+    <a href="#" class="btn btn-flavor-select hide--desktop">Choose Your Flavors</a>    
+  </div>
+</div>
+
+<script>
+  imageSwiper = new Swiper($('.ytlander-4 .image-slider2'), {
+    effect: 'slide',
+    loop: true,
+    centeredSlides: true,
+    slidesPerView: 1,
+    spaceBetween: 48,
+    autoHeight: true,
+    navigation: {
+      nextEl: '.swiper__button--next2',
+      prevEl: '.swiper__button--prev2',
+    }
+  });
+</script>

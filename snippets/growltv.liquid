@@ -1,0 +1,25 @@
+{%- comment -%}
+<link rel="preconnect" href="https://cdn.growltv.com" />
+<link rel="dns-prefetch" href="https://cdn.growltv.com" />
+<!-- <link rel="stylesheet" href="https://cdn.growltv.com/static/app.css?v={{ 'now' | date: "%s"}}" /> -->
+
+<link rel="preload" href="https://cdn.growltv.com/static/app.css?v={{ 'now' | date: "%s"}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.growltv.com/static/app.css?v={{ 'now' | date: "%s"}}"></noscript>
+
+<!-- <div id="grow-aov"></div> -->
+<script id="grow-aov-script" data-store="{{ shop.permanent_domain }}" data-name="{{ shop.name }}" data-script-editor="true" data-currency="{{ cart.currency.iso_code }}" data-customer-id="{{ customer.id }}" data-customer-email="{{ customer.email }}" src="https://cdn.growltv.com/static/schoolyardsnacks.js"></script>
+{%- endcomment -%}
+
+{%- comment -%}Custom CSS for GrowLTV{%- endcomment %}
+<style>
+  .header-cart a { position: relative; }
+  .header-cart a svg { height: 2.4rem; width: 2.4rem; }
+  html a.grow-aov__empty-link, .grow-aov__upsell-title { text-decoration: none !important; }
+  .grow-aov__cart-details dt,
+  .grow-aov__cart-details dd,
+  .grow-aov__checkout-details dt,
+  .grow-aov__checkout-details dd { margin-bottom: 0; }
+  .grow-aov__upsell-loading, .grow-aov__upsell-product { box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05); }
+  .grow-aov__item-eligibility { display: none; }
+  .grow-aov__item-switcher-modal ul li::marker {display: none;}
+</style>

@@ -1,0 +1,61 @@
+<div class="blog-simple">
+  <div class="container--slim">
+    <h1 class="article__title article-simple__title">{{ article.title }}</h1>
+    <div class="article-simple__content">{{ article.content }}</div>
+    <div class="article__content">
+      {% for block in section.blocks %}
+        <div class="article-simple__item">
+          <div class="article-simple_item__title">{{ forloop.index }}. {{ block.settings.title }}</div>
+          <a href="{{ block.settings.btn_link }}" class="article-simple__image">
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="">
+          </a>
+          <div class="article-simple__content">
+            {{ block.settings.content }}
+          </div>
+          <a href="{{ block.settings.btn_link }}" class="btn">{{ block.settings.btn_text }}</a>
+        </div>
+      {% endfor %}
+    </div>
+    <p>We look forward to seeing you out there this spring!</p>
+    <p>The Schoolyard Team</p>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Article Simple",
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Blog Content"
+          },
+          {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button Text",
+            "default": "Shop Now"
+          },
+          {
+            "type": "text",
+            "id": "btn_link",
+            "label": "Button Link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

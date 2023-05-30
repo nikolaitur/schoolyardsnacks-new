@@ -1,0 +1,143 @@
+
+<main class="content content--no-sidebar" role="main">
+  <div class="article">
+    <div class="container--slim">
+      <div class="article__header">
+        <h1 class="article__title">{{ article.title }}</h1>
+        {% assign published_date = article.published_at | date: '%B %d, %Y' %}
+        <div class="article__byline ">By The Schoolyard Team | {{ published_date }}</div>
+      </div>
+    </div>
+
+    <div class="article__content">
+      <div class="container--slim">
+        {{ section.settings.content }}
+
+        {% for block in section.blocks %}
+        <div class="block-global-cta button-cta" style="border-color: {{ block.settings.border_color }};">
+          <div class="cta-wrapper">
+            <div class="cta-label" style="background-color: {{ block.settings.border_color }}; border-color: {{ block.settings.border_color }};">{{ block.settings.label_title }}</div>
+            <div class="cta-image">
+              <a href="{{ block.settings.btn_link }}">
+                <img src="{{ block.settings.image | img_url: '500x' }}">
+              </a>
+            </div>
+            <div class="cta-info">
+              <p class="cta-heading">
+                <a href="{{ block.settings.btn_link }}">{{ block.settings.title }}</a>
+              </p>
+              <p class="cta-subheading">{{ block.settings.subtitle }}</p>
+              <a href="{{ block.settings.btn_link }}" class="btn btn-primary">{{ block.settings.button_text }}</a>
+              <ul class="features">
+                <li>✔ Free Shipping</li>
+                <li>✔ 30 Day Money Back Guarantee</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {{ block.settings.content }}
+        {% endfor %}
+      </div>
+
+      <div class="also-like">
+        <h2 class="title">You Might Also Like</h2>
+        <div class="products-wrap container--slim">
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_190c99ab-b1d9-457d-9c7f-369fafa2c95d.png?v=1633355029" alt="product image">
+            </div>
+            <div class="product-title">Cheddar Cheese</div>
+            <div class="product-subtitle">Keto Puffs</div>
+            <div class="product-info">Grain Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleB">Shop Now</a>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_de18c1be-7001-49a1-8878-3bf3759c4fc0.png?v=1633355028" alt="product image">
+            </div>
+            <div class="product-title">Cocoa</div>
+            <div class="product-subtitle">Keto Cereal</div>
+            <div class="product-info">Sugar Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/cereal?ut_content=articleB">Shop Now</a>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream_da73e0c2-00c2-4e34-8b42-22764585d804.png?v=1633355029" alt="product image">
+            </div>
+            <div class="product-title">Sour Cream & Onion</div>
+            <div class="product-subtitle">Keto Puffs</div>
+            <div class="product-info">Grain Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleB">Shop Now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+{% schema %}
+  {
+    "name": "Article",
+    "settings": [
+      {
+        "type": "html",
+        "id": "content",
+        "label": "Article 1"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "CTA Block",
+        "type": "cta_block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "color",
+            "id": "border_color",
+            "label": "Border Color"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "type": "text",
+            "id": "label_title",
+            "label": "Label Name",
+            "default": "Special Offer"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Btn Link"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Html Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

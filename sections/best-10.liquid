@@ -1,0 +1,190 @@
+<div class="container--slim">
+  <div class="article-content">
+    <p class="hide--mobile">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Desktop_V1.png?v=1660154097"
+        alt=""
+      >
+    </p>
+    <p class="hide--desktop">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Mobile_V1.png?v=1660226180"
+        alt=""
+      >
+    </p>
+    <p>
+      Looking to switch up your snack routine without ruining your diet? Here’s 7 smart swaps to help you stay on track.
+    </p>
+    <p>
+      <span style="font-weight: 400;"
+        >Get ready to skip salad tonight because these deliver on being </span
+      ><span style="text-decoration: line-through;">low carb</span
+      ><span style="font-weight: 400;"> nearly no carbs yet high flavor. </span>
+    </p>
+  </div>
+  {% for block in section.blocks %}
+    <div class="block-item">
+      <div class="image-with-text">
+        <div class="image-content">
+          <img
+            src="{{ block.settings.image | img_url: '800x' }}"
+            alt="{{ block.settings.image.alt }}"
+          >
+        </div>
+        <div class="text-content">
+          <div class="index">{{ forloop.index }}</div>
+          <div class="title">{{ block.settings.title }}</div>
+          <div class="subtitle">{{ block.settings.subtitle }}</div>
+          {% if template.suffix contains 'best-10-op' %}
+            {% assign mod = forloop.index | modulo: 3 %}
+            <a
+              href="#"
+              class="animation-btn {% if mod == 1 %}animated{% endif %} hide--mobile blog-cta-{{ forloop.index }}"
+            >
+              <div class="discount-code">
+                {% if forloop.index == 1 %}
+                  HELLO2007
+                {% elsif forloop.index == 2 %}
+                  HELLO9NRO
+                {% elsif forloop.index == 3 %}
+                  HELLO06Bq
+                {% elsif forloop.index == 4 %}
+                  HELLOSJem
+                {% elsif forloop.index == 5 %}
+                  HELLOk0Ok
+                {% elsif forloop.index == 6 %}
+                  HELLO2AQc
+                {% elsif forloop.index == 7 %}
+                  HELLOg0hu
+                {% elsif forloop.index == 8 %}
+                  HELLOFibU
+                {% elsif forloop.index == 9 %}
+                  HELLOrZ6r
+                {% else %}
+                  HELLO2022
+                {% endif %}
+              </div>
+              <div class="get-code">Get Code</div>
+            </a>
+          {% else %}
+            <a href="{{ block.settings.btn_link }}" class="btn">
+              {{- block.settings.btn_text -}}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="mob-cta hide--desktop">
+        {% if template.suffix contains 'best-10-op' %}
+          {% assign mod = forloop.index | modulo: 3 %}
+          <a
+            href="#"
+            class="animation-btn {% if mod == 1 %}animated{% endif %} blog-cta-{{ forloop.index }}"
+          >
+            <div class="discount-code">
+              {% if forloop.index == 1 %}
+                HELLO2007
+              {% elsif forloop.index == 2 %}
+                HELLO9NRO
+              {% elsif forloop.index == 3 %}
+                HELLO06Bq
+              {% elsif forloop.index == 4 %}
+                HELLOSJem
+              {% elsif forloop.index == 5 %}
+                HELLOk0Ok
+              {% elsif forloop.index == 6 %}
+                HELLO2AQc
+              {% elsif forloop.index == 7 %}
+                HELLOg0hu
+              {% elsif forloop.index == 8 %}
+                HELLOFibU
+              {% elsif forloop.index == 9 %}
+                HELLOrZ6r
+              {% else %}
+                HELLO2022
+              {% endif %}
+            </div>
+            <div class="get-code">Get Code</div>
+          </a>
+        {% else %}
+          <a href="#" class="btn blog-cta-{{ forloop.index }}">
+            {{- block.settings.btn_text -}}
+          </a>
+        {% endif %}
+      </div>
+      <div class="body-content">{{ block.settings.content }}</div>
+    </div>
+  {% endfor %}
+  {% if template.suffix == 'best-10-op-b' %}
+    <div class="justuno-embed-widget">
+      <div class="countdown-timer">
+        <ul>
+          <li><span class="hours">2</span>Hours</li>
+          <span class="seperator">:</span>
+          <li><span class="minutes">59</span>Minutes</li>
+          <span class="seperator">:</span>
+          <li><span class="seconds">36</span>Seconds</li>
+        </ul>
+      </div>
+      <div class="title">“YES! Send Me a Discount Code For…”</div>
+      <div class="btns-wrap">
+        <a
+          href="#"
+          class="btn animation-btn animated hide--mobile blog-cta-1"
+          >Cookies</a
+        >
+        <a
+          href="#"
+          class="btn animation-btn animated hide--mobile blog-cta-3"
+          >Cheese Puffs</a
+        >
+      </div>
+    </div>
+  {% else %}
+    {% render 'also-like' %}
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Best 7",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

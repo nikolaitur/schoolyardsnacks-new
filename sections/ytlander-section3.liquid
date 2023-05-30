@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>  
+  <div class="seen-in-img">
+    <img class="hide--mobile" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/SEC2.png?v=1631931520" alt="seen in">
+    <img class="hide--desktop" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/mobile_-_sec_2_218dad74-0e4b-4d4c-83cb-e989bae287a0.png?v=1632498386" alt="seen in">
+  </div>
+  <div class="rich-content">{{ section.settings.content }}</div>
+</div>
+{% schema %}
+{
+  "name": "YT lander 3",
+  "class": "ytlander-3 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ]
+}
+{% endschema %}

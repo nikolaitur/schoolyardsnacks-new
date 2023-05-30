@@ -1,0 +1,70 @@
+<section class="section section--icons icons {{ section.settings.padding }} icons--{{ section.id }}" {{ section.shopify_attributes }} >
+  <style>.icons--{{ section.id }} { background-color: {{ section.settings.bg_color }}; }</style>
+  <div class="section__content icons__items icons__items--padded {{ section.settings.container_width }}" {{ section.shopify_attributes }}>
+    {% for block in section.blocks %}
+      <img 
+      {% if block.settings.image64 != blank %}src="{{ block.settings.image64 }}" class="icon__item"
+      {% else %}src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="icon__item lazy" data-src="{{ block.settings.image | img_url: '200x' }}"{% endif %} 
+      data-dsk-src="{{ block.settings.image | img_url: '2000x' }}" alt="{% if block.settings.image.alt != blank %}{{ block.settings.image.alt }}{% else %}{{ block.settings.title }}{% endif %}" onload="if(screen.width>400){this.setAttribute('data-src', this.getAttribute('data-dsk-src'));this.setAttribute('src', this.getAttribute('data-dsk-src'));} this.removeAttribute('onload');"/>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icons",
+  "settings": [
+    {
+      "type":"header",
+      "content":"Design Settings"
+    },
+    {
+      "type":"select",
+      "id":"container_width",
+      "label":"Container Width",
+      "options":[
+        {"value":"container--full", "label":"Full Width"},
+        {"value":"container", "label":"Contained"}
+      ],
+      "default":"container"
+    },
+    {
+      "type":"color",
+      "id":"bg_color",
+      "label":"Container Background Color",
+      "default":"#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type":"icon",
+      "name":"Icons",
+      "settings":[
+        {
+          "type":"text",
+          "id":"title",
+          "label":"Title",
+          "info":"Used for both admin and alt text."
+        },
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+        },
+        {
+          "type":"textarea",
+          "id":"image64",
+          "label":"Base64",
+          "info":"For mobile, base64 encode images if less than 5kb"
+        }
+      ]
+    }
+  ],
+  "max_blocks":4,
+  "presets": [{
+    "name": "Icons",
+    "category": "Content"
+  }]
+}
+{% endschema %}
+

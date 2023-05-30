@@ -1,0 +1,31 @@
+<div class="trial-progress-bar">
+  <h3>Almost There. Please allow 5 seconds for page to load. Do not click the back button or refresh</h3>
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ 'gif5_without_text.gif' | asset_img_url: '300x' }}" alt="">
+</div>
+
+<style>
+  .trial-progress-bar{
+    position: fixed; 
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%,-50%);
+  }
+  .trial-progress-bar h3{
+    font-size: 20px;
+    text-align: center;
+    max-width: 540px;
+  }
+  .trial-progress-bar img{
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 767px){
+    .trial-progress-bar{
+      width: 90%; 
+    }
+    .trial-progress-bar h3{
+      font-size: 18px; 
+    }
+  }
+</style>

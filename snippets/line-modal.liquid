@@ -1,0 +1,48 @@
+
+<script>
+  var variantA = false;
+  var variantB = false;
+</script>
+
+<!--  Line Modal  -->
+<div class="ik-modal-wraper modal-wrapper blocker current" id="puff_line_modal">
+  <div class="modal grid" data-variant-id="29526468034675" style="display: inline-block;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="" id="modalgridimg" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/image_1.png?v=1617385237" alt="">
+    <h2>SKIP THE LINE</h2>
+    <h3 class="">Get It Faster If You Order In The Next <span id="line_modal_timer"></span></h3>
+    <p>We'll ship your order out same day before noon or next business day if after noon.
+    </p>
+    <a href="#" data-modal-close class="btn btn--block" id="line-modal-get-it">Yes! Get It Faster</a>
+    <a href="#" class="" data-modal-close id="modal-close-button-x" rel="modal:close">×</a>
+  </div>
+</div>
+
+<script>
+  // cereal
+  document.getElementById('line_modal_timer').innerHTML = 30 + ":" + 0;
+  localStorage.setItem("isLineModalTimer", "no");
+
+  function startLineTimer() {
+    document.getElementById('modalgridimg').classList.add('lazy');
+    localStorage.setItem("isLineModalTimer", "yes");
+    var presentTime = document.getElementById('line_modal_timer').innerHTML;
+    var timeArray = presentTime.split(/[:]+/);
+    var m = timeArray[0];
+    var s = checkSecond((timeArray[1] - 1));
+    if(s==59){m=m-1}
+    //if(m<0){alert('timer completed')}
+    if(m == 0 && s == 0) {
+      clearTimeout(startLineTimer);
+      localStorage.setItem("isLineModalTimer", "no");
+    }else {
+      document.getElementById('line_modal_timer').innerHTML = m + ":" + s;
+      setTimeout(startLineTimer, 1000);
+    }
+  }
+
+  function checkSecond(sec) {
+    if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+    if (sec < 0) {sec = "59"};
+    return sec;
+  }
+</script>

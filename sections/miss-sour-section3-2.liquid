@@ -1,0 +1,98 @@
+<div class="container--slim">
+  <h2 class="title">Get Ready to Kiss Cravings Goodbye</h2>
+  <div class="subtitle">
+    <p>
+      Get ready to join over 300,000 men and women who tip the scales in their
+      favor because:
+    </p>
+  </div>
+  <div class="image-items hide--mobile">
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_944e51f1-21b2-4e68-a530-e01b5995eb1a.png?v=1633885802"
+      alt=""
+    >
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_6f7360c2-f0bb-4539-844f-783f1a3844ca.png?v=1633885802"
+      alt=""
+    >
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_e0d7af54-ffb7-4d73-a0a7-4c6a1b3b0a4c.png?v=1633885802"
+      alt=""
+    >
+  </div>
+  <div class="image-items hide--desktop">
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_f735a098-2bcc-4998-92f9-2a3091fab5d0.png?v=1633889074"
+      alt=""
+    >
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_1af1044c-86a2-420b-93ba-ece14d20ba74.png?v=1633889075"
+      alt=""
+    >
+    <img
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_e29047ec-59df-48d2-8f76-e0795dc78859.png?v=1633889074"
+      alt=""
+    >
+  </div>
+
+  {% assign cta_link = 'https://schoolyardsnacks.com/products/keto-cheese-puffs-6-family-size-bags' %}
+  {% if template.suffix == 'miss_cream_1' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/products/keto-cheese-puffs-6-family-size-bags' %}
+  {% endif %}
+  {% if template.suffix == 'miss_cream_2' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/pages/lander-dsp-b?ut=gdn' %}
+  {% endif %}
+  {% if template.suffix == 'miss_cream_3' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/pages/lander-dsp-c?ut=gdn' %}
+  {% endif %}
+
+  <div class="image-and-text-wrap">
+    <div class="text-wrap">
+      <div class="subtitle">
+        <p>
+          Is it any wonder we’ve sold over 3 MILLION BAGS of our Keto snacks in
+          the past year.
+        </p>
+        <p>
+          After seeing the feedback we get every day, and the 1,701 5-star
+          reviews, I’m betting that once you taste one flavor, once you see how
+          it’s the perfect hunger fix… you’ll come back to try more flavors.
+        </p>
+        <p>
+          So go ahead and&nbsp;<a
+            href="{{ cta_link }}"
+            title="https://schoolyardsnacks.com/products/keto-cheese-puffs-6-family-size-bags"
+            ><span style="text-decoration:underline"
+              >pick your flavors now</span
+            ></a
+          >&nbsp;while it’s hot on your mind (and before we sell out of your
+          favorite flavors).
+        </p>
+        <p>You’ve got nothing to lose but those pesky cravings.</p>
+      </div>
+      <a
+        href="{{ cta_link }}"
+        class="btn btn-flavor-select hide--mobile"
+        >Pick Your Flavors</a
+      >
+    </div>
+  </div>
+  <a
+    href="{{ cta_link }}"
+    class="btn btn-flavor-select hide--desktop"
+    >Get Yours Now</a
+  >
+</div>
+{% schema %}
+{
+  "name": "Miss sour section3",
+  "class": "miss-sour-section3",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ]
+}
+{% endschema %}

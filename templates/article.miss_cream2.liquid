@@ -1,0 +1,123 @@
+{% section 'article-template' %}
+<div class="sour-cream-1">
+  <h2 class="title sour-title-1">Now You Can Fuel Midnight Cravings With Zero Guilt</h2>
+  <div class="seen-in-img">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/as_seeen_in_blue_copy.png?v=1632423111" alt="seen in">
+  </div>
+</div>
+{% section 'miss-sour-section4' %}
+{% section 'ytlander-section7' %}
+{% section 'ytlander-section8' %}
+{% section 'ytlander-section9' %}
+{% section 'ytlander-section10' %}
+{% section 'ytlander-section11' %}
+{% section 'ytlander-section12' %}
+<h2 class="title product-section-title">Pick Your Flavors</h2>
+{% section 'product-upper-puffs' %}
+{% section 'miss-sour-section3' %}
+<section class="js-cluster-wrapper zpa-judgeme-142-v1-dynamic zpa-judgeme-142 cluster-padding-medium zp ba-8518399" data-id="8518399" id="8518399"> <div class="js-cluster zp cac-8518399 zpa-container"> <div class="flex-row"> <div class="xs-12 "> <div class="zp ba-323384" data-id="323384"> <div style="clear:both"></div>  
+  <div class="section section--reviews">
+    <div class="container--slim">
+      <div class="section__header">
+        <h2 class="h1 center">Picky eaters say...</h2>
+      </div>
+      <div class="section__content">
+        {% assign product = all_products['keto-puffs'] %}
+        <div data-oke-reviews-widget data-oke-reviews-product-id="shopify-{{ product.id }}">{{ product.metafields.okendo.ProductReviewsWidgetSnippet }}</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<div class="ps-section">
+  <p>P.S. Don’t wait too long, because our raving fans have caused these chips to sell out 4 times already!</p>
+</div>
+
+<a class="scroll-to-top btn hide hide--desktop">Pick Your Flavors</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
+
+<script>
+  $(window).scroll(function(){
+    if($(window).scrollTop() > 1604) {
+      $('.scroll-to-top').removeClass('hide');
+    } else {
+      $('.scroll-to-top').addClass('hide');
+    }
+  });
+
+  setTimeout(function(){
+    $('.product-option--bundle:nth-child(2) input').click();
+  }, 100); 
+
+</script>
+
+{% assign product = all_products['keto-puffs'] %}
+
+    <script type="application/json" id="product__json">{{ product | json }}</script>
+    <script type="application/json" id="current_variant__json">{{ product.selected_or_first_available_variant | json }}</script>
+    <script>
+      {% capture doz_products_handles %}{% for i in (1..6) %}|keto-cereal-{{i}}-dozen{% endfor %}{% endcapture %}
+        {% assign doz_products_handles = doz_products_handles | replace_first: '|', '' %}
+        {% assign doz_products = doz_products_handles | split: '|' %}
+        {% assign initial_price_per_bag = "" %}
+        {% assign initial_sell_price = "" %}
+        {% assign initial_compare_at_price = "" %}
+            var dozProducts = {
+                {% for item in doz_products %}
+                    {%- assign product = all_products[item] -%}
+                    //title: {{ product.title }}
+                    //handle: {{ product.handle }}
+                    {%- assign single_prices = product.description | strip_html | strip_newlines | split: ':SUBSCRIPTION:' | first -%}
+                    {%- assign desc_prices = single_prices | split: '|' -%}
+                    {%- if forloop.first -%}
+                        {%- assign initial_price_per_bag = desc_prices[0] -%}
+                        {%- assign initial_sell_price = desc_prices[1] -%}
+                        {%- assign initial_compare_at_price = desc_prices[2] -%}
+                    {%- endif -%}
+                    {%- assign num_of_bags = forloop.index | times: 12 -%}
+                    {{forloop.index}}: {
+                        price_per_bag: "{{desc_prices[0]}}",
+                        calc_price_per_bag: "{{ variant.price | divided_by: num_of_bags | round: 2 }}",
+                        sell_price: "{{desc_prices[1]}}",
+                        compare_at_price: "{{desc_prices[2]}}",
+                        variants: [
+                        {% for variant in product.variants %}
+                        {id: {{variant.id}}, flavor: "{{ variant.title | handleize }}"},
+                        {% endfor %}
+                    ]},
+                {% endfor %}        
+            };
+            var dozSubscriptionProducts = {
+                {% for item in doz_products %}
+                    {%- assign product = all_products[item] -%}//{{sub_item}}
+                    //title: {{ product.title }}
+                    //handle: {{ product.handle }}
+                    {%- if product != blank -%}
+                        {%- assign subscription_prices = product.description | strip_html | strip_newlines | split: ':SUBSCRIPTION:' | last -%}
+                        {%- assign desc_prices = subscription_prices  | split: '|' -%}
+                        {%- if forloop.first or initial_price_per_bag == blank -%}
+                            {%- assign initial_price_per_bag = desc_prices[0] -%}
+                            {%- assign initial_sell_price = desc_prices[1] -%}
+                            {%- assign initial_compare_at_price = desc_prices[2] -%}
+                        {%- endif -%}
+                        {%- assign num_of_bags = forloop.index | times: 12 -%}
+                        {%- assign num_of_doz = forloop.index -%}
+                        {{forloop.index}}: {
+                            price_per_bag: "{{desc_prices[0]}}",
+                            sell_price: "{{ desc_prices[1] }}",
+                            compare_at_price: "{{desc_prices[2]}}",
+                            variants: [
+                            {% for variant in product.variants %}
+                            { 
+                              id: {{variant.metafields.subscriptions.discount_variant_id}},
+                              flavor: "{{ variant.title | handleize }}"
+                            },
+                            {% endfor %}
+                        ]},
+                    {%- endif -%}
+                {% endfor %}        
+            };
+          var isAbtesting = false;
+      </script>

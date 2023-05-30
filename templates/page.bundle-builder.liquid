@@ -1,0 +1,137 @@
+<div class="top-section">
+  <div class="container">
+    <h2 class="title">Build Your Own Bundle</h2>
+    <div class="product-header__description">
+      <style>
+        div.product-header__description>ul {
+        margin: 10px 0 0 0;
+        }
+        div.product-header__description>ul li:last-child {
+        margin-bottom:0;    
+        }
+        div.product-header__description {
+        max-width: 100% !important;
+        padding: .8rem 0 2.8rem 0 !important;
+        }
+      </style>
+      <p><strong>Join over 300,000 other people</strong> who switched to Schoolyard Snacks because it makes it easy to cut the carbs, sugar and calories while enjoying your favorite treats.</p>
+    </div>
+  </div>
+</div>
+<div class="bundle-progress-bar">
+  <p id="upsell-message">Almost there! You're $x Away From 15% Off</p>
+  <div class="progress-bar">
+    <img class="progress-1" src="{{ 'bar_text_1.png' | asset_url }}" alt="bar and text 1">
+    <img class="progress-2" src="{{ 'bar_text_2.png' | asset_url }}" alt="bar and text 2">
+    <img class="progress-3" src="{{ 'bar_text_3.png' | asset_url }}" alt="bar and text 3">            
+  </div>  
+</div>
+<div class="product-tab-switcher">
+  <a href="#" data-anchor-cereal>Cereal</a>
+  <a href="#" data-anchor-puffs>Cheese Puffs</a>
+</div>
+<div class="product-form-wrap">
+  <div class="products-container">
+    <div class="keto-container">
+      <header class="product-header">
+        <h1 class="product-header__title h6">NEW Keto Cheese Puffs</h1>
+        <div class="product-header__reviews">
+          {% assign product = all_products['keto-puffs'] %}
+          <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span>375 sold in the last 22 hours
+          </div>
+        </div>
+        <div class="product-header__tagline">          
+          Keto<span>·</span>1g Net Carb<span>·</span>High Protein<span>·</span>Grain Free
+        </div>
+      </header>
+      {% section 'keto-variants-section' %}
+    </div>
+    <div class="cereal-container">
+      <header class="product-header">
+        <h1 class="product-header__title h6">Low Carb, Keto Cereal</h1>
+        <div class="product-header__reviews">
+          {% assign product = all_products['cereal'] %}
+          <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span>340 sold in the last 22 hours
+          </div>
+        </div>
+        <div class="product-header__tagline">          
+          Keto<span>·</span>Sugar Free<span>·</span>1g Net Carb<span>·</span>16g Protein
+        </div>
+      </header>
+      {% section 'cereal-variants-section' %}
+    </div>
+  </div>
+  <div class="bottom-bar hide--mobile">
+    <div class="price-wrap">
+      <div class="subtotal-label">Subtotal:</div>
+      <div class="price" data-item-count="0">
+        <div class="old-price slash">$0</div>
+        <div class="current-price">$0</div>
+      </div>
+      <div class="perbag-label">(Only $2.25 per bag)</div>
+    </div>
+    <div class="action-wrap">
+      <div class="subscription-toggle">
+        <span>Subscribe & Save 12.5%</span>
+        <div class="toggle-switch">
+          <label class="switch">
+            <input type="checkbox" checked class="subscription-switch">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <button disabled class="btn bundle-atc">Complete Bundle</button>
+      <div class="guarantee-text">
+        30 Day Money Back Guarantee
+      </div>
+    </div>
+  </div>
+</div>
+{% section 'product-icons-seen-cereal' %}
+{% section 'product-social-cereal' %}
+{% section 'product-faq-both' %}
+<div class="section section--reviews">
+  <div class="container--slim">
+    <div class="section__header">
+      <h2 class="h1 center">Picky eaters say...</h2>
+    </div>
+    
+    <div data-oke-reviews-widget=""></div>
+
+  </div>
+</div>
+<div class="bottom-bar hide--desktop" style="display: none;">
+  <div class="price-wrap">
+    <div class="subtotal-label">Subtotal:</div>
+    <div class="price" data-item-count="0">
+      <div class="old-price slash">$0</div>
+      <div class="current-price">$0</div>
+    </div>
+    <div class="perbag-label">(Only $2.25 per bag)</div>
+  </div>
+  <div class="action-wrap">
+    <div class="subscription-toggle">
+      <span>Subscribe & Save 12.5%</span>
+      <div class="toggle-switch">
+        <label class="switch">
+          <input type="checkbox" checked class="subscription-switch">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <button disabled class="btn bundle-atc">Complete Bundle</button>
+    <div class="guarantee-text">
+      30 Day Money Back Guarantee
+    </div>
+  </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />  

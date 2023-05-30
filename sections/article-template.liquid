@@ -1,0 +1,669 @@
+{% assign force_subscription_mode = false %}
+{% for tag in article.tags %}
+  {% assign tag_name = tag | downcase %}
+  {% if tag_name == "sub" %}
+    {% assign force_subscription_mode = true %}
+  {% endif %}
+{% endfor %}
+<main class="content content--no-sidebar" role="main">
+  <div class="article">
+    <div class="container--slim">
+      <div class="article__header {% if template.suffix contains 'best-' %}text-left{% endif %}">
+        {% unless article.handle == 'blog/my-trajectory-downhill-meet-scott-new' or article.handle == 'blog/my-trajectory-downhill-meet-mary' %}
+          <h1 class="article__title">{{ article.title }}</h1>
+          {% assign published_date = article.published_at | date: '%B %d, %Y' %}
+          {% if article.handle == 'recipes/keto-peanut-butter-crunch-brownies' %}
+            {% assign published_date = 'April 23, 2021' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cereal-dessert-pizza' %}
+            {% assign published_date = '30 September, 2021' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-flaming-hot-mozzarella-sticks' %}
+            {% assign published_date = 'Sep 29, 2020' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cheddar-puff-mac-n-cheese' %}
+            {% assign published_date = 'April 20, 2021' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cereal-bars' %}
+            {% assign published_date = 'Jun 7, 2022' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cinnamon-crunch-donuts' %}
+            {% assign published_date = 'May 31, 2021' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cinnamon-crunch-donuts-1' %}
+            {% assign published_date = 'April 25, 2022' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-cocoa-cream-cheese-swirl-brownies-1' %}
+            {% assign published_date = 'April 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-flamin-heart-pizza-1' %}
+            {% assign published_date = 'April 27, 2022' %}
+          {% endif %}
+          {% if article.handle == 'recipes/keto-pb-crunch-fat-bombs' %}
+            {% assign published_date = 'April 25, 2022' %}
+          {% endif %}
+          {% if article.handle == 'recipes/mozzarella-crispy-fried-chicken' %}
+            {% assign published_date = 'April 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-200-000-others-do-the-same' %}
+            {% assign published_date = 'May 3, 2021' %}
+          {% endif %}
+          {% if article.handle == 'blog/we-re-selling-out-too-quickly-we-hear-you' %}
+            {% assign published_date = 'May 9, 2021' %}
+          {% endif %}
+          {% if article.handle == 'blog/if-you-miss-bbq-chips-on-keto-try-this' %}
+            {% assign published_date = 'July 20, 2021' %}
+          {% endif %}
+          {% if article.handle == 'blog/if-you-miss-barbecue-chips-on-keto-try-this' %}
+            {% assign published_date = 'Oct 26, 2021' %}
+          {% endif %}
+          {% if article.handle == 'blog/10-best-keto-snacks-2021' %}
+            {% assign published_date = 'Nov 29, 2021' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-200-000-others-do-the-same' %}
+            {% assign published_date = 'Nov 25, 2021' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you' %}
+            {% assign published_date = 'Jan 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you-tt' %}
+            {% assign published_date = 'Jan 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you-gg' %}
+            {% assign published_date = 'Jan 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'blog/6-best-keto-snacks' %}
+            {% assign published_date = 'August 15, 2021' %}
+          {% endif %}
+          {% if article.handle == 'blog/if-you-miss-sour-cream-onion-chips-on-keto' %}
+            {% assign published_date = 'July 26, 2022' %}
+          {% endif %}
+          {% if article.handle == 'behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-instead' %}
+            {% assign published_date = 'Aug 02, 2022' %}
+          {% endif %}
+          <div class="article__byline {% if template.suffix contains 'best-' %}justify-start{% endif %}">
+            {% if template.suffix contains 'best-' %}
+              <img
+                src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/helen_image.png?v=1660153870"
+                alt="helen image"
+              >
+            {% endif %}
+            <span> By The Schoolyard Team | {{ published_date }}</span>
+          </div>
+        {% endunless %}
+      </div>
+    </div>
+
+    <div class="article__content">
+      <div class="container--slim">
+        {% capture justuno_popup %}
+          <div class="justuno-embed-widget">
+            <div class="pretitle">You've Unlocked</div>
+            <div class="title">Secret Flash Sale!</div>
+            <div class="countdown-timer">
+              <ul>
+                <li><span class="hours"></span>Hours</li>
+                <span class="seperator">:</span>
+                <li><span class="minutes"></span>Minutes</li>
+                <span class="seperator">:</span>
+                <li><span class="seconds"></span>Seconds</li>
+              </ul>
+            </div>
+            {% if article.handle == "behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-today" %}
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                class="btn"
+                >Unlock Coupon</a
+              >
+            {% else %}
+              <a
+                href="https://schoolyardsnacks.com/products/keto-cheese-puffs-6-family-size-bags"
+                class="btn"
+                >Unlock Coupon</a
+              >
+            {% endif %}
+          </div>
+        {% endcapture %}
+        {% capture justuno_popup2 %}
+          <div
+            class="justuno-embed-widget justuno-embed-widget2"
+            style="background-color: #ffedd1;"
+          >
+            <div class="pretitle">
+              The Last Batch of These Keto Cheese Puffs Sold Out In 10 Days!
+            </div>
+            <div class="image">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_puffs_split_blue_bowl_hand.jpg?v=1643299456"
+                alt="bowl hand"
+              >
+            </div>
+
+            <a
+              href="https://schoolyardsnacks.com/products/keto-puffs?ud=articleA "
+              class="btn"
+              >Check Availability</a
+            >
+          </div>
+        {% endcapture %}
+        {% capture justuno_popup3 %}
+          <div
+            class="justuno-embed-widget justuno-embed-widget2"
+            style="background-color: #ffedd1;"
+          >
+            <div class="pretitle">
+              This Keto Cereal Sold Out 4 Times Already!
+            </div>
+            <div class="image">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Static-PB_Coco-Bowl-F_WomensHealth.png?v=1645186866"
+                alt="bowl hand"
+              >
+            </div>
+
+            <a
+              href="https://schoolyardsnacks.com/products/cereal?ut_content=articleD"
+              class="btn"
+              >Check Availability</a
+            >
+          </div>
+        {% endcapture %}
+        {% assign content = article.content | replace: '<div class="justuno-embed"></div>', justuno_popup %}
+        {% assign content = content | replace: '<div class="justuno-embed2"></div>', justuno_popup2 %}
+        {% assign content = content | replace: '<div class="justuno-embed3"></div>', justuno_popup3 %}
+        {% unless article.handle == 'recipes/keto-crispy-bbq-chicken-wraps' %}
+          {% assign content = content | replace: 'https://schoolyardsnacks.com/products/keto-puffs?ud=articleA', 'https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD' %}
+          {% assign content = content | replace: 'https://schoolyardsnacks.com/products/keto-puffs', 'https://schoolyardsnacks.com/products/keto-puffs' %}
+        {% endunless %}
+        {%
+          if article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-temp1'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-1'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-2'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-3'
+        %}
+          {% assign content = content | replace: 'https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD', 'https://schoolyardsnacks.com/products/cereal?ud=articleA' %}
+        {% endif %}
+        {%
+          if article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-temp1-gg'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-1-gg'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-2-gg'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-over-200-000-others-do-the-same-3-gg'
+          or article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-200-000-others-do-the-same-gg'
+        %}
+          {% assign content = content | replace: 'https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD', 'temp_hyperlink' %}
+          {% assign content = content | replace: '"/products/cereal"', '"/products/cereal?ut=gdn"' %}
+          {% assign content = content | replace: '"/products/keto-puffs"', '"/products/keto-puffs?ut=gdn"' %}
+          {% assign content = content | replace: 'temp_hyperlink', 'https://schoolyardsnacks.com/products/cereal?ut=gdn&ut_content=articleD' %}
+        {% endif %}
+        {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you' %}
+          {% assign content = content | replace: 'https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD', 'https://schoolyardsnacks.com/products/cereal?ut_content=articleD' %}
+        {% endif %}
+        {{ content }}
+
+        {% if article.handle == 'blog/glyphosate-in-cereal' or article.handle == 'blog/diabetic-snacks' or article.handle == 'blog/100-calorie-meals' or article.handle == 'blog/easy-keto-snacks' or article.handle == 'blog/atkins-snacks' or article.handle == 'blog/grain-free-breakfast' or article.handle == 'blog/low-fat-snacks' %}
+          <div style="margin: 30px; text-align: center;">
+            <a class="btn" href="https://schoolyardsnacks.com/products/cereal">Snack Healthier</a>
+          </div>
+        {% endif %}
+        {% if article.handle == 'blog/keto-breakfast-no-eggs' or article.handle == 'blog/high-protein-cereal' or article.handle == 'blog/quick-low-carb-breakfast' %}
+          <div style="margin: 30px; text-align: center;">
+            <a class="btn" href="https://schoolyardsnacks.com/products/cereal">Shop Cereal</a>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    {% if blog.handle == 'recipes' %}
+      {% for block in section.blocks %}
+        {%
+          if article.tags contains block.settings.tag
+          and article.handle != "recipes/keto-cinnamon-crunch-donuts-1"
+          and article.handle != "recipes/keto-cocoa-cream-cheese-swirl-brownies-1"
+          and article.handle != "recipes/keto-flamin-heart-pizza-1"
+          and article.handle != "recipes/keto-pb-crunch-fat-bombs"
+          and article.handle != "recipes/mozzarella-crispy-fried-chicken"
+          and article.handle != "recipes/keto-cereal-bars"
+        %}
+          <div class="article__footer">
+            <div class="article__footer-image">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="lazy"
+                data-src="{{ block.settings.image | img_url: '800x' }}"
+                alt="{% if block.settings.image.alt %}{{block.settings.image.alt}}{% else %}{{block.settings.title}}{% endif %}"
+              >
+            </div>
+            <div class="article__footer-text">
+              <h2 class="h3">{{ block.settings.title }}</h2>
+              {{ block.settings.content }}
+            </div>
+            <div class="article__footer-action center">
+              <a class="btn" href="{{ block.settings.button_url }}">
+                {{- block.settings.button_text -}}
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {%
+        if article.handle == "recipes/keto-cinnamon-crunch-donuts-1"
+        or article.handle == "recipes/keto-cocoa-cream-cheese-swirl-brownies-1"
+        or article.handle == "recipes/keto-pb-crunch-fat-bombs"
+        or article.handle == "recipes/keto-cereal-bars"
+      %}
+        <div class="also-like">
+          <h2 class="title">Featured Products</h2>
+          <div class="products-wrap container--slim">
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/cereal"
+                class="product-image"
+              >
+                {% if article.handle == "recipes/keto-cinnamon-crunch-donuts-1" %}
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cinnamon2.png?v=1651681369"
+                    alt="product image"
+                  >
+                {% elsif article.handle == "recipes/keto-cereal-bars" %}
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/fruity2.png?v=1639508382"
+                    alt="product image"
+                  >
+                {% else %}
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_de18c1be-7001-49a1-8878-3bf3759c4fc0.png?v=1633355028"
+                    alt="product image"
+                  >
+                {% endif %}
+              </a>
+              <div class="product-title">
+                {% if article.handle == "recipes/keto-cinnamon-crunch-donuts-1" %}
+                  Cinnamon Bun
+                {% else %}
+                  Cocoa
+                {% endif %}
+              </div>
+              <div class="product-subtitle">Keto Cereal</div>
+              {% if article.handle == "recipes/keto-cereal-bars" %}
+                <div class="product-info">
+                  Sugar Free, 1g Net Carb, 90 Calories
+                </div>
+              {% else %}
+                <div class="product-info">
+                  Sugar Free, 1g Net Carb, 100 Calories
+                </div>
+              {% endif %}
+              <a
+                class="btn"
+                href="https://schoolyardsnacks.com/products/cereal"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/cereal"
+                class="product-image"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/pb1.png?v=1639583444"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Peanut Butter</div>
+              <div class="product-subtitle">Keto Cereal</div>
+              <div class="product-info">
+                Sugar Free, 2g Net Carb, 100 Calories
+              </div>
+              <a
+                class="btn"
+                href="https://schoolyardsnacks.com/products/cereal"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                class="product-image navigable"
+                data-open-accessibility-text-original="16px"
+                style="font-size: 16px;"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_190c99ab-b1d9-457d-9c7f-369fafa2c95d.png?v=1633355029"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Cheddar Cheese</div>
+              <div class="product-subtitle">Keto Puffs</div>
+              <div class="product-info">
+                Grain Free, 2g Net Carb, 115 Calories
+              </div>
+              <a
+                class="btn navigable"
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                data-open-accessibility-text-original="20px"
+                style="font-size: 20px;"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+        </div>
+      {% elsif article.handle == "recipes/keto-flamin-heart-pizza-1" %}
+        <div class="also-like">
+          <h2 class="title">Featured Products</h2>
+          <div class="products-wrap container--slim">
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD"
+                class="product-image navigable"
+                data-open-accessibility-text-original="16px"
+                style="font-size: 16px;"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jalapeno_a899425c-dbfe-4016-b216-e1a11e9cceaa.png?v=1639508395"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Fiery Hot</div>
+              <div class="product-subtitle">Keto Puffs</div>
+              <div class="product-info">
+                Grain Free, 4g Net Carb, 130 Calories
+              </div>
+              <a
+                class="btn navigable"
+                href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD"
+                data-open-accessibility-text-original="20px"
+                style="font-size: 20px;"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/cereal"
+                class="product-image"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/pb1.png?v=1639583444"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Peanut Butter</div>
+              <div class="product-subtitle">Keto Cereal</div>
+              <div class="product-info">
+                Sugar Free, 2g Net Carb, 100 Calories
+              </div>
+              <a
+                class="btn"
+                href="https://schoolyardsnacks.com/products/cereal"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                class="product-image navigable"
+                data-open-accessibility-text-original="16px"
+                style="font-size: 16px;"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_190c99ab-b1d9-457d-9c7f-369fafa2c95d.png?v=1633355029"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Cheddar Cheese</div>
+              <div class="product-subtitle">Keto Puffs</div>
+              <div class="product-info">
+                Grain Free, 2g Net Carb, 115 Calories
+              </div>
+              <a
+                class="btn navigable"
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                data-open-accessibility-text-original="20px"
+                style="font-size: 20px;"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+        </div>
+      {% elsif article.handle == "recipes/mozzarella-crispy-fried-chicken" %}
+        <div class="also-like">
+          <h2 class="title">Featured Products</h2>
+          <div class="products-wrap container--slim">
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                class="product-image navigable"
+                data-open-accessibility-text-original="16px"
+                style="font-size: 16px;"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_190c99ab-b1d9-457d-9c7f-369fafa2c95d.png?v=1633355029"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Cheddar Cheese</div>
+              <div class="product-subtitle">Keto Puffs</div>
+              <div class="product-info">
+                Grain Free, 2g Net Carb, 115 Calories
+              </div>
+              <a
+                class="btn navigable"
+                href="https://schoolyardsnacks.com/products/keto-puffs"
+                data-open-accessibility-text-original="20px"
+                style="font-size: 20px;"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/cereal"
+                class="product-image"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/pb1.png?v=1639583444"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Peanut Butter</div>
+              <div class="product-subtitle">Keto Cereal</div>
+              <div class="product-info">
+                Sugar Free, 2g Net Carb, 100 Calories
+              </div>
+              <a
+                class="btn"
+                href="https://schoolyardsnacks.com/products/cereal"
+                >Shop Now</a
+              >
+            </div>
+            <div class="product-item">
+              <a
+                href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD"
+                class="product-image"
+              >
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream_da73e0c2-00c2-4e34-8b42-22764585d804.png?v=1633355029"
+                  alt="product image"
+                >
+              </a>
+              <div class="product-title">Sour Cream &amp; Onion</div>
+              <div class="product-subtitle">Keto Puffs</div>
+              <div class="product-info">
+                Grain Free, 3g Net Carb, 110 Calories
+              </div>
+              <a
+                class="btn"
+                href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleD"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  {% assign show_comments = true %}
+
+  {%
+    if article.tags contains 'hide_header'
+    or article.tags contains 'no_navigation'
+  %}
+    {% assign show_comments = false %}
+  {% endif %}
+
+  {% if show_comments %}
+    {% include 'article-comments' %}
+  {% endif %}
+
+  {% if article.handle == 'blog/our-rankings-reviews-of-the-10-best-keto-snacks-of-2022-a' %}
+    {% render 'also-like' %}
+  {% endif %}
+
+  {% if article.handle == 'blog/10-best-keto-snacks-2022' %}
+    {% render 'also-like' %}
+  {% endif %}
+
+  {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you' %}
+    {% render 'also-like6' %}
+  {% endif %}
+
+  {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you-tt' %}
+    {% render 'also-like' %}
+  {% endif %}
+
+  {% if article.handle == 'behind-the-scenes/selling-out-we-hear-you-gg' %}
+    {% render 'also-like' %}
+  {% endif %}
+
+  {% if article.handle == 'blog/10-best-keto-snacks-of-2022' %}
+    {% render 'also-like' %}
+  {% endif %}
+
+  {%
+    if article.handle contains 'if-you-miss-sour-cream-onion-chips-on-keto-try-this-2'
+    or article.handle == "behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-instead"
+  %}
+    {% render 'also-like4' %}
+  {% endif %}
+
+  {% if article.handle == "behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-today" %}
+    {% render 'also-like5' %}
+  {% endif %}
+
+  {%
+    if article.handle == 'blog/our-rankings-reviews-of-the-10-best-keto-snacks-of-2022-contd'
+    or article.handle == 'blog/10-best-keto-snacks-of-2022-contd'
+    or article.handle == 'blog/10-best-keto-snacks-2022-contd'
+    or article.handle == 'blog/10-best-keto-snacks-2022-amazon-pg1'
+    or article.handle == 'blog/10-best-keto-snacks-2022-amazon-pg2'
+  %}
+    {% render 'also-like2' %}
+  {% endif %}
+  {% if article.handle == 'blog/our-rankings-reviews-of-the-10-best-keto-snacks-of-2022-contd-ii' %}
+    {% render 'also-like3' %}
+  {% endif %}
+  {% if article.handle == 'blog/10-best-keto-snacks-of-2022-contd-ii' %}
+    {% render 'also-like3' %}
+  {% endif %}
+  {% if article.handle == 'blog/10-best-keto-snacks-2022-contd-ii' %}
+    {% render 'also-like3' %}
+  {% endif %}
+
+  <!--
+    <div class="article__back">
+      <a href="{{ blog.url }}" class="btn btn--no-style">{% include 'icon', handle: 'arrow-left' %}Back to {{ blog.title }}</a>
+    </div>
+  -->
+</main>
+<script>
+  if ({{ force_subscription_mode }}) {
+    localStorage.setItem('subscriptionMode', true);
+  }
+
+  (function () {
+  const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+  let today = new Date(),
+      dd = String(today.getDate()).padStart(2, "0"),
+      mm = String(today.getMonth() + 1).padStart(2, "0"),
+      yyyy = today.getFullYear(),
+      nextYear = yyyy + 1,
+      dayMonth = "01/01/",
+      birthday = dayMonth + yyyy;
+
+  today = mm + "/" + dd + "/" + yyyy;
+  if (today > birthday) {
+    birthday = dayMonth + nextYear;
+  }
+  //end
+
+    const countDown = new Date().getTime() + 3*3600*1000,
+    x = setInterval(function() {
+
+      const now = new Date().getTime(),
+            distance = countDown - now;
+
+        if(distance < 0) {
+          countDown = new Date().getTime() + 3*3600*1000
+        }
+
+
+        $('.hours').each(function(){
+
+          $(this).text(Math.floor((distance % (day)) / (hour)));
+        });
+        $(".minutes").text(Math.floor((distance % (hour)) / (minute)));
+        $(".seconds").text(Math.floor((distance % (minute)) / second));
+
+
+    }, 0)
+  }());
+</script>
+{% schema %}
+{
+  "name": "Article",
+  "blocks": [
+    {
+      "type": "recipe_footer",
+      "name": "Recipe Footer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "info": "This content will only show on articles with this tag applied"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

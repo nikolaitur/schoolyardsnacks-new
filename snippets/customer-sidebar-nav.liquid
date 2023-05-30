@@ -1,0 +1,31 @@
+<nav class="widget widget--navigation">
+  <ul>
+    <li class="{% if template == 'customers/account' or template == 'customers/order' %}active {% endif %}">
+      <a href="/account" title="Orders">Orders</a>
+    </li>
+    {% if customer.tags contains 'GrowLTV Subscriber' or customer.tags contains 'LUNA Subscriber' %}
+      <li id="new-portal" style="display: none;"><a href="/a/account/login">Manage Subscriptions</a></li>
+    {% elsif customer.metafields.subscriptions.customer_string %}
+      <li><a href="/tools/recurring/login/">Manage Subscriptions</a></li>
+    {%- endif -%}
+    <li class="{% if template == 'customers/addresses' %}active {% endif %}">
+      <a href="/account/addresses" title="Addresses">Addresses</a>
+    </li>
+    <li>
+      <a href="/account/logout" title="Logout">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+
+<script>
+  $(document).ready(function () {
+    {% if customer.tags contains 'LUNA Subscriber' %}
+      	const token = localStorage.getItem('accessToken');
+        if(token !== undefined && token !== null && token !== 'undefined' && token !== 'null') {
+          $("#new-portal a").attr("href", `/a/account/login?token=${token}&shop={{ shop.permanent_domain }}`);
+        }
+        $("#new-portal").show();
+    {% endif %}
+  });
+</script>

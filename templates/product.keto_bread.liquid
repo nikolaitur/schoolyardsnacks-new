@@ -1,0 +1,60 @@
+{% include 'product-content.zipifypages', contentprt: 'header' %}{% assign current_variant = product.selected_or_first_available_variant %}
+
+{% assign is_enable_free_gift = "disabled--free-gift" %}
+{% assign free_gift_product_handle = settings.free_gift_handle | split: "|" %}
+{%- unless free_gift_product_handle == blank -%}
+  {%- for handle in free_gift_product_handle -%}
+    {% if handle == product.handle %}
+      {% assign is_enable_free_gift = "enabled--free-gift" %}
+    {% endif %}
+  {%- endfor -%}
+{% endunless %}
+
+<main  class="content content--no-sidebar {{ is_enable_free_gift }}" role="main">
+  {% assign product_handle = product.handle | downcase %}
+
+  {% section 'product-upper-keto_bread' %}
+  {%- comment -%}
+  {% section 'puff-free-testimonials-nun-b' %}
+  {%- endcomment -%}
+  {% section 'cheese_puffs_slider' %}
+  {% section 'product-nutritional-keto_bread' %}
+  {% section 'product-faq-keto_bread' %}
+  {% section 'product-social-keto_bread' %}
+  {% include 'product-reviews' %}
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "brand": "{{ product.vendor }}",
+      "name": "{{ product.title }}",
+      "mainEntityOfPage": "{{ canonical_url }}",
+      "url": "{{ canonical_url }}",
+      "image": "https:{{ product.featured_image.src | img_url:'2000x' }}",
+      "description": "{{ product.description | escape | strip_html | strip_newlines }}",
+      "offers": [
+        {% for variant in product.variants %}
+        {
+          "@type": "Offer",
+          "priceCurrency": "{{ shop.currency }}",
+          "price": "{{ variant.price | money_without_currency }}",{% if variant.available %}
+          "availability": "http://schema.org/InStock",{% else %}
+          "availability": "http://schema.org/OutOfStock",{% endif %}
+          "sku": "{{ variant.sku }}",
+          "seller": {
+            "@type": "Organization",
+            "name": "{{ shop.name }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+
+  {% unless product == empty %}
+    <script type="application/json" id="product__json">{{ product | json }}</script>
+    <script type="application/json" id="current_variant__json">{{ product.selected_variant | json }}</script>
+  {% endunless %}
+</main>
+{% include 'klaviyo-viewed-product' %}{% include 'product-content.zipifypages', contentprt: 'footer' %}

@@ -1,0 +1,75 @@
+ 
+<!-- Retention engine code -->
+
+<script>
+function retentionLoad () {
+    UL(["//bellwethragents.s3.amazonaws.com/js/embedded_experience.js"]);
+
+setTimeout(function(){
+    var loadScript = function(url, callback){
+      var script = document.createElement('SCRIPT');
+      script.src = url;
+      script.type = 'text/javascript';
+      script.onload = function() { callback(window.jQuery) };
+      document.getElementsByTagName('head')[0].appendChild(script);
+    };
+    var loadRetentionEngine = function($){
+   function checkSubscriptionsPage() {
+    $(".rc_subscriptions__subscription__item").each(function() {
+    if ($(this).find(".rc_subscriptions__subscription__item__cancel > a").length) {
+     let oldHref = $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].href;
+     let subscriptionId = oldHref.match(new RegExp('subscriptions/' + "(.*)" + '/cancel'))[1];
+     let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+     $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].href = "javascript:void(0)";
+     $(this).find(".rc_subscriptions__subscription__item__cancel > a")[0].onclick = 
+       function () {openReModal(link)}
+   }})}
+   function checkEditPage() {
+    if ($("#rc_subscriptions__items__cancel > a").length) {
+     let oldHref = $("#rc_subscriptions__items__cancel > a")[0].href;
+     let subscriptionId = oldHref.match(new RegExp('subscriptions/' + "(.*)" + '/cancel'))[1];
+     let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+     $("#rc_subscriptions__items__cancel > a")[0].href = "javascript:void(0)";
+     $("#rc_subscriptions__items__cancel > a")[0].onclick = 
+       function () {openReModal(link)}
+    }}
+   function checkNovum() {
+    let cancelBtn = $('.rc_cancel-btn')[0];
+    if(cancelBtn){
+    cancelBtn.removeEventListener("click", cancelSubscriptionFlow);
+    let subscriptionId = $(cancelBtn).data('id');
+    let link = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+    let linkHtml = `<a href='javascript:void(0)' onclick='openReModal("${link}")'></a>`;
+    $(cancelBtn).wrap(linkHtml);}
+   }
+   function checkRechargePlusPage() {
+     let query = $('a').filter(function (index) {
+       return $(this).text().toUpperCase().trim() === 'Cancel My Subscription'.toUpperCase() ||
+         $(this).text().toUpperCase().trim() === 'Cancel Subscription'.toUpperCase();
+     });
+     if (query.length) {
+       const rechargeData = query.data('rcData');
+       let subscriptionId;
+       if (rechargeData) {
+         subscriptionId = rechargeData['subscription_id'];
+       } else {
+         let oldHref = query[0].href;
+         subscriptionId = oldHref.match(new RegExp('subscriptions/' + '(.*)' + '/cancel'))[1];
+       }
+       let newHref = "https://app.bellwethr.com/offboard/experience/schoolyard-snacks-2091606432?subscription_id=" + subscriptionId;
+       query[0].href = 'javascript:void(0)';
+       query[0].onclick = function () { openReModal(newHref) };
+       query.attr('data-rc-modal', 'disable');
+     }
+   }
+    buildEmbeddedExperience();
+    checkRechargePlusPage();
+    checkSubscriptionsPage();
+    checkEditPage();
+    checkNovum();
+    }
+   
+    loadRetentionEngine(jQuery);
+   }, 2000);
+}; themeArr.push(retentionLoad);
+</script>

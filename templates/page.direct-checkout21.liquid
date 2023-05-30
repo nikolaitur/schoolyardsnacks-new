@@ -1,0 +1,31 @@
+<style>
+  #shopify-section-header, #shopify-section-footer{
+    display: none;
+  }
+</style>
+
+{% render 'progress-bar' %}
+
+<script>
+
+  $.post('/cart/clear.js').always(function(){
+    $.post('/cart/add.js', {
+      items: [
+        {
+          quantity: 1,
+          id: 40213787082840
+        }
+      ]
+    }).done(function() {
+    })
+    .fail(function() {
+
+    })
+    .always(function() {
+      document.location.href="/checkout";
+    });
+
+  });
+
+
+</script>

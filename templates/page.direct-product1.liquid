@@ -1,0 +1,38 @@
+<style>
+  #shopify-section-header, #shopify-section-footer{
+    display: none; 
+  }
+</style>
+
+{% render 'progress-bar' %}
+
+<script>
+
+  $.post('/cart/clear.js').always(function(){
+    $.post('/cart/add.js', {
+      items: [
+        {
+          quantity: 1,
+          id: 32955603353688,          
+          properties: {
+            "with_free_bowl": true,
+          }
+        },
+        {
+          quantity: 1,
+          id: 39378902122584
+        }
+      ]
+    }).done(function() {
+    })
+    .fail(function() {
+      
+    })
+    .always(function() {
+      document.location.href="/checkout";
+    });
+
+  });
+  
+  
+</script>

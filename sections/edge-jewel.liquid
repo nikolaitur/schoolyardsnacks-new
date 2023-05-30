@@ -1,0 +1,71 @@
+<h2 class="section-title">{{ section.settings.title }}</h2>
+<div class="hide--mobile">
+  <div class="reviews-content">
+    <div class="review-item">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/edge_400b3f9f-c78f-415a-bf70-30a5b9aeaec8.png?v=1633541326" alt="edge">
+    </div>
+    <div class="review-item">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jewel_5d884b64-1be8-4019-854b-2c1133fbb934.png?v=1633541343" alt="jewel">
+    </div>
+  </div>
+</div>
+<div class="hide--desktop mobile-review-content">  
+  <div class="reviews-slider reviews-slider-jewel social">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jewel_d1406ded-16aa-47c6-b60b-3b7323d16251.png?v=1633542348" alt="review image">
+      </div>
+      <div class="swiper-slide">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/edge_49e9b980-7329-4f22-b0d5-879b8cddc115.png?v=1633542334" alt="review image">
+      </div>             
+    </div>
+    <div class="swiper__button swiper__button--next swiper__button--next2">{% include 'icon', handle: 'next' %}</div>
+    <div class="swiper__button swiper__button--prev swiper__button--prev2">{% include 'icon', handle: 'prev' %}</div>
+  </div>
+</div>
+<div class="blob-item-cereal hide--mobile">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cereal.png?v=1633541392" alt="cereal">
+</div>
+<div class="blob-item-puffs hide--mobile">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/puffs_d5cd3a77-2c85-4e71-a0bb-c1ea3b634c9d.png?v=1633541392" alt="cereal">
+</div>
+<div class="fifty-fifty__actions">        
+  <a class="btn" href="/products/cereal">Shop Cereal</a>
+  <a class="btn" href="/products/keto-puffs">Shop Cheese Puffs</a>
+</div>
+
+<script>
+
+
+  imageSwiper2 = new Swiper($('.edge-jewel-section .reviews-slider-jewel'), {
+    effect: 'slide',
+    loop: true,
+    centeredSlides: true,
+    slidesPerView: 1,
+    spaceBetween: 48,
+    autoHeight: true,
+    navigation: {
+      nextEl: '.swiper__button--next2',
+      prevEl: '.swiper__button--prev2',
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Edge and jewel",
+  "class": "edge-jewel-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Edge and jewel"
+    }
+  ]
+}
+{% endschema %}

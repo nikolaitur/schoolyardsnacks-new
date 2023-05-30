@@ -1,0 +1,489 @@
+{% if request.path contains 'free-gift' and section.settings.enable_free_gift %}
+  {% assign is_free_gift_template = true %}
+{% endif %}
+
+<div class="product-headline hide--mobile">
+  <span >“I love chips. Most chips are not Keto friendly. Well that ends today” -Gayle H</span>
+</div>
+<div class="product-headline hide--desktop">
+  <span >“I love chips. Most chips are not Keto friendly. Well that ends today” -Gayle</span>
+</div>
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+  <div class="product-container__side product-container__side--left">
+    <div class="product__part product__part--gallery new_gallery_image1">
+      
+      <div class="gallery swiper-container">
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+          {% if template.suffix == 'sourcream' %}
+          {% if forloop.first %}
+          {% continue %}
+          {% endif %}
+          {% endif %}
+          <div class="swiper-slide" data-index="{% if template.suffix == 'sourcream' %}{{ forloop.index }}{% else %}{{ forloop.index0 }}{% endif %}">
+
+            <div class="gallery__item-wrapper {% if forloop.first %}gallery-first-item{% endif %}">
+              {% comment %}<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }} 1x, {{ image | img_url: '1120x' }} 2x" />{% endcomment %}
+              {% if forloop.first %}
+              <img class="with-seen-in" src="{{ image | img_url: '560x' }}{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }}" />                
+              <img class="tik-tok-img tik-tok-img-1" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_22ed848c-2322-4d8d-b406-b21edd092af7.png?v=1654795964" />                
+              <img class="tik-tok-img tik-tok-img-2" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_967637f0-a38b-40e3-91f0-66b6a71b7ae7.png?v=1654795964" />                
+              <img class="tik-tok-img tik-tok-img-3" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4_2809f425-bf91-4b63-819b-3c08b03e3172.png?v=1654795964" />                
+              <img class="without-seen-in" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" />                
+              {% endif %}
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '600x' }}" />                
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'next' %}</div>
+        <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'prev' %}</div>
+      </div>
+      <div class="thumbs">
+        {% if template.suffix == 'new-sourcream' %}
+          <div class="thumbs__item" data-index="0">
+            <div class="thumbs__item-image-wrapper 4thumb-first-item4">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996" />                
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="1">
+            <div class="thumbs__item-image-wrapper">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092" />                
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="2">
+            <div class="thumbs__item-image-wrapper">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130" />                
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="3">
+            <div class="thumbs__item-image-wrapper">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685" />                
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="4">
+            <div class="thumbs__item-image-wrapper">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996" />                
+            </div>
+          </div>
+        {% else %}
+          {% for image in product.images %}
+            <div class="thumbs__item" data-index="{% if template.suffix == 'sourcream' %}{{ forloop.index }}{% else %}{{ forloop.index0 }}{% endif %}">
+              <div class="thumbs__item-image-wrapper {% if forloop.first %}thumb-first-item{% endif %}">
+                {% if forloop.first %}
+                  <img class="with-seen-in" src="{{ image | img_url: '560x' }}" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }}" />                
+                  <img class="tik-tok-img tik-tok-img-1" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_22ed848c-2322-4d8d-b406-b21edd092af7.png?v=1654795964" />                
+                  <img class="tik-tok-img tik-tok-img-2" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_967637f0-a38b-40e3-91f0-66b6a71b7ae7.png?v=1654795964" />                
+                  <img class="tik-tok-img tik-tok-img-3" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4_2809f425-bf91-4b63-819b-3c08b03e3172.png?v=1654795964" />                
+                  <img class="without-seen-in" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130" />                
+                {% endif %}
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="thumbs__item-image lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '200x200', crop: 'center' }}" />
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="product-container__side product-container__side--right">
+    <div class="product__part product__part--form">
+      <header class="product-header">
+        <h1 class="product-header__title h6">
+         
+          
+          Outsmart Cravings With Keto-Friendly Cheese Puffs
+          
+          <h1 class="product-header__title h6 cro-change">
+            Outsmart Cravings With Keto-Friendly Cheese Puffs 
+          </h1>
+        </h1>
+        <div class="product-header__reviews">
+          <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span><span class="sold-in-number">...</span> sold in the last 22 hours
+          </div>
+        </div>
+        {%- comment -%}
+        <div class="product-header__tagline">
+          {% assign tagline_items = section.settings.tagline | split: '|' %}
+          {% for item in tagline_items %}{{ item | strip }}{% unless forloop.last %}<span>&middot;</span>{% endunless %}{% endfor %}
+        </div>
+        {%- endcomment -%}
+        <div class="feature-highlights">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Image_from_iOS.jpg?v=1655296383" alt="">
+        </div>
+        <div class="cro_text cro_text_2">
+          <img class="hide--mobile" src="{{ 't_d_2.png' | asset_url }}" alt="text 2">
+          <img class="hide--desktop" src="{{ 't_m_2.png' | asset_url }}" alt="text 2">
+        </div>
+        <div class="product-header__description product-header__description-top">
+          {%- assign description = "" -%}
+          {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when "dynamic_description" -%}
+            {%- if product.handle == block.settings.product_handle -%}
+              {%- assign description = block.settings.description -%}
+            {%- endif -%}    
+          {%- endcase -%}
+          {% endfor %}
+          {{ description | default: section.settings.description }}
+        </div>
+
+        <div class="product-header__description product-header__description-top cro-change cro-bullet-1">
+          <ul>
+            <li>Devour a whole bag (or two!) without throwing your diet into a spiral.</li>
+            <li>No need to spend hours in the kitchen. Just grab & go!</li>
+            <li>Stay full for hours thanks to our protein-packed recipe.</li>
+            <li>No cardboard taste! You wouldn’t know these are low carb.</li>
+          </ul>
+        </div>
+
+        <div class="product-header__description product-header__description-top cro-change cro-bullet-2">
+          <ul>
+            <li><strong>Nearly no carbs</strong> – so you can fight 9pm cravings by tearing into another bag of Cheddar, Sour Cream (and more explosive flavors).</li>
+            <li><strong>Outsmart cravings</strong> without going on a hunt for keto recipes.</li>
+            <li><strong>Delicious!</strong> You wouldn’t know they’re low carb.</li>
+          </ul>
+        </div>
+        
+      </header>
+
+      {% if section.settings.all_flavors_sold_out %}
+        {% include 'add-to-cart-sold-out' %}
+      {% else %}
+        <script>console.log("Product title: {{ product.handle }}");</script>
+        <span id="old_styl_pdp_form">{% include 'add-to-cart-form-growltv', product_type: "puffs", section: section %}</span>        
+      {% endif %}
+      
+
+      <div class="product-disclaimer">
+        {%- comment -%}TODO replace this in to section setting{%- endcomment -%}
+        {% comment %}{{ section.settings.disclaimer | replace: 'Cancel subscriptions at anytime', '' | replace: '<br>', ''}}{% endcomment %}
+        {% unless template.suffix contains 'sub' %}
+          {{ section.settings.disclaimer }}
+        {% endunless %}
+        
+        {% if template contains 'product' %}
+          <div class="accordion-wrap" style="margin-top: 25px;">
+            <div class="accordion-panel">
+              <h3 class="accordion-header">
+                <span>What If I Don’t Like The Taste or Texture?</span>
+                <span>{% render 'arrow-down' %}</span>
+              </h3>
+              <div class="accordion-body">
+                We get it: Most keto-friendly treats taste like cardboard!
+              </br>That’s why we’ve gone to extreme lengths to perfect the taste and guilt-free crunch. 
+              </br>In fact, we hired a New York Times featured food scientist to develop over 100 formulations to find one that passed our taste-test with flying colors.
+              </br>But don’t just take our word for it, go check out the 10,000+ reviews from men and women who won’t compromise on taste (and the guilt-free crunch).
+              </br>Best part, you’re covered by our courteous 30-day money back guarantee. You’re either blown away by the guilt-free crunch, or we don’t want your money.
+
+              </div>
+            </div>
+            <div class="accordion-panel">
+              <h3 class="accordion-header">
+                <span>Is This Actually Keto-Friendly?</span>
+                <span>{% render 'arrow-down' %}</span>
+              </h3>
+              <div class="accordion-body">
+                We get it, many products claim to be keto-friendly but are full of awful ingredients or are actually high in carbs. 
+                </br>In contrast, looking at our ingredient list you’ll realize each bag is:
+                </br>✔️1-2g net carbs so you can devour these without any guilt.
+                </br>✔️Most flavors are only 100 calories (nearly half your average protein bar).
+                </br>✔️Grain-free, soy-free and no weird ingredients only a scientist could pronounce.
+              </div>
+            </div>
+            <div class="accordion-panel">
+              <h3 class="accordion-header">
+                <span>Can I Buy Fewer Bags To Try?</span>
+                <span>{% render 'arrow-down' %}</span>
+              </h3>
+              <div class="accordion-body">
+                It sounds like a simple request, until you realize that offering a handful of any single flavor means we have to charge up to $10 just to cover labor costs.
+                </br>Not to mention the logistical hoops of opening a case of each flavor, pulling out one bag, and repackaging into a new custom case. Our small warehouse doesn’t have the space to run this operation!
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        
+        
+        {% if template.suffix contains 'sub' %}
+          <div class="product-sub-ul">
+            <p>
+              <strong>Always FREE Shipping - Cancel Anytime</strong>
+            </p>          
+            <ul>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px"><strong>SAVE 12.5% off regular price</strong> with auto-delivery</li>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px"><strong>30 day money back guarantee.</strong></li>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px"><strong>No strings attached.</strong> Easily switch flavors, try new ones, skip or cancel subscription anytime via text message.</li>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px"><strong>No surprises.</strong> We send reminders to you before each box is shipped so you can switch flavors or skip. </li>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px">Free U.S. shipping.</li>
+              <li style="font-size: 18px;" data-open-accessibility-text-original="18px">Unlock early access to new flavors.</li>
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <script id="variant__defaults" type="application/json">
+    {
+      "variety": {{ section.settings.variety_default_selected | json }},
+      "bundle": {{ section.settings.bundle_default_selected | json }},
+      "single": {{ section.settings.single_default_selected | json }},
+      "single-sm": {{ section.settings.singlesm_default_selected | json }}
+    }
+  </script>
+  <script id="variant__flavor_limits" type="application/json">
+    {% assign bundles = section.blocks | where: "type", "bundle" %}
+    {
+    {% for bundle in bundles %}
+      {%- if bundle.type == "bundle" -%}
+      "{{bundle.settings.value}}": {{bundle.settings.flavor_limit}}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {% endfor %}
+    }
+  </script>
+</div>
+
+{% if template contains 'product' %}
+<div class="best-macros">
+  <div class="best-macros-heading container">
+    <img class="blob-img1" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/airplane_400x_6c1c7471-6254-44a1-ad42-36ee5896672a_400x_1.png?v=1643036442" alt="blob1">
+    <h1 class="section-title center">The Best Macros On The Market</h1>
+    <img class="blob-img2" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/heart-arrow_160x_d92dcec0-7417-4a72-a1fa-88ca96ecd505.png?v=1643036453" alt="blob2">
+  </div>
+  <img class="img-table hide--desktop" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/puffs_desktop_no_headline_1.png?v=1648136353" alt="">
+  <img class="img-table hide--mobile" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/puffs_desktop_no_headline_1.png?v=1648136353" alt="">
+</div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Product Upper",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Pre cart upsell settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_preupsell",
+        "label": "Enable Pre cart upsell function",
+        "default": true
+      },
+      {
+        "type": "product",
+        "id": "upsell_product1",
+        "label": "Onetime product 1"
+      },
+      {
+        "type": "product",
+        "id": "upsell_product2",
+        "label": "Onetime product 2"
+      },
+      {
+        "type": "product",
+        "id": "upsell_product3",
+        "label": "Subscription product"
+      },
+      {
+        "type":"richtext",
+        "id":"subscription_text",
+        "label":"Subscription text",
+        "default": "<p>Prepay for 3 shipments and Save Additional $10</p>"
+      },
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title",
+        "info":"Use a pipe (|) for a forced line break"
+      },
+      {
+        "type":"text",
+        "id":"tagline",
+        "label":"Tagline",
+        "info":"Use a pipe (|) to create dots between items",
+        "default":"Keto|Sugar Free|1g Net Carb|16g Protein"
+      },
+      {
+        "type":"richtext",
+        "id":"description",
+        "label":"Description"
+      },
+      {
+        "type":"text",
+        "id":"add_to_cart_text",
+        "label":"CTA Text",
+        "default":"Add to Cart"
+      },
+      {
+        "type":"text",
+        "id":"sold_out_text",
+        "label":"Sold Out Text",
+        "default":"Sold Out"
+      },
+      {
+        "type":"text",
+        "id":"click_to_be_notified_text",
+        "label":"Sold Out Notify CTA Text",
+        "default":"Click To Be Notified"
+      },
+      {
+        "type":"richtext",
+        "id":"disclaimer",
+        "label":"Disclaimer",
+        "info":"Displayed beneath the product CTA"
+      },
+      {
+        "type":"richtext",
+        "id":"all_flavors_sold_out_text",
+        "label":"All Flavors Sold Out Text",
+        "info":"Displayed instead of the checkout form when the option below is checked",
+        "default":"<p>Starts at $1.69 per bag</p>"
+      },
+      {
+        "type":"checkbox",
+        "id":"all_flavors_sold_out",
+        "label":"Show sold out message instead of form?",
+        "default": false
+      },
+      {
+        "type":"text",
+        "id":"bundle_label",
+        "label":"Bundle Label",
+        "default":"1. Select Bundle:"
+      },
+      {
+        "type":"text",
+        "id":"flavor_label",
+        "label":"Flavor Label",
+        "default":"2. Choose Flavors:"
+      },
+      {
+        "type":"text",
+        "id":"flavor_sold_out_label",
+        "label":"Flavor Sold Out Label",
+        "default":"Flavors:"
+      },
+      {
+        "type":"text",
+        "id":"frequency_label",
+        "label":"Frequency Label",
+        "default":"3. Select Frequency:"
+      },
+      {
+        "type":"textarea",
+        "id":"variety_default_selected",
+        "label":"Default Selected: variety",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"bundle_default_selected",
+        "label":"Default Selected: bundle",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"single_default_selected",
+        "label":"Default Selected: single",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"singlesm_default_selected",
+        "label":"Default Selected: single-sm",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_free_gift",
+        "label": "Enable Free Gift Promo?",
+        "info": "Use this with the promo in the cart drawer settings",
+        "default": false
+      }
+    ],
+    "blocks":[
+      {
+        "type":"bundle",
+        "name":"Bundle",
+        "settings":[
+          {
+            "type":"text",
+            "id":"title",
+            "label":"Label"
+          },
+          {
+            "type":"text",
+            "id":"value",
+            "label":"Value",
+            "info":"Must match the variant Type option exactly. i.e. - 'bundle' or 'variety'"
+          },
+          {
+            "type":"text",
+            "id":"flavor_limit",
+            "label":"Flavor Limit",
+            "info":"How many flavors can be selected?"
+          },
+          {
+            "type":"checkbox",
+            "id":"default",
+            "label":"Default selected?",
+            "default": false
+          },
+          {
+            "type":"checkbox",
+            "id":"sold_out",
+            "label":"Mark as sold out?",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type":"flavor",
+        "name":"Flavor",
+        "settings":[
+          {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+          },
+          {
+            "type":"image_picker",
+            "id":"swatch_image",
+            "label":"Swatch Image"
+          },
+          {
+            "type":"checkbox",
+            "id":"new",
+            "label":"Mark as new?",
+            "default": false
+          },
+          {
+            "type":"checkbox",
+            "id":"sold_out",
+            "label":"Mark as sold out?",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "dynamic_description",
+        "name": "Dynamic Description",
+        "settings": [
+          {
+            "type": "text",
+            "id": "product_handle",
+            "label": "Product Handle",
+            "info": "Must match the product handle you want it visible on"
+          },
+          {
+            "type": "html",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,50 @@
+<script>var onUrls =[],extArr=[],themeArr=[],jqArr=[],trkArr=[],defUrls=[],asyUrls=["https:\/\/rechargeassets-bootstrapheroes-rechargeapps.netdna-ssl.com\/static\/js\/recharge.js?shop=the-cereal-school.myshopify.com"],jqUrls=[],defnArr=[],slickArr=[];</script>
+{%- assign head_content = content_for_header | remove_first: '<' | remove: '"https:\/\/rechargeassets-bootstrapheroes-rechargeapps.netdna-ssl.com\/static\/js\/recharge.js?shop=the-cereal-school.myshopify.com",' | remove: '"https:\/\/my.cartloop.io\/trackr\/548\/trackr.js?shop=the-cereal-school.myshopify.com",' | remove: '"https:\/\/67c4e562.ngrok.io\/assets\/shopify_store_app.js?shop=the-cereal-school.myshopify.com",' | remove: "ga('require','GTM-K4QGMP7');" | replace: 'i <', 'i%3C' | replace: '"<', '%22%3C' | replace: '</', '%3C%2F' | split: '<' -%} 
+{%- for tag in head_content -%} {%- assign chk = tag | slice: 0, 5 -%}{%- assign tgs = "meta,link,style" | split:',' -%} {%- assign scr= true -%} {%- assign optz = false -%} 
+{%- assign opz = "trekkie,shopifycloud/shopify,recaptcha,merchantGoogleAnalytics" | split: ',' -%} 
+{%- for tg in tgs -%} {%- if chk contains tg -%} {%- assign scr=false -%} {%- endif%}{%- endfor -%} 
+{%- if scr == false -%} {{ tag | prepend: '<' | replace: '%3C%2F', '</' }}
+{%- elsif scr == true -%} {%- for op in opz -%} {%- if tag contains op -%} {%- assign optz=true -%} {%- endif -%}{%- endfor -%} 
+{%- if optz == false -%} 
+    {% if tag contains 'BarInjector' %}{%- assign txcont = tag | replace_first: ')', 'pso-)' | split: 'pso-)' | last | split: ');%3C%2Fscript>' | first -%}<script> function tracker{{ forloop.index }} (){{ txcont | strip }}; trkArr.push(tracker{{ forloop.index }});</script>
+    {% elsif tag contains 'asyncLoad' %}{%- assign txcont = tag | replace_first: '["', 'pso-["' | replace: '"]', '"pso-]' | split: 'pso-[' | last | split: 'pso-]' | first -%}<!--<script> var afUrls=[{{ txcont | strip }}];</script>-->
+    {% else %}{{ tag | prepend: '<' | replace: '%3C%2F', '</' | replace: 'i%3c', 'i<' }}{% endif %}
+{%- elsif optz == true -%} 
+  {%- if tag contains 'script ' and tag contains ' src=' and tag contains 'shopifycloud/shopify/' -%} 
+    {%- assign txcont = tag | remove_first: 'script ' | remove: '>%3C%2Fscript>' | replace: "'", "'" | strip -%} <script>extArr.push('{{ txcont }}');</script>
+  {%- else -%}
+    {%- assign txcont = tag | replace_first: '>', 'pso->' | split: 'pso->' | last | split: '%3C%2Fscript>' | first -%}<script> function tracker{{ forloop.index }} (){ {{ txcont | replace: 'i%3C', 'i<' | replace: '%22%3C', '"<' }} }; trkArr.push(tracker{{ forloop.index }});</script>
+  {%- endif -%}
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+<script> var afUrls=["https:\/\/cdn.judge.me\/assets\/installed.js?shop=the-cereal-school.myshopify.com","https:\/\/load.fomo.com\/api\/v1\/Z9_KynU197nwYMPW-ZhYKg\/load.js?shop=the-cereal-school.myshopify.com","https:\/\/shopify.pleasestay.co\/js\/pleasestay.js?shop=the-cereal-school.myshopify.com","https:\/\/static.klaviyo.com\/onsite\/js\/klaviyo.js?company_id=LxDC4f\u0026shop=the-cereal-school.myshopify.com","https:\/\/app.conjured.co\/js\/shopify_referral_serve.js?shop=the-cereal-school.myshopify.com","https:\/\/app-easy-product-downloads.fr\/js\/ajax\/easy_product_dl_get_product_download.js?shop=the-cereal-school.myshopify.com","https:\/\/cdn.shopify.com\/s\/files\/1\/0048\/4330\/7123\/t\/187\/assets\/postscript-sdk.js?v=1599724854\u0026shopId=1351\u0026shop=the-cereal-school.myshopify.com","https:\/\/scripttags.jst.ai\/shopify_justuno_4843307123_0a3956b0-157c-11eb-af78-3149a1aae77c.js?shop=the-cereal-school.myshopify.com","https:\/\/accessibly.onthemapmarketing.com\/public\/widget\/run.js?shop=the-cereal-school.myshopify.com","https:\/\/d38xvr37kwwhcm.cloudfront.net\/js\/grin-sdk.js?shop=the-cereal-school.myshopify.com","https:\/\/d2wa25pztvmofr.cloudfront.net\/script.js?shop=the-cereal-school.myshopify.com","https:\/\/rebuyengine.com\/js\/rebuy\/1623996219?shop=the-cereal-school.myshopify.com"];</script>
+<script>
+var afL1=2500,
+afL2=300,
+afL3=300,
+afL4=300;
+</script>
+<script>
+   function DA(p){for(var i=[],r=0;r<p.length;r++)(i.indexOf(p[r])<0)&&i.push(p[r]);return i;}
+    function UL(b){a=DA(b); for (var i = 0; i <a.length; i++) {var s = document.createElement('script');s.type = 'text/javascript';s.async = true;s.src = a[i];var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);}}
+    function FN(a){a.forEach(Function.prototype.call, Function.prototype.call);};
+    function DC(a){e=document.getElementById(a),t=document.createElement("div");t.innerHTML=e.textContent,document.body.appendChild(t),e.parentElement.removeChild(e),raf=requestAnimationFrame||mozRequestAnimationFrame||webkitRequestAnimationFrame||msRequestAnimationFrame;}
+    function TXc(a, b){if (b=='id') {c= document.getElementById(a).innerText} else if (b=='class') {c= document.querySelector(a).innerText} else if (b=='script') {c=a} else {c=''};s=document.createElement('script'), s.type='text/javascript',s.textContent=c;document.head.appendChild(s);}
+    function EXs(s){for(z=[],a=s.split(" "),i=0;i<a.length;i++)a[i].startsWith("src=")?z[i]="s."+a[i]+", ":a[i].startsWith("defer")?z[i]="":(b=a[i].replace(/=/,'", '),z[i]='s.setAttribute("'+b+"), ");return p=z.join(" "),p.replace(/, $/,"").replace(/crossorigin/g,"crossOrigin")}
+    function EX(a){ c='';for (var i = 0; i <a.length; i++) {b=EXs(a[i]);c+="s=document.createElement('script'), s.type='text/javascript',"+b+", document.head.appendChild(s); \n"}; var sc=document.createElement('script'); sc.type='text/javascript'; sc.textContent=c; document.head.appendChild(sc);}
+function liquidLoader (){
+    setTimeout(function(){UL(asyUrls);UL(jqUrls);DC('defcs2');
+          setTimeout(function(){FN(jqArr);FN(themeArr); UL(defUrls); EX(extArr);
+                  setTimeout(function(){/*! DC('defcs2'); */FN(trkArr); UL(afUrls);
+                          setTimeout(function(){  }, afL4);
+                      }, afL3);
+               }, afL2);
+        }, afL1);
+  }
+     if(window.attachEvent) {
+    window.attachEvent('onload', liquidLoader)
+  } else {
+    window.addEventListener('load', liquidLoader, false);
+  };
+  </script>

@@ -1,0 +1,367 @@
+<div class="variant-collection-title">Shop All</div>
+<div class="variants-tab">
+  <div class="tab-header" data-tag="sweet">Sweet</div>
+  <div class="tab-header active" data-tag="Bestsellers">Bestsellers</div>
+  <div class="tab-header" data-tag="salty">Salty</div>
+</div>
+
+<div class="variant-items-wrap container">
+  {% for block in section.blocks %}
+    {% if block.settings.is_bestsellers %}
+      <div
+        class="variant-item"
+        {% if block.settings.is_sweet %}
+          data-sweet
+        {% endif %}
+        {% if block.settings.is_salty %}
+          data-salty
+        {% endif %}
+        data-variant-id="{{ block.settings.variant_id }}"
+      >
+        <a href="{{ block.settings.link }}" class="item-image">
+          <img
+            src="{{ block.settings.image | img_url: '500x' }}"
+            alt="{{ block.settings.image.alt }}"
+          >
+        </a>
+        <div class="reviews">
+          <div data-oke-reviews-product-listing-rating>
+            <div data-oke-reviews-product-listing-rating="">
+              <div data-oke-reviews-version="2.16.7" class="okeReviews okeReviews--theme">
+                <div
+                  class="okeReviews-reviewsSummary js-okeReviews-reviewsSummary"
+                  data-oke-ga-click-action="Star Rating Summary Click"
+                  data-oke-ga-click-label="PB Caramel Crunch by Keto Krack'd"
+                >
+                  <div class="okeReviews-reviewsSummary-starRating">
+                    <span class="okeReviews-starRating okeReviews-starRating--small">
+                      <span class="okeReviews-a11yText">Rated 5.0 out of 5</span>
+                      <span class="okeReviews-starRating-indicator" role="presentation">
+                        <span class="okeReviews-starRating-indicator-layer"></span>
+                        <span
+                          class="okeReviews-starRating-indicator-layer okeReviews-starRating-indicator-layer--foreground"
+                          style="width: 99%"
+                        ></span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="okeReviews-reviewsSummary-ratingCount">
+                    <span aria-hidden="true">{{ block.settings.reviews_count }} Reviews</span>
+                    <span class="okeReviews-a11yText">Based on {{ block.settings.reviews_count }} reviews</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title-bags">
+          <div>
+            <div class="item-title">{{ block.settings.title }}</div>
+            <div class="item-subtitle">{{ block.settings.subtitle }}</div>
+          </div>
+        </div>
+        <div class="price-bags">
+          <div class="price">${{ block.settings.price }}</div>
+          <div
+            class="bags-count"
+            data-bag-count="{{ block.settings.bags_count }}"
+            data-unit="{{ block.settings.unit }}"
+          >
+            {{ block.settings.bags_count }}
+            {{ block.settings.unit }}
+          </div>
+        </div>
+        <div
+          class="nutrition-facts"
+          data-nutrition-image="{{ block.settings.nut_image | img_url: '1024x' }}"
+          data-nutrition-mob-image="{{ block.settings.nut_image_mobile | img_url: '768x' }}"
+        >
+          View Nutrition Facts
+        </div>
+        <div class="item-action">
+          <div class="qty">
+            <button class="qtyminus" aria-hidden="true">&minus;</button>
+            <input
+              type="number"
+              name="qty"
+              id="qty"
+              min="1"
+              max="10"
+              step="1"
+              value="1"
+            >
+            <button class="qtyplus" aria-hidden="true">&plus;</button>
+          </div>
+          <button
+            {% if block.settings.available == false %}
+              disabled
+            {% endif %}
+            class="btn-quick-atc"
+          >
+            {% if block.settings.available == false -%}
+              Sold Out
+            {%- else -%}
+              Add to Cart
+            {%- endif %}
+          </button>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  {% for block in section.blocks %}
+    {% if block.settings.is_bestsellers == false %}
+      <div
+        class="variant-item"
+        {% if block.settings.is_sweet %}
+          data-sweet
+        {% endif %}
+        {% if block.settings.is_salty %}
+          data-salty
+        {% endif %}
+        data-variant-id="{{ block.settings.variant_id }}"
+      >
+        <a href="{{ block.settings.link }}" class="item-image">
+          <img
+            src="{{ block.settings.image | img_url: '500x' }}"
+            alt="{{ block.settings.image.alt }}"
+          >
+        </a>
+        <div class="reviews">
+          <div data-oke-reviews-product-listing-rating>
+            <div data-oke-reviews-product-listing-rating="">
+              <div data-oke-reviews-version="2.16.7" class="okeReviews okeReviews--theme">
+                <div
+                  class="okeReviews-reviewsSummary js-okeReviews-reviewsSummary"
+                  data-oke-ga-click-action="Star Rating Summary Click"
+                  data-oke-ga-click-label="PB Caramel Crunch by Keto Krack'd"
+                >
+                  <div class="okeReviews-reviewsSummary-starRating">
+                    <span class="okeReviews-starRating okeReviews-starRating--small">
+                      <span class="okeReviews-a11yText">Rated 5.0 out of 5</span>
+                      <span class="okeReviews-starRating-indicator" role="presentation">
+                        <span class="okeReviews-starRating-indicator-layer"></span>
+                        <span
+                          class="okeReviews-starRating-indicator-layer okeReviews-starRating-indicator-layer--foreground"
+                          style="width: 99%"
+                        ></span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="okeReviews-reviewsSummary-ratingCount">
+                    <span aria-hidden="true">{{ block.settings.reviews_count }} Reviews</span>
+                    <span class="okeReviews-a11yText">Based on {{ block.settings.reviews_count }} reviews</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title-bags">
+          <div>
+            <div class="item-title">{{ block.settings.title }}</div>
+            <div class="item-subtitle">{{ block.settings.subtitle }}</div>
+          </div>
+          <div
+            class="bags-count hide--mobile"
+            data-bag-count="{{ block.settings.bags_count }}"
+            data-unit="{{ block.settings.unit }}"
+          >
+            {{ block.settings.bags_count }}
+            {{ block.settings.unit }}
+          </div>
+        </div>
+        <div class="price-bags">
+          <div class="price">${{ block.settings.price }}</div>
+          <div
+            class="bags-count hide--desktop"
+            data-bag-count="{{ block.settings.bags_count }}"
+            data-unit="{{ block.settings.unit }}"
+          >
+            {{ block.settings.bags_count }}
+            {{ block.settings.unit }}
+          </div>
+        </div>
+        <div
+          class="nutrition-facts"
+          data-nutrition-image="{{ block.settings.nut_image | img_url: '1024x' }}"
+          data-nutrition-mob-image="{{ block.settings.nut_image_mobile | img_url: '768x' }}"
+        >
+          View Nutrition Facts
+        </div>
+        <div class="item-action">
+          <div class="qty">
+            <button class="qtyminus" aria-hidden="true">&minus;</button>
+            <input
+              type="number"
+              name="qty"
+              id="qty"
+              min="1"
+              max="10"
+              step="1"
+              value="1"
+            >
+            <button class="qtyplus" aria-hidden="true">&plus;</button>
+          </div>
+          <button
+            {% if block.settings.available == false %}
+              disabled
+            {% endif %}
+            class="btn-quick-atc"
+          >
+            {% if block.settings.available == false -%}
+              Sold Out
+            {%- else -%}
+              Add to Cart
+            {%- endif %}
+          </button>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Collection Variants",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "text",
+          "id": "bags_count",
+          "label": "Bags Count"
+        },
+        {
+          "type": "text",
+          "id": "unit",
+          "label": "Unit",
+          "default": "Bags"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID"
+        },
+        {
+          "type": "checkbox",
+          "id": "available",
+          "label": "Available?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "reviews_count",
+          "label": "Reviews Count"
+        },
+        {
+          "type": "select",
+          "id": "product",
+          "label": "Product",
+          "options": [
+            {
+              "label": "Keto Puffs",
+              "value": "keto_puffs"
+            },
+            {
+              "value": "cereal",
+              "label": "Cereal"
+            },
+            {
+              "value": "cookies",
+              "label": "Cookies"
+            },
+            {
+              "value": "crackers",
+              "label": "Crackers"
+            },
+            {
+              "value": "pasta",
+              "label": "Pasta"
+            },
+            {
+              "value": "Mashmallows",
+              "label": "mashmallows"
+            },
+            {
+              "value": "krisp",
+              "label": "Krisp"
+            },
+            {
+              "value": "jerky",
+              "label": "Jerky"
+            },
+            {
+              "value": "crunch",
+              "label": "Crunch"
+            },
+            {
+              "value": "gummies",
+              "label": "Gummies"
+            },
+            {
+              "value": "cheesecakes",
+              "label": "Cheesecakes"
+            },
+            {
+              "value": "dees",
+              "label": "Dees"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "is_bestsellers",
+          "label": "Bestsellers?"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_sweet",
+          "label": "Sweet?"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_salty",
+          "label": "Salty"
+        },
+        {
+          "type": "image_picker",
+          "id": "nut_image",
+          "label": "Nutrition Image Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "nut_image_mobile",
+          "label": "Nutrition Image Mobile"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

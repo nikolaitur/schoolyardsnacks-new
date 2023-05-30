@@ -1,0 +1,110 @@
+
+<main class="content content--no-sidebar" role="main">
+  <div class="article">
+    <div class="container--slim">
+      <div class="article__header">
+        <h1 class="article__title">{{ article.title }}</h1>
+        {% assign published_date = article.published_at | date: '%B %d, %Y' %}
+        <div class="article__byline ">By The Schoolyard Team | {{ published_date }}</div>
+      </div>
+    </div>
+
+    <div class="article__content">
+      <div class="container--slim">
+        {{ section.settings.content }}
+
+        {% for block in section.blocks %}
+        <div class="block-global-cta button-cta" style="border-color: {{ block.settings.border_color }};">
+          <div class="cta-wrapper">
+            <div class="cta-label" style="background-color: {{ block.settings.border_color }}; border-color: {{ block.settings.border_color }};">{{ block.settings.label_title }}</div>
+            <div class="cta-image">
+              <a href="{{ block.settings.btn_link }}">
+                <img src="{{ block.settings.image | img_url: '500x' }}">
+              </a>
+            </div>
+            <div class="cta-info">
+              <p class="cta-heading">
+                <a href="{{ block.settings.btn_link }}">{{ block.settings.title }}</a>
+              </p>
+              <p class="cta-subheading">{{ block.settings.subtitle }}</p>
+              <a href="{{ block.settings.btn_link }}" class="btn btn-primary">{{ block.settings.button_text }}</a>
+              <ul class="features">
+                <li>✔ Free Shipping</li>
+                <li>✔ 30 Day Money Back Guarantee</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {{ block.settings.content }}
+        {% endfor %}
+      </div>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+{% schema %}
+  {
+    "name": "Article",
+    "settings": [
+      {
+        "type": "html",
+        "id": "content",
+        "label": "Article 1"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "CTA Block",
+        "type": "cta_block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "color",
+            "id": "border_color",
+            "label": "Border Color"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "type": "text",
+            "id": "label_title",
+            "label": "Label Name",
+            "default": "Special Offer"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Btn Link"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Html Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

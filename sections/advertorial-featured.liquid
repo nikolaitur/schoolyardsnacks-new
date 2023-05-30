@@ -1,0 +1,71 @@
+<div class="logos">
+    <h5>{{ section.settings.featured-on}}</h5>
+    <figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ section.settings.featured-logo | img_url:'master' }}" alt="image" /></figure>
+</div>
+<div class="customer-review1">
+    <figure class="mob-sit2"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ section.settings.customer-image | img_url:'master' }}" alt="image" /></figure>
+    {% comment %} <figure class="mob-sit"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ section.settings.mob-image | img_url:'master' }}" alt="image" /></figure>  {% endcomment %}
+	{% comment %} <figure class="mob-sit2">
+		{% for item in section.blocks %}
+			{% assign _set = item.settings %}
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ _set.desktop_image | img_url:'master' }}" alt="image" />
+		{% endfor %}
+	</figure> {% endcomment %}
+
+	<figure class="mob-sit">
+		{% for item in section.blocks %}
+			{% assign _set = item.settings %}
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ _set.mobile_image | img_url:'master' }}" alt="image" />
+		{% endfor %}
+	</figure>
+	<figure class="mob-sit2">
+		{% for item in section.blocks %}
+			{% assign _set = item.settings %}
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ _set.mobile_image | img_url:'master' }}" alt="image" />
+		{% endfor %}
+	</figure>
+	
+</div>
+
+{% schema %}
+  {
+    "name": "Advertorial Featured",
+    "settings": [
+   {
+   		"type": "text",
+   		"id":"featured-on",
+		"label":"Featured On Text"
+	},
+
+   {
+   		"type": "image_picker",
+   		"id":"featured-logo",
+		"label":"Featured Logo"
+	},
+	{
+   		"type": "image_picker",
+   		"id":"customer-image",
+		"label":"Customer Image"
+	}
+	],
+	"blocks":[
+		{
+			"type": "images",
+			"name": "images",
+			"settings":[
+				{
+					"type": "image_picker",
+					"id": "mobile_image",
+					"label": "Mobile Image"
+				}
+			]
+		 }
+	 ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

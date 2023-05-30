@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="pretitle">{{ section.settings.pretitle }}</div>
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="subtitle">{{ section.settings.content1 }}</div>
+  <div class="seen-in-img">
+    <img src="{{ section.settings.image | img_url: 'master' }}" alt="seen in">
+  </div>
+  <div class="subtitle">{{ section.settings.content2 }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "YT Lander 5",
+  "class": "ytlander-5 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pretitle",
+      "label": "Pretitle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content1",
+      "label": "Content 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "content2",
+      "label": "Content 2"
+    }
+  ]
+}
+{% endschema %}

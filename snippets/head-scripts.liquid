@@ -1,0 +1,173 @@
+<!--<link rel="preload" as="script" href="{{ 'theme-libs.js' | asset_url }}">-->
+<link rel="preload" as="script" href="{{ 'jquery.min.js' | asset_url }}">
+<link rel="preload" as="script" href="{{ 'theme-lazysizes.js' | asset_url }}">
+{% comment %} <link rel="preload" as="script" href="{{ 'theme-cart.js' | asset_url }}"> {% endcomment %}
+<link rel="preload" as="script" href="{{ 'theme-jQuery-Modal.js' | asset_url }}">
+
+<link rel="preload" as="script" href="{{ 'custom.js' | asset_url }}">
+<link rel="preload" as="script" href="{{ 'swiper.min.js' | asset_url }}">
+{% assign contain_script = false %}
+{% if template contains 'product' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if template contains 'ytlander' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if template contains 'lander-dsp' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-1' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cocoa-cereal-on-keto-try-this' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-fruity-loops-on-keto-try-this' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cinnamon-cereal-on-keto-try-this' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-barbecue-chips-on-keto-try-this' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-sour-cream-onion-chips-on-keto' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips-on-keto-b' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips-c' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-bbq-chips' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if template.suffix == 'sampler_vs_2case' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if template.suffix == 'puffs' %}
+  {% assign contain_script = true %}
+{% endif %}
+{% if template.suffix == 'cereal' %}
+  {% assign contain_script = true %}
+{% endif %}
+
+{% if contain_script == true  %}
+<link rel="preload" as="script" href="{{ 'bundle.product.min.js' | asset_url }}">
+{% endif %}
+{% if template contains 'cart' %}
+<link rel="preload" as="script" href="{{ 'bundle.product.min.js' | asset_url }}">
+{% endif %}
+<script>
+  window.lazySizesConfig = window.lazySizesConfig || {};
+  window.lazySizesConfig.lazyClass = 'lazy';
+</script>
+
+<!--<script src="{{ 'theme-libs.js' | asset_url }}"></script> file broken up into parts -->
+<script>/* String.includes polyfil */if (!String.prototype.includes) {String.prototype.includes = function(search, start) {'use strict';if (search instanceof RegExp) {throw TypeError('first argument must not be a RegExp');} if (start === undefined) { start = 0; }return this.indexOf(search, start) !== -1;};}</script>
+<script src="{{ 'jquery.min.js' | asset_url }}"></script>
+<script src="{{ 'theme-lazysizes.js' | asset_url }}"></script>
+{% comment %} <script src="{{ 'theme-cart.js' | asset_url }}"></script> {% endcomment %}
+<script src="{{ 'theme-jQuery-Modal.js' | asset_url }}"></script>
+
+<!--<script  data-src="{{ 'theme-custom.min.js' | asset_url }}" defer></script>-->
+<script src="{{ 'swiper.min.js' | asset_url }}" ></script>
+<script>asyUrls.push("{{ 'theme-custom.min.js' | asset_url }}");</script>
+<!--<script>asyUrls.push("{{ 'swiper.min.js' | asset_url }}");</script>-->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+{% if contain_script == true %}
+  <script src="{{ 'bundle.product.min.js' | asset_url }}" defer></script>
+{% endif %}
+
+<!-- <script >
+  setTimeout(function(){
+    window.tolstoyAppKey="59c0aee7-87c8-4ebb-a528-8216f5101a93";
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = "https://widget.gotolstoy.com/widget/widget.js";
+    document.head.appendChild(s);
+  }, 30000);
+</script> -->
+
+<script >
+  window.CANDYRACK_CAN_ATC = (btn) => { 
+      // if(btn.classList.contains("subscription-ignore")) { 
+      //   console.log("subscription-ignore ======= false");
+      //   return false 
+      // } 
+      return true 
+    }
+</script>
+
+
+
+{% if template contains 'collection' %}
+  <script>asyUrls.push("{{ 'bundle.product.min.js' | asset_url }}");</script>
+  <script>asyUrls.push("{{ 'bundle.collection.min.js' | asset_url }}");</script>
+{% endif %}
+
+{% if template contains 'cart' %}
+  <script src="{{ 'bundle.cart.min.js' | asset_url }}" defer></script>
+{% endif %}
+
+<script>asyUrls.push("{{ 'api.jquery.js' | shopify_asset_url }}");</script>
+
+{% if template contains 'gift_card' %}
+  <script>asyUrls.push("{{ 'modernizr.gift-card.js' | shopify_asset_url }}");</script>
+  <script>asyUrls.push("{{ 'vendor/qrcode.js' | shopify_asset_url }}");</script>
+  <script >
+    function selectText(element) {
+      var doc = document;
+      var text = doc.getElementById(element);
+
+      if (doc.body.createTextRange) { // ms
+        var range = doc.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+      } else if (window.getSelection) { // moz, opera, webkit
+        var selection = window.getSelection();
+        var range = doc.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  </script>
+{% endif %}
+
+{% if template contains 'customers' %}
+  <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+  <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+{% endif %}
+ 
+<script  src="{{ 'custom.js' | asset_url }}"></script>
+{% comment %}Scripts from old theme{% endcomment %}
+
+<script >
+  window.CandyRack = { customIgnoreButtonSelector: ".keto-cereal-4.product-template #add-to-cart" };
+</script>
+
+<script >var shareasaleShopifySSCID=shareasaleShopifyGetParameterByName("sscid");function shareasaleShopifySetCookie(e,a,o,i,r){if(e&&a){var s,S=i?"; path="+i:"",h=r?"; domain="+r:"",t="";o&&((s=new Date).setTime(s.getTime()+o),t="; expires="+s.toUTCString()),document.cookie=e+"="+a+t+S+h}}function shareasaleShopifyGetParameterByName(e,a){a||(a=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var o=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(a);return o?o[2]?decodeURIComponent(o[2].replace(/\+/g," ")):"":null}shareasaleShopifySSCID&&shareasaleShopifySetCookie("shareasaleShopifySSCID",shareasaleShopifySSCID,94670778e4,"/");</script>
+
+
+{%- include 'tiktok_pixel' -%}
+<!-- Twitter universal website tag code -->
+<script >function twqLoad () {
+!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+// Insert Twitter Pixel ID and Standard Event data below
+twq('init','o4out');
+twq('track','PageView');}; trkArr.push(twqLoad);
+</script>
+<!-- End Twitter universal website tag code -->
+
+<script >extArr.push('src="https://www.paypal.com/sdk/js?client-id=AddR-KfJ9l1KImoKCH_f6Ppt__okx7sf2tcJbMxHqcu5Ay46kTBrhIKXfdhWdbXxHREZF9Z4XvQVbg61&components=messages" data-namespace="PayPalSDK"');</script>
+

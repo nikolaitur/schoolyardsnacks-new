@@ -1,0 +1,453 @@
+{% if product.handle == 'copy-of-the-cereal-school' %}
+  {% assign is_alternate_template = true %}
+{% endif %}
+
+<div class="product-headline hide--mobile">
+  <span>{{ section.settings.headline_desktop }}</span>
+</div>
+<div class="product-headline hide--desktop">
+  <span>{{ section.settings.headline_mobile }}</span>
+</div>
+
+{% if template.suffix == 'cereal' %}
+  {% assign product = all_products.cereal %}
+{% endif %}
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+  <div class="product-container__side product-container__side--left">
+    <div
+      data-product-handle="{{ product.title }}"
+      class="product__part product__part--gallery"
+    >
+      <div class="gallery swiper-container">
+        <div class="swiper-wrapper">
+          {% assign image_index = 0 %}
+          {% for image in product.images %}
+            {% if image.alt == 'thumb_invisible' %}
+              {% continue %}
+            {% endif %}
+            <div class="swiper-slide" data-index="{{ image_index }}">
+              <div class="gallery__item-wrapper">
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                  class="gallery__item lazy"
+                  alt="{{ image.alt | escape }}"
+                  data-src="{{ image | img_url: '560x' }}"
+                  data-srcset="{{ image | img_url: '600x' }}"
+                >
+              </div>
+            </div>
+            {% assign image_index = image_index | plus: 1 %}
+          {% endfor %}
+        </div>
+        <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'next' %}
+        </div>
+        <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'prev' %}
+        </div>
+      </div>
+      <div class="thumbs">
+        {% assign image_index = 0 %}
+        {% for image in product.images %}
+          {% if image.alt == 'thumb_invisible' %}
+            {% continue %}
+          {% endif %}
+          <div class="thumbs__item" data-index="{{ image_index }}">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="thumbs__item-image lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="{{ image | img_url: '200x200', crop: 'center' }}"
+              >
+            </div>
+          </div>
+          {% assign image_index = image_index | plus: 1 %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="product-container__side product-container__side--right">
+    <div class="product__part product__part--form">
+      <header class="product-header">
+        <h1 class="product-header__title h6">
+          <span class="original-title">Low Carb, Keto Cereal</span>
+          <!--
+            <span class="new-title" style="display: none;">Ditch sugar and outsmart cravings with low carb, keto cereal</span>
+          -->
+          <span
+            class="new-title"
+            style="display: none;"
+            >{{ section.settings.title }}</span
+          >
+          {%- comment -%}
+            {{ section.settings.title | replace: '|', ' <br>' }}
+          {%- endcomment -%}
+        </h1>
+        <div class="product-header__reviews">
+          {% assign backup = product %}
+          {% assign product = all_products.cereal %}
+          <div data-oke-reviews-product-listing-rating>
+            {{ product.metafields.okendo.ProductListingSnippet }}
+          </div>
+          {% assign product = backup %}
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span><span class="sold-in-number">...</span> sold in the last 22 hours
+          </div>
+        </div>
+        <div class="product-header__tagline">
+          {% assign tagline_items = section.settings.tagline | split: '|' %}
+          {% for item in tagline_items -%}
+            {{- item | strip -}}
+            {%- unless forloop.last -%}
+              <span>&middot;</span>
+            {%- endunless -%}
+          {%- endfor %}
+        </div>
+
+        <div class="feature-highlights">
+          <img
+              src="{{ section.settings.featured_highlights | img_url: '800x' }}"
+              alt=""
+            >
+        </div>
+
+        <div class="cro_text cro_text_1 original_version">
+          <img
+            class="hide--desktop"
+            src="{{ section.settings.cro_text_mobile | img_url: '1024x' }}"
+            alt="text 1"
+          >
+          <img
+            class="hide--mobile"
+            src="{{ section.settings.cro_text | img_url: '1024x' }}"
+            alt="text 1"
+          >
+        </div>
+      </header>
+
+      <div class="product-header__description product-header__description-top cro-change cro-bullet-3">
+        {%- assign description = '' -%}
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when 'dynamic_description' -%}
+              {%- if product.handle == block.settings.product_handle -%}
+                {%- assign description = block.settings.description -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {% endfor %}
+        {{ description | default: section.settings.description }}
+      </div>
+
+      {% if section.settings.today_only_image != blank %}
+        <div class="today_only_line ik-today-only1" style="margin-bottom: 20px;display:block;">
+          <img src="{{ section.settings.today_only_image | img_url: '768x' }}" alt="today only">
+        </div>
+      {% endif %}
+
+      {% if section.settings.all_flavors_sold_out %}
+        {% include 'add-to-cart-sold-out' %}
+      {% else %}
+        <script>
+          console.log('Product title: {{ product.title }}');
+        </script>
+        {% include 'add-to-cart-form-growltv', product_type: 'cereal', section: section %}
+      {% endif %}
+
+      <div class="cro_text feature_highlights" style="display: none;">
+        <img
+          src="{{ section.settings.featured_highlights | img_url: '800x' }}"
+          alt=""
+        >
+      </div>
+
+      <div class="product-disclaimer">
+        {%- comment -%}TODO replace this in to section setting{%- endcomment -%}
+        {% comment %}{{ section.settings.disclaimer | replace: 'Cancel subscriptions at anytime', '' | replace: '<br>', ''}}{% endcomment %}
+        {% unless template.suffix contains 'sub' %}
+          {{ section.settings.disclaimer }}
+        {% endunless %}
+
+        {% if template contains 'product' or template.suffix == 'cereal' %}
+          <div class="accordion-wrap" style="margin-top: 25px;">
+            {% for block in section.blocks %}
+              {% if block.type == 'faq' %}
+                <div class="accordion-panel">
+                  <h3 class="accordion-header">
+                    <span>{{ block.settings.faq_title }}</span>
+                    <span>{% render 'arrow-down' %}</span>
+                  </h3>
+                  <div class="accordion-body">
+                    {{ block.settings.faq_content }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if template.suffix contains 'sub' %}
+          <div class="product-sub-ul">
+            <p>
+              <strong>Always FREE Shipping - Cancel Anytime</strong>
+            </p>
+            <ul>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                <strong>SAVE 12.5% off regular price</strong> with auto-delivery
+              </li>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                <strong>30 day money back guarantee.</strong>
+              </li>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                <strong>No strings attached.</strong> Easily switch flavors, try new ones, skip or cancel subscription
+                anytime via text message.
+              </li>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                <strong>No surprises.</strong> We send reminders to you before each box is shipped so you can switch
+                flavors or skip.
+              </li>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                Free U.S. shipping.
+              </li>
+              <li
+                style="font-size: 18px;"
+                data-open-accessibility-text-original="18px"
+              >
+                Unlock early access to new flavors.
+              </li>
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="best-macros">
+  <div class="best-macros-heading container">
+    <img
+      class="blob-img1"
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/airplane_400x_6c1c7471-6254-44a1-ad42-36ee5896672a_400x_1.png?v=1643036442"
+      alt="blob1"
+    >
+    <h1 class="section-title center">The Best Macros On The Market</h1>
+    <img
+      class="blob-img2"
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/heart-arrow_160x_d92dcec0-7417-4a72-a1fa-88ca96ecd505.png?v=1643036453"
+      alt="blob2"
+    >
+  </div>
+  <img
+        class="img-table"
+        src="{{ section.settings.us_vs_them | img_url: '1920x' }}"
+        alt=""
+      >
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('#cereal_popup').click(function () {
+      alert();
+    });
+  });
+</script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"
+></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"
+>
+{% schema %}
+{
+  "name": "Product Upper",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bundle_selector",
+      "label": "Bundle Select",
+      "options": [
+        {
+          "value": "0",
+          "label": "4 Flavors - 48 Bags"
+        },
+        {
+          "value": "1",
+          "label": "2 Flavors - 24 Bags"
+        },
+        {
+          "value": "2",
+          "label": "1 Flavor - 24 Bags"
+        },
+        {
+          "value": "3",
+          "label": "1 Flavor - 12 Bags"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "headline_desktop",
+      "label": "Headline Desktop",
+      "default": "“I love chips. Most chips are not Keto friendly. Well that ends today” -Gayle H"
+    },
+    {
+      "type": "text",
+      "id": "headline_mobile",
+      "label": "Headline Mobile",
+      "default": "“I love chips. Most chips are not Keto friendly. Well that ends today” -Gayle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Outsmart Cravings With Keto-Friendly Cheese Puffs"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_highlights",
+      "label": "Featured Highlights"
+    },
+    {
+      "type": "image_picker",
+      "id": "cro_text",
+      "label": "CRO Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "cro_text_mobile",
+      "label": "CRO Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "today_only_image",
+      "label": "Today Only Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "us_vs_them",
+      "label": "US vs Them Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Must match the variant Type option exactly. i.e. - 'bundle' or 'variety'"
+        },
+        {
+          "type": "text",
+          "id": "flavor_limit",
+          "label": "Flavor Limit",
+          "info": "How many flavors can be selected?"
+        },
+        {
+          "type": "checkbox",
+          "id": "default",
+          "label": "Default selected?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_out",
+          "label": "Mark as sold out?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "flavor",
+      "name": "Flavor",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "swatch_image",
+          "label": "Swatch Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID"
+        },
+        {
+          "type": "checkbox",
+          "id": "new",
+          "label": "Mark as new?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_out",
+          "label": "Mark as sold out?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "dynamic_description",
+      "name": "Dynamic Description",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Product Handle",
+          "info": "Must match the product handle you want it visible on"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faq_title",
+          "label": "FAQ Title"
+        },
+        {
+          "type": "html",
+          "id": "faq_content",
+          "label": "FAQ Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

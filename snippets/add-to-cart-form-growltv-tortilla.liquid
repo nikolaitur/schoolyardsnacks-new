@@ -1,0 +1,689 @@
+{%- liquid
+  if product.handle == 'cereal'
+    assign growltv_product = all_products['keto-cereal-growltv']
+  elsif product.handle == 'keto-puffs'
+    assign growltv_product = all_products['keto-puffs-growltv']
+  else
+    assign growltv_product = product
+  endif
+
+  if product.handle contains 'cereal'
+    assign option_1_qty = 1
+    assign option_1_bags = 48
+    assign option_1_multiplier = 4
+    assign option_1_flavors = 4
+
+    assign option_2_qty = 1
+    assign option_2_bags = 24
+    assign option_2_multiplier = 2
+    assign option_2_flavors = 2
+
+    assign option_3_qty = 2
+    assign option_3_bags = 24
+    assign option_3_multiplier = 2
+    assign option_3_flavors = 1
+
+    assign option_4_qty = 1
+    assign option_4_bags = 12
+    assign option_4_multiplier = 1
+    assign option_4_flavors = 1
+  elsif product.handle contains 'puffs'
+    assign option_1_qty = 1
+    assign option_1_bags = 48
+    assign option_1_multiplier = 4
+    assign option_1_flavors = 4
+
+    assign option_2_qty = 1
+    assign option_2_bags = 24
+    assign option_2_multiplier = 2
+    assign option_2_flavors = 2
+
+    assign option_3_qty = 2
+    assign option_3_bags = 24
+    assign option_3_multiplier = 2
+    assign option_3_flavors = 1
+
+    assign option_4_qty = 1
+    assign option_4_bags = 12
+    assign option_4_multiplier = 1
+    assign option_4_flavors = 1
+  else
+    assign option_1_qty = 1
+    assign option_1_bags = 24
+    assign option_1_multiplier = 1
+    assign option_1_flavors = 1
+
+    assign option_2_qty = 1
+    assign option_2_bags = 12
+    assign option_2_multiplier = 1
+    assign option_2_flavors = 1
+
+    assign option_3_qty = 2
+    assign option_3_bags = 12
+    assign option_3_multiplier = 1
+    assign option_3_flavors = 1
+
+    assign option_4_qty = 1
+    assign option_4_bags = 6
+    assign option_4_multiplier = 1
+    assign option_4_flavors = 1
+  endif
+  assign current_variant = growltv_product.selected_or_first_available_variant
+  assign discount_percentage = current_variant.selling_plan_allocations[0].selling_plan.price_adjustments[0].value | round: 2
+  assign plan_id = current_variant.selling_plan_allocations[0].selling_plan.id
+  assign plan_percentage_decimal = discount_percentage | times: 1.0 | divided_by: 100
+  assign plan_discount = current_variant.price | times: plan_percentage_decimal
+  assign plan_price = current_variant.price | minus: plan_discount
+  assign beta_product = all_products['beta-tester']
+  assign form_class = product.type | handleize
+-%}
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.25.0/dist/axios.min.js"></script>
+
+{% if section.settings.all_flavors_sold_out %}
+  <div class="product-sold-out-text">
+    {{ section.settings.all_flavors_sold_out_text }}
+  </div>
+  <button class="btn btn--block" disabled>Sold Out</button>
+{% else %}
+  <div
+    class="growltv-product-form"
+    id="growltvProductForm"
+    data-productid="{{ product.id }}"
+    data-growltv-id="{{ growltv_product.id }}"
+  >
+    <div class="growltv-options-group">
+      <span class="growltv-options-group__name">1. Select Bundle</span>
+      <div
+        class="growltv-options-group__options growltv-options-group__options-bundle"
+        :class="selectedType === 'subscribe' ? 'subscription-option' : ''"
+      >
+        <template v-for="(bundle, index) in bundleOptions" :key="index">
+          <div
+            class="growltv-options-group__option"
+            @click="selectBundle(bundle, index)"
+            :class="bundle.title === selectedBundle ? 'growltv-options-group__option--selected' : ''"
+          >
+            <div class="growltv-options-group__option-title">${ bundle.title }</div>
+            <span class="growltv-options-group__option-icon"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <template v-for="(option, i) in form.options" :key="i">
+      <div class="growltv-options-group">
+        <span class="growltv-options-group__name"
+          >Choose ${option.name}</span
+        >
+        <div class="growltv-options-group__options">
+          {%- comment -%}This shows sold out items separately to prevent user selection{%- endcomment -%}
+          <template v-for="(variant, index) in soldOutItems" :key="index">
+            <div :class="variant.soldOut === 'true' ? 'growltv-options-group__option growltv-options-group__option--sold-out' : ''">
+              <div class="growltv-options-group__option-img">
+                <img :src="variant.src" alt="" width="96" height="96">
+                <span
+                  v-if="(variant.title == selected[i]) ? 'active' : ''"
+                  class="growltv-options-group__option--selected-check"
+                ></span>
+              </div>
+              <span class="growltv-options-group__option-title"
+                >${ variant.title }</span
+              >
+              <span
+                v-if="variant.bestSeller === 'true'"
+                class="growltv-options-group__option-best"
+                >Best Seller</span
+              >
+            </div>
+          </template>
+          {%- comment -%}Show available items only{%- endcomment -%}
+          <template v-for="(variant, index) in variantImages" :key="index">
+            <div
+              class="growltv-options-group__option"
+              :class="matchValue(variant.title)"
+              @change="selectFlavor(variant, index)"
+            >
+              <input
+                type="checkbox"
+                v-model="selected"
+                name="flavor"
+                :id="variant.id"
+                :value="variant"
+                class="visually-hidden"
+                ref="input"
+              >
+              <label :for="variant.id">
+                <div class="growltv-options-group__option-img">
+                  <img :src="variant.src" alt="" width="96" height="96">
+                  <span
+                    class="growltv-options-group__option--selected-check active"
+                  ></span>
+                </div>
+                <span class="growltv-options-group__option-title"
+                  >${ variant.title }</span
+                >
+                <span
+                  v-if="variant.bestSeller === 'true'"
+                  class="growltv-options-group__option-best"
+                  >Best Seller</span
+                >
+              </label>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    {% if product.handle == 'cereal' or product.handle == 'keto-puffs' %}
+      <div
+        {{ product.handle }}
+        class="today_only_line ik-today-only1"
+        style="margin-top: 16px;margin-bottom: -20px;"
+      >
+        <img
+          class="hide--mobile"
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/EARLYBF_desktop_f3d0e786-f33f-46e6-9830-6afb049fa960.png?v=1666880755"
+          alt=""
+        >
+        <img
+          class="hide--desktop"
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/EARLYBF_desktop_f3d0e786-f33f-46e6-9830-6afb049fa960.png?v=1666880755"
+          alt=""
+        >
+      </div>
+    {% endif %}
+
+    <div class="growltv-purchase-type">
+      <template v-if="frequencies.length > 0">
+        <span class="label">Select Frequency:</span>
+
+        <div class="growltv-purchase-options-wrapper">
+          <div
+            :class="selectedType === 'onetime' ? 'growltv-purchase-option growltv-purchase-option--onetime growltv-purchase-option--selected' : 'growltv-purchase-option growltv-purchase-option--onetime'"
+            @click="selectedType = 'onetime', currentPrice = bundlePrice"
+          >
+            <input
+              id="growltv-purchase-onetime"
+              type="radio"
+              name="type"
+              value="one_time"
+            >
+            <label for="growltv-purchase-onetime">
+              <span class="growltv-purchase-option__title"
+                >One-time purchase
+                <div class="growltv-purchase-option__per-bag">
+                  Only
+                  <span class="growltv-purchase-option__per-bag-price"
+                    >$${(bundlePriceDiscounted / bagsCount).toFixed(2)}</span
+                  >
+                  per bag
+                </div>
+              </span>
+              <span class="growltv-purchase-option__price"
+                ><span
+                  v-if="bundlePrice > bundlePriceDiscounted"
+                  class="slashprice"
+                  >$${bundlePrice}</span
+                >
+                $${bundlePriceDiscounted}</span
+              >
+            </label>
+          </div>
+          <div
+            :class="selectedType === 'subscribe' ? 'growltv-purchase-option growltv-purchase-option--subscribe growltv-purchase-option--selected' : 'growltv-purchase-option growltv-purchase-option--subscribe'"
+            @click="selectedType = 'subscribe', currentPrice = bundleSubscriptionPrice"
+          >
+            <div>
+              <input
+                id="growltv-purchase-subscribe"
+                type="radio"
+                name="type"
+                value="subscribe"
+              >
+              <label for="growltv-purchase-subscribe">
+                <span class="growltv-purchase-option__title"
+                  >Subscribe &amp; save {{ discount_percentage }}%
+                  <div class="growltv-purchase-option__per-bag">
+                    Only
+                    <span class="growltv-purchase-option__per-bag-price"
+                      >$${(bundleSubscriptionPrice / bagsCount).toFixed(2)}</span
+                    >
+                    per bag
+                  </div>
+                </span>
+                <span class="growltv-purchase-option__price">
+                  <span class="slashprice">$${bundlePrice}</span>
+                  <span class="ikprice">$${bundleSubscriptionPrice}</span>
+                </span>
+              </label>
+            </div>
+            <div class="growltv-purchase-option__frequencies">
+              <div
+                v-for="(frequency, index) in frequencies"
+                :key="index"
+                :class="{ 'active': frequency.id === selectedFrequency }"
+                class="growltv-purchase-option__frequency"
+                @click="selectedFrequency = frequency.id"
+              >
+                Every <span>${frequency.name}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div
+      v-if="betaTestShow"
+      class="growltv-upsell--beta"
+      @click="betaTestActive = !betaTestActive"
+      :class="betaTestActive === true ? 'active' : ''"
+    >
+      <div class="growltv-upsell__add">
+        <span class="upsell_badge">
+          <span class="icon_1"></span>
+          <span class="icon_2"></span>
+        </span>
+        <div>
+          <h3>Become a Beta Tester $10</h3>
+          <p>
+            Early access to new Schoolyard Snacks flavor releases, Beta Tester Facebook community, and get a $10 Gift
+            Card.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% if product.handle == 'cereal' %}
+      <div
+        {{ product.handle }}
+        class="today_only_line ik-today-only2"
+        style="margin-top: 16px;margin-bottom: -10px;display: none;"
+      >
+        <img
+          class="hide--mobile"
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/EARLYBF_desktop_f3d0e786-f33f-46e6-9830-6afb049fa960.png?v=1666880755"
+          alt=""
+        >
+        <img
+          class="hide--desktop"
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/EARLYBF_desktop_f3d0e786-f33f-46e6-9830-6afb049fa960.png?v=1666880755"
+          alt=""
+        >
+      </div>
+    {% endif %}
+
+    {% if product.handle == 'low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free'
+      or product.handle == 'carro-only-multi-flavor-phat-crackers-5-pack-by-real-phat-foods'
+    %}
+      <div class="today_only_line ik-today-only1" style="margin-bottom: 20px;">
+        <img src="{{ section.settings.today_only | img_url: '768x' }}" alt="today only">
+      </div>
+    {% endif %}
+
+    <div class="growltv-add-to-cart">
+      <div class="cookie-form-text-wrap">
+        <div class="cookie-text">
+          <strong>Only <span>$14.99</span> per ½ pound bag</strong>
+        </div>
+        <div class="price-wrap">
+          <span class="price"><strong>$44.99</strong></span>
+        </div>
+      </div>
+
+      <button
+        v-if="selected.length < flavorRequirement"
+        class="btn disabled"
+        disabled
+      >
+        ${ selectFlavorText() }
+      </button>
+      <button v-else @click.prevent="addToCart()" class="btn">Add to Cart</button>
+    </div>
+  </div>
+
+  {% if section.settings.is_preupsell %}
+    {% include 'product-pre-upsell', section: section %}
+  {% endif %}
+
+  {% if is_free_gift_template %}
+    <div class="product-option-row product-option-row--free-gift">
+      <input
+        type="checkbox"
+        name="properties[free_puffs_gift]"
+        value="true"
+        checked
+      >
+      <label for="properties[free_puffs_gift]"
+        >Get My Free Mystery Gift (Today Only)</label
+      >
+    </div>
+  {% endif %}
+
+  {% if product.handle != 'low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free' %}
+    <div style="text-align: center;" class="note ik-note">
+      <p>
+        <strong>30 Day Money Back Guarantee! </strong><br>
+        Cancel subscriptions at anytime
+      </p>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% comment %}
+  {% if is_free_gift_template %}
+  <script type="text/javascript" id="free_gift__json">
+    /*
+    var free_gift_id = 0;
+    document.addEventListener('DOMContentLoaded', function () {
+  	$.getJSON('/products/mystery-gift.js', function(product) {
+  	  console.log(product);
+  	  free_gift_id = product.variants[0].id;
+  	} );
+    });
+    */
+    var free_gift_id = {{ all_products['mystery-gift'].selected_or_first_available_variant.id }};
+  </script>
+  {% endif %}
+{% endcomment %}
+
+<script>
+  if (document.querySelector('#growltvProductForm')) {
+
+  let variantImages = [];
+  let soldOutItems = [];
+
+  {% for variant in growltv_product.variants limit: 4 %}
+    	variantImages.push({
+    	  title: '{{ variant.title | replace: " / (3) ½ lb Bags", "" }}',
+    	  src: '{{ variant.metafields.wayfx.image }}',
+    	  id: {{ variant.id }},
+    	  soldOut: '{{ variant.metafields.wayfx.sold_out }}',
+    	  price: {{ variant.price | money_without_currency }},
+    	  bestSeller: '{{ variant.metafields.my_fields.best_seller }}',
+    	  checked: true
+    	});
+  {% endfor %}
+
+  // check for variant with sold out metafield of true and add to soldOutItems array
+  soldOutItems = variantImages.filter(item => item.soldOut === 'true');
+
+  // check array for variant with sold out metafield of true and remove it from array
+  variantImages = variantImages.filter(item => item.soldOut !== 'true');
+
+  const planFrequencies = [];
+
+  {%- for allocation in current_variant.selling_plan_allocations -%}
+    planFrequencies.push({
+      id: {{ allocation.selling_plan.id }},
+      name: "{{ allocation.selling_plan.name | replace: "Delivers every", "" }}"
+    });
+  {%- endfor -%}
+
+
+    {%- capture bundle_options -%}
+    	[
+        {
+          "title": "{{ option_1_flavors }} Flavors - {{ option_1_bags }} bags",
+          "qty": {{ option_1_qty }},
+          "bagsCount": {{ option_1_bags }},
+          "multiplier": {{ option_1_multiplier }},
+          "flavors": {{ option_1_flavors }},
+        },
+        {
+          "title": "{{ option_2_flavors }} Flavors - {{ option_2_bags }} bags",
+          "qty": {{ option_2_qty }},
+          "bagsCount": {{ option_2_bags }},
+          "multiplier": {{ option_2_multiplier }},
+          "flavors": {{ option_2_flavors }},
+        },
+        {
+          "title": "{{ option_3_flavors }} Flavor - {{ option_3_bags }} bags",
+          "qty": {{ option_3_qty }},
+          "bagsCount": {{ option_3_bags }},
+          "multiplier": {{ option_3_multiplier }},
+          "flavors": {{ option_3_flavors }},
+        },
+        {
+          "title": "{{ option_4_flavors }} Flavor - {{ option_4_bags }} bags",
+          "qty": {{ option_4_qty }},
+          "bagsCount": {{ option_4_bags }},
+          "multiplier": {{ option_4_multiplier }},
+          "flavors": {{ option_4_flavors }},
+        }
+    		]
+    {%- endcapture -%}
+    {%- capture bundle_pricing -%}
+    {% if product.handle == 'cereal' %}
+    if(this.selectedBundle === "{{ option_1_flavors }} Flavors - {{ option_1_bags }} bags") {
+      this.bundleSubscriptionPrice = 89.73;//89.22;
+      this.bundlePriceDiscounted = 112.16;//101.97;
+      for(let i = 0; i < this.bundleOptions[0].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_2_flavors }} Flavors - {{ option_2_bags }} bags") {
+      this.bundleSubscriptionPrice = 47.50;//47.23;
+      this.bundlePriceDiscounted = 59.38;//53.98;
+      for(let i = 0; i < this.bundleOptions[1].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_3_flavors }} Flavor - {{ option_3_bags }} bags") {
+      this.bundleSubscriptionPrice = 47.50;//47.23;
+      this.bundlePriceDiscounted = 59.38;//53.98;
+      for(let i = 0; i < this.bundleOptions[2].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_4_flavors }} Flavor - {{ option_4_bags }} bags") {
+      this.bundleSubscriptionPrice = 26.39;//26.24;
+      this.bundlePriceDiscounted = 32.99;//29.99;
+      for(let i = 0; i < this.bundleOptions[3].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    }
+    {% else %}
+    if(this.selectedBundle === "{{ option_1_flavors }} Flavors - {{ option_1_bags }} bags") {
+      this.bundleSubscriptionPrice = 89.73;//89.22;
+      this.bundlePriceDiscounted = 112.16;//101.97;
+      for(let i = 0; i < this.bundleOptions[0].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_2_flavors }} Flavors - {{ option_2_bags }} bags") {
+      this.bundleSubscriptionPrice = 47.50;//47.23;
+      this.bundlePriceDiscounted = 59.38;//53.98;
+      for(let i = 0; i < this.bundleOptions[1].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_3_flavors }} Flavor - {{ option_3_bags }} bags") {
+      this.bundleSubscriptionPrice = 47.50;//47.23;
+      this.bundlePriceDiscounted = 59.38;//53.98;
+      for(let i = 0; i < this.bundleOptions[2].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    } else if (this.selectedBundle === "{{ option_4_flavors }} Flavor - {{ option_4_bags }} bags") {
+      this.bundleSubscriptionPrice = 26.39;//26.24;
+      this.bundlePriceDiscounted = 32.99;//29.99;
+      for(let i = 0; i < this.bundleOptions[3].flavors; i++) {
+        this.selected.push(variantImages[i]);
+      }
+    }
+    {% endif %}
+    {%- endcapture -%}
+
+  const growltvProductForm = Vue.createApp({
+    	delimiters: ['${', '}'],
+    	data(){
+    	  return {
+    		variants: "",
+    		variantImages: variantImages,
+    		soldOutItems: soldOutItems,
+    		selected: [],
+    		form: {
+    		  selections: "",
+    		  options: ""
+    		},
+    frequencies: planFrequencies,
+    selectedFrequency: {{ current_variant.selling_plan_allocations[1].selling_plan.id | times: 1 }},
+    		shippingInterval: "{{ current_variant.selling_plan_allocations[0].selling_plan.name | replace: "Delivers every", ""}}",
+    		quantity: 1,
+    bagsCount: 24,
+    bundleOptions: {{ bundle_options }},
+    		selectedBundle: null,
+    		flavorRequirement: 1,
+    		price: {{ current_variant.price | money_without_currency }},
+    		currentPrice: {% if plan_id %}{{ plan_price | money_without_currency }}{% else %}this.price{% endif %},
+    		bundlePrice: null,
+    		bundlePriceDiscounted: null,
+    		bundleSubscriptionPrice: null,
+    tiers: [],
+    		variant: [],
+    		subscriptionPrice: {{ plan_price | times: 1 | money_without_currency }},
+    		subscriptionDiscount: 1 - {{ discount_percentage | divided_by: 100 }},
+    		selectedType: {% if plan_id %}"subscribe"{% else %}"onetime"{% endif %},
+    		betaTestProduct: null,
+    		betaTestShow: true,
+    		betaTestActive: false,
+    	  }
+    	},
+    	async created() {
+
+
+    	  axios.get("/products/{{ growltv_product.handle }}.js")
+    		.then(results => {
+    		  this.form.options = [{ ...results.data.options[0], visible: false }]
+    		  this.variants = results.data.variants
+    		  this.form.selections = [
+    			this.selected[0] ? this.selected[0] : null,
+    			this.selected[1] ? this.selected[1] : null,
+    			this.selected[2] ? this.selected[2] : null,
+    			this.selected[3] ? this.selected[3] : null
+    		  ]
+    	  });
+
+    console.log("**this.price", this.price);
+    	  // Set selected bundle
+    	  this.selectedBundle = this.bundleOptions[1].title;
+    	  this.bundlePrice = this.bundleOptions[1].multiplier * this.price;
+    	  this.flavorRequirement = this.bundleOptions[1].flavors;
+  	this.selected = [];
+
+  	  {{ bundle_pricing }}
+
+    	  this.variant.push({id: this.variantImages[0].id, quantity: this.quantity});
+
+    	  {% if beta_product %}
+    		this.betaTestProduct = {{ beta_product.selected_or_first_available_variant.id }};
+    		axios.get("/cart.js")
+    		  .then(results => {
+    			for (const item of results.data.items) {
+    			  if(item.id === this.betaTestProduct) {
+    				this.betaTestShow = false;
+    			  }
+    			}
+    		});
+    	  {% else %}
+    		this.betaTestProduct = null;
+    	  {% endif %}
+    	},
+    	methods: {
+    	  selectFlavorText() {
+    		const selected = this.selected.length;
+    		return selected === 0 ? 'Select 1st Flavor' : selected === 1 ? 'Select 2nd Flavor' : selected === 2 ? 'Select 3rd Flavor' : 'Select 4th Flavor'
+    	  },
+    	  matchValue(value){
+    		if (this.selected.map(item => item.title).includes(value)) {
+    		  return 'growltv-options-group__option--selected'
+    		} else {
+    		  return '';
+    		}
+    	  },
+    	  selectBundle(bundle, index) {
+    		this.selectedBundle = bundle.title;
+    		this.flavorRequirement = bundle.flavors;
+    		this.quantity = bundle.qty;
+    		this.bagsCount = bundle.bagsCount;
+    		this.bundlePrice = this.price * bundle.multiplier;
+    		this.currentPrice = this.bundlePrice;
+    		this.selected = [];
+
+    		{{ bundle_pricing }}
+    	  },
+    	  selectFlavor(flavor, index) {
+    		let inputs = this.$refs.input;
+
+    if(this.selected.length > this.flavorRequirement) {
+      this.selected = [];
+      this.selected.push({title: flavor.title, id: flavor.id});
+    }
+
+    		inputs.forEach(item => {
+    		  if(item.checked == true) {
+        if(this.selected.length !== this.flavorRequirement) {
+          if(this.selected.includes({title: flavor.title, id: flavor.id})) {
+            this.selected.push({title: flavor.title, id: flavor.id});
+          }
+        }
+    		  } else if (item.checked == false) {
+        if(this.selected.length > this.flavorRequirement) {
+          this.selected = [];
+            this.selected.push({title: flavor.title, id: flavor.id});
+        }
+        if(this.selected.includes({title: flavor.title, id: flavor.id})) {
+          this.selected.splice(this.selected.indexOf({title: flavor.title, id: flavor.id}), 1);
+        }
+    		  }
+    		});
+
+    	  },
+    	  addToCart(){
+    		let data;
+    		let items = [];
+
+    		if(this.selectedType === 'subscribe') {
+         this.selected.forEach(item => {
+          items.push({id: item.id, quantity: this.quantity, selling_plan: this.selectedFrequency, properties: { "Free Shipping": true } });
+  		  });
+        } else {
+          this.selected.forEach(item => {
+    			    items.push({id: item.id, quantity: this.quantity})
+    		  });
+        }
+
+        data = {
+          items: items
+        }
+
+        if(this.betaTestActive === true){
+          items.push({
+            id: this.betaTestProduct,
+            quantity: 1,
+          });
+        }
+
+    		axios.post("/cart/add.js", data)
+    		.then(function (response) {
+    		  document.querySelector('.header-cart a').click();
+    		})
+    		.catch(error => {
+    		  console.log(error)
+    		})
+    	  }
+    	}
+  }).mount('#growltvProductForm');
+
+
+  {% comment %}// Using existing 'Sold Number' JS{% endcomment %}
+  if ($(".sold-in-number")) {
+    var productId = {{ product.id }};
+    var soldInNum = localStorage.getItem(productId + "SoldIn");
+    if (!soldInNum) {
+      soldInNum = Math.floor(Math.random() * (400 - 300 + 1)) + 300;
+      localStorage.setItem(productId + "SoldIn", soldInNum);
+    }
+    console.log("sold in number: " + soldInNum)
+    $(".sold-in-number").html(soldInNum);
+  }
+
+  }
+</script>

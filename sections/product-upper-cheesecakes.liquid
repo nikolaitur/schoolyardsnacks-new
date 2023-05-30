@@ -1,0 +1,713 @@
+<style>
+  div.product-header__description > ul {
+    margin: 10px 0 0 0;
+  }
+  div.product-header__description > ul li:last-child {
+    margin-bottom: 0;
+  }
+  div.product-header__description {
+    max-width: 100% !important;
+    padding: 0.8rem 0 2.8rem 0 !important;
+  }
+</style>
+{% if template.suffix == 'ytlander-puffs' %}
+  {% assign product = all_products['keto-puffs'] %}
+{% endif %}
+{% if template.suffix == 'ytlander-puffs2' %}
+  {% assign product = all_products['keto-puffs'] %}
+{% endif %}
+{% if template.suffix == 'ytlander-puffs3' %}
+  {% assign product = all_products['new-keto-cheese-puffs-7'] %}
+{% endif %}
+{% if template.suffix == 'miss_cream2' %}
+  {% assign product = all_products['keto-puffs'] %}
+{% endif %}
+{% if template.suffix == 'miss_bbq' %}
+  {% assign product = all_products['keto-puffs'] %}
+{% endif %}
+{% if product.handle == 'keto-cheese-puffs' %}
+  {% assign is_alternate_template = true %}
+{% endif %}
+{% if product.handle == 'keto-puffs-crunch' or template contains 'newstyle' %}
+  {% assign new_pdp_style = true %}
+{% endif %}
+
+{% if request.path contains 'free-gift' and section.settings.enable_free_gift %}
+  {% assign is_free_gift_template = true %}
+{% endif %}
+
+<div class="product-headline">
+  <span>{{ section.settings.headline }}</span>
+</div>
+
+{% if template.suffix == 'puffs' %}
+  {% assign product = all_products['keto-puffs'] %}
+{% endif %}
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+  <div class="product-container__side product-container__side--left">
+    <div class="product__part product__part--gallery new_gallery_image1">
+      <div class="gallery swiper-container">
+        <div class="swiper-wrapper">
+          {% if template.suffix == 'new-sourcream' %}
+            <div class="swiper-slide" data-index="0">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+              >
+            </div>
+            <div class="swiper-slide" data-index="1">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092"
+              >
+            </div>
+            <div class="swiper-slide" data-index="2">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130"
+              >
+            </div>
+            <div class="swiper-slide" data-index="3">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685"
+              >
+            </div>
+            <div class="swiper-slide" data-index="4">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2_beef9705-6f32-4093-8d0d-ff416fee7f73.png?v=1639679346"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2_beef9705-6f32-4093-8d0d-ff416fee7f73.png?v=1639679346"
+              >
+            </div>
+          {% else %}
+            {% if template.suffix == 'sourcream' %}
+              <div class="swiper-slide" data-index="0">
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                  class="gallery__item lazy"
+                  alt="{{ image.alt | escape }}"
+                  data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+                  data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+                >
+              </div>
+            {% endif %}
+            {% assign real_index = 0 %}
+            {% for image in product.images %}
+              {% if template.suffix == 'sourcream' %}
+                {% if forloop.first %}
+                  {% continue %}
+                {% endif %}
+              {% endif %}
+              {% if image.alt == 'thumb_invisible' %}
+                {% continue %}
+              {% endif %}
+              <div
+                class="swiper-slide"
+                data-index="{{ real_index }}"
+              >
+                <div class="gallery__item-wrapper {% if forloop.first %}gallery-first-item{% endif %}">
+                  {% comment %}<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }} 1x, {{ image | img_url: '1120x' }} 2x" />{% endcomment %}
+                  {% if forloop.first %}
+                    <img
+                      class="with-seen-in"
+                      src="{{ image | img_url: '560x' }}{{ image | img_url: '560x' }}"
+                      data-srcset="{{ image | img_url: '560x' }}"
+                    >
+                    <img
+                      class="tik-tok-img tik-tok-img-1"
+                      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_22ed848c-2322-4d8d-b406-b21edd092af7.png?v=1654795964"
+                    >
+                    <img
+                      class="tik-tok-img tik-tok-img-2"
+                      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_967637f0-a38b-40e3-91f0-66b6a71b7ae7.png?v=1654795964"
+                    >
+                    <img
+                      class="tik-tok-img tik-tok-img-3"
+                      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4_2809f425-bf91-4b63-819b-3c08b03e3172.png?v=1654795964"
+                    >
+                    <img
+                      class="without-seen-in"
+                      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                      class="gallery__item lazy"
+                      alt="{{ image.alt | escape }}"
+                      data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                      data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                    >
+                  {% endif %}
+                  <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                    class="gallery__item lazy"
+                    alt="{{ image.alt | escape }}"
+                    data-src="{{ image | img_url: '560x' }}"
+                    data-srcset="{{ image | img_url: '600x' }}"
+                  >
+                </div>
+              </div>
+              {% assign real_index = real_index | plus: 1 %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'next' %}
+        </div>
+        <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'prev' %}
+        </div>
+      </div>
+      <div class="thumbs">
+        {% if template.suffix == 'new-sourcream' %}
+          <div class="thumbs__item" data-index="0">
+            <div class="thumbs__item-image-wrapper 4thumb-first-item4">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+              >
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="1">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2.png?v=1639362092"
+              >
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="2">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2.5.png?v=1639362130"
+              >
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="3">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/products/labeltile_600x.png?v=1638298685"
+              >
+            </div>
+          </div>
+          <div class="thumbs__item" data-index="4">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="gallery__item lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+                data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/1_26.png?v=1637673996"
+              >
+            </div>
+          </div>
+        {% else %}
+          {% if template.suffix == 'sourcream' %}
+            <div class="thumbs__item" data-index="0">
+              <div class="thumbs__item-image-wrapper {% if forloop.first %}thumb-first-item{% endif %}">
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                  class="gallery__item lazy"
+                  alt="{{ image.alt | escape }}"
+                  data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2_beef9705-6f32-4093-8d0d-ff416fee7f73.png?v=1639679346"
+                  data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream2_beef9705-6f32-4093-8d0d-ff416fee7f73.png?v=1639679346"
+                >
+              </div>
+            </div>
+          {% endif %}
+          {% assign real_index = 0 %}
+          {% for image in product.images %}
+            {% if template.suffix == 'sourcream' %}
+              {% if forloop.first %}
+                {% continue %}
+              {% endif %}
+            {% endif %}
+            {% if image.attached_to_variant %}
+              {% continue %}
+            {% endif %}
+            {% if image.alt == 'thumb_invisible' %}
+              {% continue %}
+            {% endif %}
+            <div
+              class="thumbs__item"
+              data-index="{{ real_index }}"
+            >
+              <div class="thumbs__item-image-wrapper {% if forloop.first %}thumb-first-item{% endif %}">
+                {% if forloop.first %}
+                  <img
+                    class="with-seen-in"
+                    src="{{ image | img_url: '560x' }}"
+                    class="gallery__item lazy"
+                    alt="{{ image.alt | escape }}"
+                    data-src="{{ image | img_url: '560x' }}"
+                    data-srcset="{{ image | img_url: '560x' }}"
+                  >
+                  <img
+                    class="tik-tok-img tik-tok-img-1"
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/2_22ed848c-2322-4d8d-b406-b21edd092af7.png?v=1654795964"
+                  >
+                  <img
+                    class="tik-tok-img tik-tok-img-2"
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/3_967637f0-a38b-40e3-91f0-66b6a71b7ae7.png?v=1654795964"
+                  >
+                  <img
+                    class="tik-tok-img tik-tok-img-3"
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/4_2809f425-bf91-4b63-819b-3c08b03e3172.png?v=1654795964"
+                  >
+                  <img
+                    class="without-seen-in"
+                    src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                    class="gallery__item lazy"
+                    alt="{{ image.alt | escape }}"
+                    data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                    data-srcset="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/WITH_AS_SEEN_IN.png?v=1631645130"
+                  >
+                {% endif %}
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                  class="thumbs__item-image lazy"
+                  alt="{{ image.alt | escape }}"
+                  data-src="{{ image | img_url: '200x200', crop: 'center' }}"
+                >
+              </div>
+            </div>
+            {% assign real_index = real_index | plus: 1 %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="product-container__side product-container__side--right">
+    <div class="product__part product__part--form">
+      <header class="product-header">
+        <h1 class="product-header__title h6">{{ section.settings.title }}</h1>
+        <h4 style="margin-bottom: 0;text-align: left;">{{ section.settings.subtitle }}</h4>
+        <div class="product-header__reviews" 1123>
+          {% assign backup = product %}
+          {% if product.handle == 'cereal' %}
+            {% assign product = all_products.cereal %}
+          {% elsif product.handle == 'keto-puffs' %}
+            {% assign product = all_products['keto-puffs'] %}
+          {% elsif product.handle == 'low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free' %}
+            {% assign product = all_products['low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free'] %}
+          {% elsif product.handle == 'keto-cheese-puffs-6-family-size-bags' %}
+            {% assign product = all_products['keto-cheese-puffs-6-family-size-bags'] %}
+          {% elsif product.handle contains 'wonder-monday' %}
+            {% assign product = product %}
+          {% else %}
+            {% assign product = all_products['keto-puffs'] %}
+          {% endif %}
+
+          <div data-oke-reviews-product-listing-rating>
+            {{ product.metafields.okendo.ProductListingSnippet }}
+          </div>
+          {% assign product = backup %}
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span><span class="sold-in-number">...</span> sold in the last 22 hours
+          </div>
+        </div>
+        {%- comment -%}
+          <div class="product-header__tagline">
+            {% assign tagline_items = section.settings.tagline | split: '|' %}
+            {% for item in tagline_items %}{{ item | strip }}{% unless forloop.last %}<span>&middot;</span>{% endunless %}{% endfor %}
+          </div>
+        {%- endcomment -%}
+
+        <div class="feature-highlights">
+          <img
+            src="{{ section.settings.feature_highlights | img_url: '600x' }}"
+            alt=""
+          >
+        </div>
+
+        <div class="cro_text cro_text_2">
+          <img
+            class="hide--desktop"
+            src="{{ section.settings.helen_quote_mobile | img_url: '1024x' }}"
+            alt="text 1"
+          >
+          <img
+            class="hide--mobile"
+            src="{{ section.settings.helen_quote | img_url: '1024x' }}"
+            alt="text 1"
+          >
+        </div>
+
+        <div class="product-header__description product-header__description-top">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when 'dynamic_description' -%}
+                {%- if product.handle == block.settings.product_handle -%}
+                  {%- assign description = block.settings.description -%}
+                {%- endif -%}
+            {%- endcase -%}
+          {% endfor %}
+          {{ description | default: section.settings.description }}
+        </div>
+      </header>
+
+      {% comment %} <span id="old_styl_pdp_form" 123>
+        {% include 'add-to-cart-form-growltv-cheesecake', product_type: 'puffs', section: section %}
+      </span> {% endcomment %}
+
+      <div class="product-option-row product-option-qty">
+        <div class="product-options" style="display: none;">
+          <div
+            class="product-option product-option--selected"
+            data-variant-id="40218249723992"
+            data-variant-qty="1"
+          >
+            <div class="product-option__wrapper">
+              <input
+                type="radio"
+                name="option-select"
+                id="qty-option1"
+                class="visually-hidden"
+              >
+              <label for="qty-option1" class="product-option__label">
+                <span class="qty-title">1-Box</span>
+                <span class="qty-description">$9.99 / Bag</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%}
+        {% include 'beta-tester' %}
+      {%- endcomment -%}
+
+      <div class="cookie-form-text-wrap">
+        <div class="cookie-text">
+          <strong>Only <span>$7.08</span> per cake</strong>
+        </div>
+        <div class="price-wrap">
+          <span class="price"><strong>$85.00</strong></span>
+        </div>
+      </div>
+
+      <button
+        name="button"
+        id="add-to-cart"
+        type="submit"
+        class="btn btn-max-sweet-atc"
+        value=""
+        data-product-id="{{ product.selected_or_first_available_variant.id }}"
+      >
+        Add to Cart
+      </button>
+
+      <div class="product-disclaimer">
+        <div class="accordion-wrap" style="margin-top: 25px;">
+          {% for block in section.blocks %}
+            {% if block.type == 'faq' %}
+              <div class="accordion-panel">
+                <h3 class="accordion-header">
+                  <span>{{ block.settings.faq_title }}</span>
+                  <span>{% render 'arrow-down' %}</span>
+                </h3>
+                <div class="accordion-body">
+                  {{ block.settings.faq_content }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <script id="variant__defaults" type="application/json">
+    {
+      "variety": {{ section.settings.variety_default_selected | json }},
+      "bundle": {{ section.settings.bundle_default_selected | json }},
+      "single": {{ section.settings.single_default_selected | json }},
+      "single-sm": {{ section.settings.singlesm_default_selected | json }}
+    }
+  </script>
+  <script id="variant__flavor_limits" type="application/json">
+    {% assign bundles = section.blocks | where: "type", "bundle" %}
+    {
+    {% for bundle in bundles %}
+      {%- if bundle.type == "bundle" -%}
+      "{{bundle.settings.value}}": {{bundle.settings.flavor_limit}}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {% endfor %}
+    }
+  </script>
+  {%- if product.metafields.subscriptions.subscription_id -%}
+    <script type="application/json" id="variant_per_bag">
+      {% assign first = true %}
+      {% for option in product.options %}
+        {% assign option_dc =  option | downcase %}
+        {% if option_dc == "size" %}
+          {% assign oindex = forloop.index0 %}
+          {
+            {% for variant in product.variants %}
+              {% assign opt_value = variant.options[ oindex ] | times: 1.0 %}
+              {% if opt_value > 0 %}
+                {% assign once_price =  variant.price | divided_by: opt_value %}
+                {% assign subs_price =  variant.metafields.subscriptions.discount_variant_price | replace: ".", ""  | divided_by: opt_value %}
+                {% if first %}{% assign first = false %}{% else %},{% endif %}
+                "{{ variant.id }}": {
+                  {% if is_alternate_template %}
+                  "once":	"<span>{{ once_price | money }}</span>/bag",
+                  "subs":	"<span>{{ subs_price | money }}</span>/bag"
+                  {% else %}
+                  "once":	"<span>Only</span> <span>{{ once_price | money }}</span> per bag",
+                  "subs":	"<span>Only</span> <span>{{ subs_price | money }}</span> per bag"
+                  {% endif %}
+                }
+              {% endif %}
+            {% endfor %}
+          }
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </script>
+  {%- endif -%}
+  {% assign canada_product = all_products['copy-of-new-keto-cheese-puffs-3'] %}
+  {%- if canada_product.metafields.subscriptions.subscription_id -%}
+    <script type="application/json" id="variant_per_bag_canada">
+      {% assign first = true %}
+      {% for option in canada_product.options %}
+        {% assign option_dc =  option | downcase %}
+        {% if option_dc == "size" %}
+          {% assign oindex = forloop.index0 %}
+          {
+            {% for variant in canada_product.variants %}
+              {% assign opt_value = variant.options[ oindex ] | times: 1.0 %}
+              {% if opt_value > 0 %}
+                {% assign once_price =  variant.price | divided_by: opt_value %}
+                {% assign subs_price =  variant.metafields.subscriptions.discount_variant_price | replace: ".", ""  | divided_by: opt_value %}
+                {% if first %}{% assign first = false %}{% else %},{% endif %}
+                "{{ product.variants[forloop.index0].id }}": {
+                  {% if is_alternate_template %}
+                  "once":	"<span>{{ once_price | money }}</span>/bag",
+                  "subs":	"<span>{{ subs_price | money }}</span>/bag"
+                  {% else %}
+                  "once":	"<span>Only</span> <span>{{ once_price | money }}</span> per bag",
+                  "subs":	"<span>Only</span> <span>{{ subs_price | money }}</span> per bag"
+                  {% endif %}
+                }
+              {% endif %}
+            {% endfor %}
+          }
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </script>
+  {%- endif -%}
+  {% assign new_product = all_products['new-keto-cheese-puffs-7'] %}
+  {%- if new_product.metafields.subscriptions.subscription_id -%}
+    <script type="application/json" id="variant_per_bag_12">
+      {% assign first = true %}
+      {% for option in new_product.options %}
+        {% assign option_dc =  option | downcase %}
+        {% if option_dc == "size" %}
+          {% assign oindex = forloop.index0 %}
+          {
+            {% for variant in new_product.variants %}
+              {% assign opt_value = variant.options[ oindex ] | times: 1.0 %}
+              {% if opt_value > 0 %}
+                {% assign once_price =  variant.price | divided_by: opt_value %}
+                {% assign subs_price =  variant.metafields.subscriptions.discount_variant_price | replace: ".", ""  | divided_by: opt_value %}
+                {% if first %}{% assign first = false %}{% else %},{% endif %}
+                "{{ product.variants[forloop.index0].id }}": {
+                  {% if is_alternate_template %}
+                  "once":	"<span>{{ once_price | money }}</span>/bag",
+                  "subs":	"<span>{{ subs_price | money }}</span>/bag"
+                  {% else %}
+                  "once":	"<span>Only</span> <span>{{ once_price | money }}</span> per bag",
+                  "subs":	"<span>Only</span> <span>{{ subs_price | money }}</span> per bag"
+                  {% endif %}
+                }
+              {% endif %}
+            {% endfor %}
+          }
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </script>
+  {%- endif -%}
+</div>
+
+{% if template contains 'product' or template.suffix == 'puffs' or template.suffix == 'cereal' %}
+  <div class="best-macros">
+
+    <div style="padding: 50px 0;">
+      <img class="img-table" src="{{ section.settings.best_macros | img_url: '2000x' }}" alt="">
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product Upper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_highlights",
+      "label": "Feature Highlights"
+    },
+    {
+      "type": "image_picker",
+      "id": "helen_quote",
+      "label": "Helen Quote"
+    },
+    {
+      "type": "image_picker",
+      "id": "helen_quote_mobile",
+      "label": "Helen Quote Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "today_only",
+      "label": "Today Only"
+    },
+    {
+      "type": "image_picker",
+      "id": "best_macros",
+      "label": "Best Macros"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Must match the variant Type option exactly. i.e. - 'bundle' or 'variety'"
+        },
+        {
+          "type": "text",
+          "id": "flavor_limit",
+          "label": "Flavor Limit",
+          "info": "How many flavors can be selected?"
+        },
+        {
+          "type": "checkbox",
+          "id": "default",
+          "label": "Default selected?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_out",
+          "label": "Mark as sold out?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "flavor",
+      "name": "Flavor",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "swatch_image",
+          "label": "Swatch Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "new",
+          "label": "Mark as new?",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_out",
+          "label": "Mark as sold out?",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "dynamic_description",
+      "name": "Dynamic Description",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Product Handle",
+          "info": "Must match the product handle you want it visible on"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faq_title",
+          "label": "FAQ Title"
+        },
+        {
+          "type": "html",
+          "id": "faq_content",
+          "label": "FAQ Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

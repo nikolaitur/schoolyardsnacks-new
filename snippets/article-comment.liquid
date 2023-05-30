@@ -1,0 +1,27 @@
+<!-- /snippets/comment.liquid -->
+<div class="comment__meta">
+  {% assign published_date = comment.created_at | time_tag: format: 'month_day_year' %}        
+  {% if article.handle == 'recipes/keto-peanut-butter-crunch-brownies' %}
+    {% assign published_date = 'April 23, 2021' %}
+  {% endif %}
+  {% if article.handle == 'recipes/keto-cheddar-puff-mac-n-cheese' %}
+    {% assign published_date = 'April 20, 2021' %}
+  {% endif %}
+  {% if article.handle == 'recipes/keto-cereal-bars' %}
+    {% assign published_date = 'Jun 7, 2022' %}
+  {% endif %}
+  {% if article.handle == 'recipes/keto-cinnamon-crunch-donuts' %}
+    {% assign published_date = 'May 31, 2021' %}
+  {% endif %}
+  {% if article.handle == 'behind-the-scenes/i-hacked-the-keto-diet-for-2-years-then-i-helped-200-000-others-do-the-same' %}
+    {% assign published_date = 'May 3, 2021' %}
+  {% endif %}
+  {% if article.handle == 'blog/we-re-selling-out-too-quickly-we-hear-you' %}
+    {% assign published_date = 'May 9, 2021' %}
+  {% endif %}
+  <span class="comment__meta-item">{{ published_date }}</span>
+  <span class="comment__meta-item comment__meta-item--author">{{ comment.author }}</span>
+</div>
+<div class="comment__content rte">
+  {{ comment.content }}
+</div>

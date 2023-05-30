@@ -1,0 +1,58 @@
+{% assign _set = section.settings %}
+
+{% if _set.upsell_product1 != blank %}
+{% assign upsell_product = all_products[_set.upsell_product1] %}
+    <div class="product-pre-upsell cart-upsell-element hide--item" id="preCartUpsell1" data-product-variant="">
+    {% if upsell_product %}
+        <div class="onetime_upsell_add" 
+        data-product-id="{{ upsell_product.variants[0].id }}"
+        >
+        <span class="upsell_badge">
+            <span class="icon_1"></span>
+            <span class="icon_2"></span>
+        </span>
+        <div class="cart-drawer__item-image">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ upsell_product.featured_image | img_url: '60x' }}" alt="{{ upsell_product.variant_title }}" />
+          </div>
+        <p class="upsell_title">{{ upsell_product.title }}<span class="price-wrap"><span class="ik-compare_price">{{ upsell_product.compare_at_price | money }}</span><span class="ik-price">{{ upsell_product.price | money }}</span></span><span class="spinner"></span></p></div>
+    {% endif %}
+    </div>
+{% endif %}
+
+{% if _set.upsell_product2 != blank %}
+{% assign upsell_product = all_products[_set.upsell_product2] %}
+    <div class="product-pre-upsell cart-upsell-element hide--item" id="preCartUpsell2" data-product-variant="">
+    {% if upsell_product %}
+        <div class="onetime_upsell_add" 
+        data-product-id="{{ upsell_product.variants[0].id }}"
+        >
+        <span class="upsell_badge">
+            <span class="icon_1"></span>
+            <span class="icon_2"></span>
+        </span>
+        <div class="cart-drawer__item-image">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ upsell_product.featured_image | img_url: '60x' }}" alt="{{ upsell_product.variant_title }}" />
+          </div>
+        <p class="upsell_title">{{ upsell_product.title }}<span class="price-wrap"><span class="ik-compare_price">{{ upsell_product.compare_at_price | money }}</span><span class="ik-price">{{ upsell_product.price | money }}</span></span><span class="spinner"></span></p></div>
+    {% endif %}
+    </div>
+{% endif %}
+<!-- Subscription product upsell -->
+{% if _set.upsell_product3 != blank %}
+{% assign upsell_product = all_products[_set.upsell_product3] %}
+    <div class="product-pre-upsell cart-upsell-element" id="preCartUpsell3" data-product-variant="" data-product-title="{{ upsell_product.title }}" data-product-handle="{{ upsell_product.handle }}">
+    {% if upsell_product %}
+        <div class="sub_upsell_add" 
+        data-product-id="{{ upsell_product.selected_or_first_available_variant.metafields.subscriptions.discount_variant_id  }}"
+        data-product-frequency="{{ upsell_product.metafields.subscriptions.shipping_interval_frequency }}"
+        data-product-unit_type="{{ upsell_product.metafields.subscriptions.shipping_interval_unit_type }}"
+        >{{ _set.subscription_text }}<span class="spinner"></span>
+        <span class="upsell_badge">
+            <span class="icon_1"></span>
+            <span class="icon_2"></span>
+        </span>
+    </div>
+    {% endif %}
+    </div>
+{% endif %}
+

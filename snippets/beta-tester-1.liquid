@@ -1,0 +1,22 @@
+{% assign _set = section.settings %}
+{% if _set.upsell_product1 != blank %}
+{% endif %}
+
+{% assign upsell_product = all_products["beta-tester-1"] %}
+<div class="beta-tester-wrap new" data-product-variant="">
+  {% if upsell_product %}
+  <div class="onetime_upsell_add beta_tester_add" data-product-id="{{ upsell_product.variants[0].id }}">
+    <span class="upsell_badge">
+      <span class="icon_1"></span>
+      <span class="icon_2"></span>
+    </span>
+    <p class="text-content">
+      <span class="content_title">Become a Beta Tester $5</span>
+      <span class="content_text">
+        Early access to new Schoolyard Snacks flavor releases, Beta Tester Facebook community, and get a $10
+        Gift Card.
+      </span>
+    </p>
+  </div>
+  {% endif %}
+</div>

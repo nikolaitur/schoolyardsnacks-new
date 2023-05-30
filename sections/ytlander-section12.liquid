@@ -1,0 +1,32 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="t-content">{{ section.settings.content1 }}</div>
+  <div class="image-wrap">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/A.png?v=1632425585" alt="A image">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/B_e1f0bc1f-43f1-4264-85a2-b92b7b32a5b5.png?v=1632425585" alt="B image">
+  </div>
+  <div class="t-content">{{ section.settings.content2 }}</div>
+</div>
+{% schema %}
+{
+  "name": "YT Lander 12",
+  "class": "ytlander-12 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content1",
+      "label": "Content 1"
+    },
+    {
+      "type": "richtext",
+      "id": "content2",
+      "label": "Content 2"
+    }
+  ]
+}
+{% endschema %}

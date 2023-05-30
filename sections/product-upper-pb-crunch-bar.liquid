@@ -1,0 +1,315 @@
+<div class="product-headline">
+  <span>{{ section.settings.headline }}</span>
+</div>
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+  <div class="product-container__side product-container__side--left">
+    <div class="product__part product__part--gallery">
+      <div class="gallery swiper-container">
+        <div class="swiper-wrapper">
+          {% assign image_index = 0 %}
+          {% for image in product.images %}
+            {% if image.alt == "thumb_invisible" %}
+              {% continue %}
+            {% endif %}
+            <div class="swiper-slide" data-index="{{ image_index }}">
+              <div class="gallery__item-wrapper">
+                {% comment %}<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }} 1x, {{ image | img_url: '1120x' }} 2x" />{% endcomment %}
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                  class="gallery__item lazy"
+                  alt="{{ image.alt | escape }}"
+                  data-src="{{ image | img_url: '560x' }}"
+                  data-srcset="{{ image | img_url: '600x' }}"
+                >
+              </div>
+            </div>
+            {% assign image_index = image_index | plus: 1 %}
+          {% endfor %}
+        </div>
+        <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'next' %}
+        </div>
+        <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">
+          {% include 'icon', handle: 'prev' %}
+        </div>
+      </div>
+      <div class="thumbs">
+        {% assign image_index = 0 %}
+        {% for image in product.images %}
+          {% if image.alt == "thumb_invisible" %}
+            {% continue %}
+          {% endif %}
+          <div class="thumbs__item" data-index="{{ image_index }}">
+            <div class="thumbs__item-image-wrapper">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                class="thumbs__item-image lazy"
+                alt="{{ image.alt | escape }}"
+                data-src="{{ image | img_url: '200x200', crop: 'center' }}"
+              >
+            </div>
+          </div>
+          {% assign image_index = image_index | plus: 1 %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="product-container__side product-container__side--right">
+    <div class="product__part product__part--form">
+      <header class="product-header">
+        <h1 class="product-header__title h6">
+          {{ section.settings.title }}
+        </h1>
+        <h4 style="text-align: left;">{{ section.settings.subtitle }}</h4>
+        <div class="product-header__reviews">
+          <div data-oke-reviews-product-listing-rating>
+            {{ product.metafields.okendo.ProductListingSnippet }}
+          </div>
+
+          <div class="sold-in">
+            {% assign min = 30 %}
+            {% assign max = 50 %}
+            {% assign diff = max | minus: min %}
+            {% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+            <span class="sold-in-emoji">🔥 </span> {{ randomNumber }} sold in
+            the last 22 hours
+          </div>
+        </div>
+        <div class="product-header__tagline">
+          {% assign tagline_items = section.settings.tagline | split: '|' %}
+          {% for item in tagline_items -%}
+            {{- item | strip -}}
+            {%- unless forloop.last -%}
+              <span>&middot;</span>
+            {%- endunless -%}
+          {%- endfor %}
+        </div>
+
+        <div class="feature-highlights">
+          <img
+            src="{{ section.settings.feature_highlights | img_url: '600x' }}"
+            alt=""
+          >
+        </div>
+
+        <div class="cro_text cro_text_1">
+          <img
+            class="hide--desktop"
+            src="{{ section.settings.helen_quote_mobile | img_url: '1024x' }}"
+            alt="text 1"
+          >
+          <img
+            class="hide--mobile"
+            src="{{ section.settings.helen_quote | img_url: '1024x' }}"
+            alt="text 1"
+          >
+        </div>
+      </header>
+
+      <div class="product-header__description product-header__description-top">
+        {%- assign description = "" -%}
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when "dynamic_description" -%}
+              {%- if product.handle == block.settings.product_handle -%}
+                {%- assign description = block.settings.description -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {% endfor %}
+        {{ description | default: section.settings.description }}
+      </div>
+
+      <div class="today_only_line ik-today-only1" style="margin-bottom: 20px;">
+        <img src="{{ section.settings.today_only | img_url: '800x' }}" alt="today only">
+      </div>
+
+      {% include 'add-to-cart-form-growltv-crunch', section: section %}
+
+      <div class="accordion-wrap" style="margin-top: 25px;">
+        {% for block in section.blocks %}
+          {% if block.type == 'faq' %}
+            <div class="accordion-panel">
+              <h3 class="accordion-header">
+                <span>{{ block.settings.faq_title }}</span>
+                <span>{% render 'arrow-down' %}</span>
+              </h3>
+              <div class="accordion-body">
+                {{ block.settings.faq_content }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <script id="variant__defaults" type="application/json">
+      {
+        "variety": {{ section.settings.variety_default_selected | json }},
+        "bundle": {{ section.settings.bundle_default_selected | json }},
+        "single": {{ section.settings.single_default_selected | json }},
+        "single-sm": {{ section.settings.singlesm_default_selected | json }}
+      }
+    </script>
+    <script id="variant__flavor_limits" type="application/json">
+      {% assign bundles = section.blocks | where: "type", "bundle" %}
+      {
+      {% for bundle in bundles %}
+        {%- if bundle.type == "bundle" -%}
+        "{{bundle.settings.value}}": {{bundle.settings.flavor_limit}}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {% endfor %}
+      }
+    </script>
+
+    {%- if product.metafields.subscriptions.subscription_id -%}
+      <script type="application/json" id="variant_per_bag">
+        {% assign first = true %}
+        {% for option in product.options %}
+          {% assign option_dc =  option | downcase %}
+          {% if option_dc == "size" %}
+            {% assign oindex = forloop.index0 %}
+            {
+              {% for variant in product.variants %}
+                {% assign opt_value = variant.options[ oindex ] | times: 1.0 %}
+                {% if opt_value > 0 %}
+                  {% assign once_price =  variant.price | divided_by: opt_value %}
+                  {% assign subs_price =  variant.metafields.subscriptions.discount_variant_price | replace: ".", ""  | divided_by: opt_value %}
+                  {% if first %}{% assign first = false %}{% else %},{% endif %}
+                  "{{ variant.id }}": {
+                    {% if is_alternate_template %}
+                    "once":	"<span>{{ once_price | money }}</span>/bag",
+                    "subs":	"<span>{{ subs_price | money }}</span>/bag"
+                    {% else %}
+                    "once":	"<span>Only</span> <span>{{ once_price | money }}</span> per bag",
+                    "subs":	"<span>Only</span> <span>{{ subs_price | money }}</span> per bag"
+                    {% endif %}
+                  }
+                {% endif %}
+              {% endfor %}
+            }
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      </script>
+    {%- endif -%}
+  </div>
+
+  <div class="best-macros">
+    <div class="best-macros-heading container">
+      <img
+        class="blob-img1"
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/airplane_400x_6c1c7471-6254-44a1-ad42-36ee5896672a_400x_1.png?v=1643036442"
+        alt="blob1"
+      >
+      <h1 class="section-title center">The Best Macros On The Market</h1>
+      <img
+        class="blob-img2"
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/heart-arrow_160x_d92dcec0-7417-4a72-a1fa-88ca96ecd505.png?v=1643036453"
+        alt="blob2"
+      >
+    </div>
+    <img class="img-table" style="margin: 50px 0;" src="{{ section.settings.best_macros | img_url: '2000x' }}" alt="">
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $("#cereal_popup").click(function() {
+        alert();
+      });
+    });
+  </script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"
+  >
+  </script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"
+  >
+  {% schema %}
+  {
+    "name": "Product Upper",
+    "settings": [
+      {
+        "type": "text",
+        "id": "headline",
+        "label": "Headline"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_highlights",
+        "label": "Feature Highlights"
+      },
+      {
+        "type": "image_picker",
+        "id": "helen_quote",
+        "label": "Helen Quote"
+      },
+      {
+        "type": "image_picker",
+        "id": "helen_quote_mobile",
+        "label": "Helen Quote Mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "today_only",
+        "label": "Today Only"
+      },
+      {
+        "type": "image_picker",
+        "id": "best_macros",
+        "label": "Best Macros"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "dynamic_description",
+        "name": "Dynamic Description",
+        "settings": [
+          {
+            "type": "text",
+            "id": "product_handle",
+            "label": "Product Handle",
+            "info": "Must match the product handle you want it visible on"
+          },
+          {
+            "type": "html",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "name": "FAQ Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "faq_title",
+            "label": "FAQ Title"
+          },
+          {
+            "type": "html",
+            "id": "faq_content",
+            "label": "FAQ Content"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+</div>

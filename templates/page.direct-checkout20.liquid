@@ -1,0 +1,32 @@
+<style>
+  #shopify-section-header,
+  #shopify-section-footer {
+    display: none;
+  }
+</style>
+
+{% render 'progress-bar' %}
+
+<script>
+  setTimeout(function () {
+    $.post('/cart/clear.js').always(function () {
+      $.post('/cart/add.js', {
+        items: [
+          {
+            quantity: 1,
+            id: 40139981291608,
+          },
+          {
+            quantity: 1,
+            id: 39986242060376,
+          },
+        ],
+      })
+        .done(function () {})
+        .fail(function () {})
+        .always(function () {
+          document.location.href = '/checkout?discount=SPOOKY15';
+        });
+    });
+  }, 3000);
+</script>

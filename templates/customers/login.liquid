@@ -1,0 +1,21 @@
+{% layout none %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting...</title>
+  <script>
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    const checkout_url = params.checkout_url;
+    if (checkout_url) {
+      window.location.replace('/a/account/login?checkout_url=' + checkout_url);    
+    } else {
+      window.location.replace('/a/account/login');
+    }
+  </script>  
+</head>
+<body>
+  
+</body>
+</html>

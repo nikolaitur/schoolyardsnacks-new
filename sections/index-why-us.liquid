@@ -1,0 +1,97 @@
+
+<h2 class="section-title">{{ section.settings.title }}</h2>
+<div class="blocks-wrap">
+  {% for block in section.blocks %}
+    <div class="block-item {% if block.settings.image_on_left == true %}reverse{% endif %}">
+      <div class="text-wrap">
+        <div class="contents">
+          <div class="block-index">{{ forloop.index }}</div>
+          <div class="block-title">{{ block.settings.title }}</div>
+          <div class="block-subtitle">
+            <div class="less_content">
+              {{ block.settings.less_content }}
+            </div>
+            <div class="more_content" style="display: none;">
+              {{ block.settings.more_content }}
+            </div>
+          </div>
+          <a href="#" class="btn_read_more">Read more</a>
+          <a href="#" class="btn_read_less" style="display: none;">Read less</a>
+        </div>
+      </div>
+      <div class="image-wrap">
+        {% if forloop.first %}
+          <video class="why-us-first-video" playsinline="" autoplay="" loop="" muted="" style="display: none;"><source type="video/mp4" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/t/338/assets/homepage_puffs_1600x.mp4?v=16281218839011430086"></video>
+          <img class="why-us-first-image" src="//cdn.shopify.com/s/files/1/0048/4330/7123/files/productpage_768x.png?v=1629704732" alt="why us"/>
+        {% else %}
+          {% if block.settings.video_link != blank %}
+            <video playsinline="" autoplay="" loop="" muted=""><source type="video/mp4" src="{{ block.settings.video_link }}"></video>
+          {% else %}
+            <img src="{{ block.settings.image | img_url: '768x' }}" alt="why us"/>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  <div class="fifty-fifty__actions">        
+    <a class="btn" href="/products/cereal">Shop Cereal</a>  
+    <a class="btn" href="/products/keto-puffs">Shop Cheese Puffs</a>  
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Why Us",
+  "class": "why-us-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image and Text",
+      "type": "image_with_text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "less_content",
+          "label": "Less Content"
+        },
+        {
+          "type": "richtext",
+          "id": "more_content",
+          "label": "More Content"
+        },
+        {
+          "type": "text",
+          "id": "video_link",
+          "label": "video Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "image_on_left",
+          "label": "Image on Reft?"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why us",
+      "category": "custom section"
+    }
+  ]
+}
+{% endschema %}

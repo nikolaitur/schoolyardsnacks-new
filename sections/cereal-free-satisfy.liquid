@@ -1,0 +1,59 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="image-and-text-wrap">
+    <div class="content-wrap">
+      <div class="list-items">
+        {% for block in section.blocks %}
+          <div class="list-item">
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/check.png?v=1645884635" class="tick-mark" alt="tick-mark">
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {% endfor %}
+      </div>
+      <div>{{ section.settings.content }}</div>
+    </div>
+    <div class="image-wrap">
+      <img src="{{ section.settings.image | img_url: '768x' }}" alt="main-image">
+    </div>
+  </div>
+  <a href="#" class="btn btn-flavor-select">Try 4 Flavors For FREE</a>
+  <div class="product-disclaimer">
+    <p><strong>We’ll Pay For It, You Cover Shipping</strong><br>Limited time only (while supplies last)</p>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Cereal Free Satisfy",
+  "class": "cereal-free-satisfy ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "list_item",
+      "name": "List Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

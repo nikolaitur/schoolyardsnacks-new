@@ -1,0 +1,607 @@
+{% assign product = all_products[settings.product_id] %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="probundle-sec" id="bundle">
+  {% assign product_handle = product.handle | downcase %}
+  {% if product.handle == 'keto-cheese-puffs' %}
+  {% assign is_alternate_template = true %}
+  {% endif %}
+  {% if request.path contains 'free-gift' %}
+  {% assign is_free_gift_template = true %}
+  {% endif %}
+
+  <div class="enclose">
+    <div class="inn">
+      <div class="figure">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/bundle-img.png?v=1601552089" alt="image">
+      </div>
+
+      <div class="content">
+        <div class="product__part product__part--form">
+          <header class="product-header">
+            
+            <div class="review">
+              {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge' %}
+               &nbsp; <span class="tbar">|</span> &nbsp; 
+              <span class="sold-in-emoji">🔥</span><span class="sold-in-number">...</span> sold in the last 22 hours              
+            </div>
+            <div class="product-header__tagline" style="display:none;">
+              {% assign tagline_items = section.settings.tagline | split: '|' %}
+              {% for item in tagline_items %}{{ item | strip }}{% unless forloop.last %}<span>&middot;</span>{% endunless %}{% endfor %}
+            </div>
+            <div class="product-header__description" style="display:none;">
+              {%- assign description = "" -%}
+              {% for block in section.blocks %}
+              {%- case block.type -%}
+              {%- when "dynamic_description" -%}
+              {%- if product.handle == block.settings.product_handle -%}
+              {%- assign description = block.settings.description -%}
+              {%- endif -%}    
+              {%- endcase -%}
+              {% endfor %}
+              {{ description | default: section.settings.description }}
+            </div>
+          </header>
+
+          {% if section.settings.all_flavors_sold_out %}
+          {% include 'add-to-cart-sold-out' %}
+          {% else %}
+          {% include 'add-to-cart-form', product_type: "puffs" %}
+          {% endif %}
+
+          <div class="product-disclaimer">
+            {{ section.settings.disclaimer }}
+          </div>
+        </div>
+      </div>
+      <script id="variant__defaults" type="application/json">
+    {
+      "variety": {{ section.settings.variety_default_selected | json }},
+      "bundle": {{ section.settings.bundle_default_selected | json }},
+      "single": {{ section.settings.single_default_selected | json }},
+      "single-sm": {{ section.settings.singlesm_default_selected | json }}
+    }
+      </script>
+      <script id="variant__flavor_limits" type="application/json">
+    {% assign bundles = section.blocks | where: "type", "bundle" %}
+    {
+    {% for bundle in bundles %}
+      {%- if bundle.type == "bundle" -%}
+      "{{bundle.settings.value}}": {{bundle.settings.flavor_limit}}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {% endfor %}
+    }
+      </script>
+      {%- if product.metafields.subscriptions.subscription_id -%}
+      <script type="application/json" id="variant_per_bag">
+      {% assign first = true %}
+      {% for option in product.options %}
+        {% assign option_dc =  option | downcase %}
+        {% if option_dc == "size" %}
+          {% assign oindex = forloop.index0 %}
+          {
+            {% for variant in product.variants %}
+              {% assign opt_value = variant.options[ oindex ] | times: 1.0 %}
+              {% if opt_value > 0 %}
+                {% assign once_price =  variant.price | divided_by: opt_value %}
+                {% assign subs_price =  variant.metafields.subscriptions.discount_variant_price | replace: ".", ""  | divided_by: opt_value %}
+                {% if first %}{% assign first = false %}{% else %},{% endif %}
+                "{{ variant.id }}": {
+                  {% if is_alternate_template %}
+                  "once":	"<span>{{ once_price | money }}</span>/bag",
+                  "subs":	"<span>{{ subs_price | money }}</span>/bag"
+                  {% else %}
+                  "once":	"<span>Only</span> <span>{{ once_price | money }}</span> per bag",
+                  "subs":	"<span>Only</span> <span>{{ subs_price | money }}</span> per bag"
+                  {% endif %}
+                }
+              {% endif %}
+            {% endfor %}
+          }
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      </script>
+      {%- endif -%}
+    </div>
+  </div>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "brand": "{{ product.vendor }}",
+      "name": "{{ product.title }}",
+      "mainEntityOfPage": "{{ canonical_url }}",
+      "url": "{{ canonical_url }}",
+      "image": "https:{{ product.featured_image.src | img_url:'2000x' }}",
+      "description": "{{ product.description | escape | strip_html | strip_newlines }}",
+      "offers": [
+        {% for variant in product.variants %}
+        {
+          "@type": "Offer",
+          "priceCurrency": "{{ shop.currency }}",
+          "price": "{{ variant.price | money_without_currency }}",{% if variant.available %}
+          "availability": "http://schema.org/InStock",{% else %}
+          "availability": "http://schema.org/OutOfStock",{% endif %}
+          "sku": "{{ variant.sku }}",
+          "seller": {
+            "@type": "Organization",
+            "name": "{{ shop.name }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+
+  {% unless product == empty %}
+  <script type="application/json" id="product__json">{{ product | json }}</script>
+  <script type="application/json" id="current_variant__json">{{ product.selected_variant | json }}</script>
+  {% endunless %}
+</div>
+{% include 'klaviyo-viewed-product' %}
+<script>
+  $(window).load(function(){
+    $('.product-option--flavor:nth-child(1) img').attr('src','{{ 'flavor1.png' | asset_url }}');
+    $('.product-option--flavor:nth-child(2) img').attr('src','{{ 'flavor2.png' | asset_url }}');
+    $('.product-option--flavor:nth-child(3) img').attr('src','{{ 'flavor4.png' | asset_url }}');
+    
+    
+    setTimeout(function(){ 
+      var a = $('#rc_price_autodeliver').text();
+      var b = $('#slash_price_subscription').text();
+      var c = $('.per-bag--subs').html();
+      var str = '<div class="price">'+a+'<span>'+b+'</span></div>';
+      var str1 = '<strong>'+c+'</strong>';
+      $('.product-action').append(str);
+      $('.product-options--bundles .product-option--bundle.product-option--selected .product-option__wrapper label').append(str1);
+      $('.product-disclaimer p').html('<strong>30 Day Money Back Guarantee!</strong>');
+      var $select = $('.rc_select__frequency');
+      $select.val("30");
+    }, 100);
+
+    $(".product__part--form form .note").css("display", "block");
+    {% comment %} $(".rc_label__onetime").text("Single Purchase");
+    $(".rc_label__autodeliver").text("Subscribe");
+    $(".rc_label__autodeliver").append("<span class='rc_sale'>10% off</span>");
+    {% endcomment %}
+
+    $(".rc_label").click(function() {
+      if($(this).parent().hasClass("rc_block__type__autodeliver")) {
+        $(".product__part--form form .note").css("display", "block");
+      } else {
+        $(".product__part--form form .note").css("display", "none");
+      }
+    });
+
+    $('.product-options--bundles .product-option--bundle .product-option__wrapper label').click(function () {
+      setTimeout(function(){
+        $('.product-action .price').remove();
+        $('.product-options--bundles .product-option--bundle .product-option__wrapper label strong').remove();
+        var a = $('#rc_price_autodeliver').text();
+        var b = $('#slash_price_subscription').text();
+        var c = $('.per-bag--subs').html();
+        var str = '<div class="price">'+a+'<span>'+b+'</span></div>';
+        var str1 = '<strong>'+c+'</strong>';
+        $('.product-action').append(str);
+        $('.product-options--bundles .product-option--bundle.product-option--selected .product-option__wrapper label').append(str1);
+      }, 100);
+    });
+  });
+</script>
+<style type="text/css">
+  #product-select,
+  .product-option__new-flag, .rc_label span {
+    display:none;
+  }
+  .product-option-row .option-name{
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight:700;
+  }
+  .product-options--bundles{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .product-options--bundles .product-option--bundle{
+    margin-bottom: 20px;
+    max-width: calc(50% - 10px);
+    min-width: calc(50% - 10px);
+    position: relative;
+  }
+  .product-options--bundles .product-option--bundle .product-option__wrapper label{
+    display: block;
+    position: relative;
+    background: #d7f4f2;
+    padding: 8px 8px 8px 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    cursor: pointer;
+  }
+  .product-options--bundles .product-option--bundle.product-option--selected .product-option__wrapper label{
+    background: #a0e3e0;
+  }
+  .product-options--bundles .product-option--bundle .product-option__wrapper label:before{
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    content: '';
+    left: 8px;
+    top: 8px;
+  }
+  .product-options--bundles .product-option--bundle.product-option--selected .product-option__wrapper label:after{
+	  width: 14px;
+    height: 14px;
+    background: #ff595a;
+    border-radius: 4px;
+    position: absolute;
+    content: '';
+    left: 13px;
+    top: 13px;
+  }
+  .product-options--bundles .product-option--bundle .product-option__wrapper input,
+  .product-options--flavors .product-option--flavor input{
+    position:absolute;
+    width:1px;
+    height:1px;
+    opacity:0;
+  }
+  .product-options--bundles .product-option--bundle .product-option__wrapper label strong{
+    font-size: 13px;
+    font-weight: 600;
+    padding-top: 5px;
+    line-height: 1;
+    display:block;
+  }
+  .product-options--flavors{
+    display: flex;
+    margin-bottom: 30px;
+  }
+  .product-options--flavors .product-option--flavor{
+    margin-right: 22px;
+    max-width: 100px;
+    position:relative;
+  }
+  .product-options--flavors .product-option--flavor label{
+    display:block;
+  }
+  .product-options--flavors .product-option--flavor label .product-option__title{
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 10px;
+  }
+  .product-options--flavors .product-option--flavor label .product-option__swatch{
+    border:2px solid #d1dadb;
+    border-radius:50%;
+    padding:3px;
+    position:relative;
+    cursor:pointer;
+  }
+  .product-options--flavors .product-option--flavor label .product-option__swatch img{
+    border-radius:50%;
+  }
+  .product-options--flavors .product-option--flavor label .product-option__swatch .product-option__swatch-selected{
+  	width: 24px;
+    height: 24px;
+    border-radius:12px;
+    background: #272b60;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display:none;
+  }
+  .product-options--flavors .product-option--flavor.product-option--selected label .product-option__swatch .product-option__swatch-selected{
+    display:block;
+  }
+  .product-options--flavors .product-option--flavor label .product-option__swatch .product-option__swatch-selected:after{
+    content: '';
+    transform: rotate(45deg);
+    height: 12px;
+    width: 8px;
+    border-bottom: 3px solid #fff;
+    border-right: 3px solid #fff;
+    top: 4px;
+    position: absolute;
+    left: 8px;
+  }
+  .product__part--form form .note p{
+    margin-bottom:15px;
+  }
+  .product-action{
+    display: flex;
+    align-items: center;
+    margin-bottom: 26px;
+  }
+  .product-action button{
+    background: #f95b5e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: 700;
+    border:0;
+    width: 300px;
+    height: 70px;
+    font-size: 20px;
+    cursor:pointer;
+  }
+  .product-action button.disabled{
+    pointer-events:none;
+    cursor:not-allowed;
+    opacity:0.5;
+  }
+  .product-action .price{
+    font-size: 40px;
+    font-weight: 700;
+    margin-left: 15px;
+  }
+  .product-action .price span{
+    text-decoration: line-through;
+    color: #656980;
+    font-size: 22px;
+    text-align: center;
+    margin-left:10px;
+  }
+  .sold-in-number{
+    margin-right:10px;
+    margin-left:10px;
+  }
+
+  #rc_radio_options {
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .note {
+    padding-bottom: 15px;
+  }
+
+  .rc_block__type {
+    border-radius: 0 !important;
+  }
+
+  .rc_block__type__onetime {
+    border-bottom: 1px solid #EEEEEE;
+  }
+
+  .rc_block__type__options {
+    display: none !important;
+  }
+
+  .rc_sale {
+    color: #FF9A49;
+    margin-left: 10px;
+    font-weight: 700;
+  }
+  
+  @media screen and (max-width: 640px){
+    .product-options--bundles .product-option--bundle {
+      max-width: 100%;
+      min-width: 100%;
+    }
+    .product-action{
+      flex-wrap: wrap;
+    }
+    .product-action .price{
+      margin:15px 0 0;
+    }
+    .product-action button{
+      width: 270px;
+      height: 60px;
+      font-size: 16px;
+    }
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Product Upper1",
+    "settings": [
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title",
+        "info":"Use a pipe (|) for a forced line break"
+      },
+      {
+        "type":"text",
+        "id":"tagline",
+        "label":"Tagline",
+        "info":"Use a pipe (|) to create dots between items",
+        "default":"Keto|Sugar Free|1g Net Carb|16g Protein"
+      },
+      {
+        "type":"richtext",
+        "id":"description",
+        "label":"Description"
+      },
+      {
+        "type":"text",
+        "id":"add_to_cart_text",
+        "label":"CTA Text",
+        "default":"Add to Cart"
+      },
+      {
+        "type":"text",
+        "id":"sold_out_text",
+        "label":"Sold Out Text",
+        "default":"Sold Out"
+      },
+      {
+        "type":"text",
+        "id":"click_to_be_notified_text",
+        "label":"Sold Out Notify CTA Text",
+        "default":"Click To Be Notified"
+      },
+      {
+        "type":"richtext",
+        "id":"disclaimer",
+        "label":"Disclaimer",
+        "info":"Displayed beneath the product CTA"
+      },
+      {
+        "type":"richtext",
+        "id":"all_flavors_sold_out_text",
+        "label":"All Flavors Sold Out Text",
+        "info":"Displayed instead of the checkout form when the option below is checked",
+        "default":"<p>Starts at $1.69 per bag</p>"
+      },
+      {
+        "type":"checkbox",
+        "id":"all_flavors_sold_out",
+        "label":"Show sold out message instead of form?",
+        "default": false
+      },
+      {
+        "type":"text",
+        "id":"bundle_label",
+        "label":"Bundle Label",
+        "default":"1. Select Bundle:"
+      },
+      {
+        "type":"text",
+        "id":"flavor_label",
+        "label":"Flavor Label",
+        "default":"2. Choose Flavors:"
+      },
+      {
+        "type":"text",
+        "id":"flavor_sold_out_label",
+        "label":"Flavor Sold Out Label",
+        "default":"Flavors:"
+      },
+      {
+        "type":"text",
+        "id":"frequency_label",
+        "label":"Frequency Label",
+        "default":"3. Select Frequency:"
+      },
+      {
+        "type":"textarea",
+        "id":"variety_default_selected",
+        "label":"Default Selected: variety",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"bundle_default_selected",
+        "label":"Default Selected: bundle",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"single_default_selected",
+        "label":"Default Selected: single",
+        "info":"Use a pipe (|) between items"
+      },
+      {
+        "type":"textarea",
+        "id":"singlesm_default_selected",
+        "label":"Default Selected: single-sm",
+        "info":"Use a pipe (|) between items"
+      }
+    ],
+    "blocks":[
+      {
+        "type":"bundle",
+        "name":"Bundle",
+        "settings":[
+          {
+            "type":"text",
+            "id":"title",
+            "label":"Label"
+          },
+          {
+            "type":"text",
+            "id":"value",
+            "label":"Value",
+            "info":"Must match the variant Type option exactly. i.e. - 'bundle' or 'variety'"
+          },
+          {
+            "type":"text",
+            "id":"flavor_limit",
+            "label":"Flavor Limit",
+            "info":"How many flavors can be selected?"
+          },
+          {
+            "type":"checkbox",
+            "id":"default",
+            "label":"Default selected?",
+            "default": false
+          },
+          {
+            "type":"checkbox",
+            "id":"sold_out",
+            "label":"Mark as sold out?",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type":"flavor",
+        "name":"Flavor",
+        "settings":[
+          {
+            "type":"text",
+            "id":"title",
+            "label":"Title"
+          },
+          {
+            "type":"image_picker",
+            "id":"swatch_image",
+            "label":"Swatch Image"
+          },
+          {
+            "type":"checkbox",
+            "id":"new",
+            "label":"Mark as new?",
+            "default": false
+          },
+          {
+            "type":"checkbox",
+            "id":"sold_out",
+            "label":"Mark as sold out?",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "dynamic_description",
+        "name": "Dynamic Description",
+        "settings": [
+          {
+            "type": "text",
+            "id": "product_handle",
+            "label": "Product Handle",
+            "info": "Must match the product handle you want it visible on"
+          },
+          {
+            "type": "html",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

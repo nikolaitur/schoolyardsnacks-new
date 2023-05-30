@@ -1,0 +1,116 @@
+{% assign form_class = product.type | handleize %}
+
+{% form 'product', product, id: 'add-to-cart-form', class: form_class, data-productid: product.id, data-cart-submit: true, data-pro-handle: product.handle %}
+ 
+  
+  <span style="font-size: 18px;">1 Case Includes 12 Single Serve Bags.</span>
+  <div class="product-option-row product-option-row--cereal1">    
+    <div class="scroll__content">
+      <div id="flavor-option-selector" class="new_bundle_style_2  product-options product-options--bundles">
+        <div class="product-option product-option--bundle">
+          <div class="product-option__wrapper no-badge">
+            {% assign variant = product.variants[0] %}
+            <input type="radio" name="single-option-select-bundle" id="swatch-1-{{ variant.id }}" data-discount="" value="{{ variant.id }}" class="single-option-select visually-hidden"/>
+            <label for="swatch-1-{{ variant.id }}" class="product-option__label">
+              <div class="cereal1-bundle-selector">
+                <div class="plan-info">
+                  <span style="font-weight: bold;">30 Day Keto Starter Plan</span>
+                  <span>1 Case Cocoa + 1 Case Peanut Butter</span>
+                </div>
+                <div class="price-info">
+                  <span class="original-price">{{ variant.compare_at_price | money }}</span>
+                  <span class="current-price">{{ variant.price | money }}</span>
+                </div>
+              </div>              
+            </label>
+          </div>
+        </div>
+        <div class="product-option product-option--bundle product-option--selected">
+          <div class="product-option__wrapper" data-badge="20% OFF">
+            {% assign variant = product.variants[1] %}
+            <input type="radio" name="single-option-select-bundle" id="swatch-1-{{ variant.id }}" data-discount="{{ variant.compare_at_price | minus: variant.price | money }}" value="{{ variant.id }}" class="single-option-select visually-hidden"/>
+            <label for="swatch-1-{{ variant.id }}" class="product-option__label">
+              <div class="cereal1-bundle-selector">
+                <div class="plan-info">
+                  <span style="font-weight: bold;">60 Day Stick With Keto Plan (Most Popular)</span>
+                  <span>2 Cases Cocoa + 2 Cases Peanut Butter</span>
+                </div>
+                <div class="price-info">
+                  <span class="original-price">{{ variant.compare_at_price | money }}</span>
+                  <span class="current-price">{{ variant.price | money }}</span>
+                </div>
+              </div>              
+            </label>
+          </div>
+        </div>
+        <div class="product-option product-option--bundle">
+          <div class="product-option__wrapper" data-badge="25% OFF">
+            {% assign variant = product.variants[2] %}
+            <input type="radio" name="single-option-select-bundle" data-discount="{{ variant.compare_at_price | minus: variant.price | money }}" id="swatch-1-{{ variant.id }}" value="{{ variant.id }}" class="single-option-select visually-hidden"/>
+            <label for="swatch-1-{{ variant.id }}" class="product-option__label">
+              <div class="cereal1-bundle-selector">
+                <div class="plan-info">
+                  <span style="font-weight: bold;">90 Day Cheat-proof Plan</span>
+                  <span>3 Cases Cocoa + 3 Cases Peanut Butter</span>
+                </div>
+                <div class="price-info">
+                  <span class="original-price">{{ variant.compare_at_price | money }}</span>
+                  <span class="current-price">{{ variant.price | money }}</span>
+                </div>
+              </div>              
+            </label>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+
+
+  
+
+
+
+  <input name="id" id="product-select" class="cereal1-variant-id" type="hidden" value="{{ product.variants.first.id }}" data-productid="{{product.id}}" />
+
+  
+
+  
+ 
+
+
+
+<div class="discount-action-wrap">
+  <div class="discount-info">
+    You Save<br>
+    {% assign discount_amount = product.variants[1].compare_at_price | minus: product.variants[1].price %}
+    <span class="discount-amount">{{ discount_amount | money }}</span>
+  </div>
+  <div a class="product-action{% if is_alternate_template %} product-action--alternate{% endif %}">
+    {% comment %}We're not letting them edit quantity here, but we still need to send 1 to the form{% endcomment %}
+    <input type="hidden" name="quantity" value="1" />
+    {% if product.tags contains 'SkipCart' %}
+    {% endif %}
+      <button name="button" id="add-to-cart" type="submit" class="btn btn--block puff-add-to-cart loadAtc candy {% if product.handle == 'keto-puffs' %}keto-puff-add-to-cart{%endif %} non-prepay">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </button>
+      <div name="button" id="add-to-cart" class="btn btn--block puff-add-to-cart for-prepay hide--item">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </div>
+    </div>
+</div>
+  
+{% endform %}
+
+

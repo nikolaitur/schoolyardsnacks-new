@@ -1,0 +1,21 @@
+{% section 'article-template' %}
+<div class="hack-section">
+  {% section 'hack-section' %}
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.hack-section').insertAfter('.hack-insert-pos');
+    imageSwiper = new Swiper($('.hack-section .image-slider1'), {
+      effect: 'slide',
+      loop: true,
+      centeredSlides: true,
+      slidesPerView: 1,
+      spaceBetween: 48,
+      navigation: {
+        nextEl: '.swiper__button--next1',
+        prevEl: '.swiper__button--prev1',
+      }
+    });
+  })
+</script>

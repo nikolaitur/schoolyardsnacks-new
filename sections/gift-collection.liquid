@@ -1,0 +1,173 @@
+
+<div class="bf-collection-content">
+  {% assign loop_index = 0 %}
+  <div class="collection-content">
+    {% for block in section.blocks %}
+      {% if block.type == 'varaint_item' %}
+      {% assign loop_index = loop_index | plus: 1 %}
+      <div class="product-item" {% if loop_index > 3 %}style="margin-top: 30px;"{% endif %}>
+        <a class="product-item-image">
+          <img src="{{ block.settings.image | img_url: '500x' }}" alt="">
+        </a>
+        <div class="product-title">{{ block.settings.title }}</div>
+        <div class="price">
+          <span class="old-price">{{ block.settings.old_price }}</span>
+          <span class="current-price">{{ block.settings.new_price }}</span>
+        </div>
+        
+        <form style="margin-bottom:20px" class="product-form" action="/cart/add" data-productid="{{ block.settings.product_id }}"  method="post"> 
+          <input type="hidden" name="id" data-productid="{{ block.settings.product_id }}" class="product-select" value="{{ block.settings.variant_id }}" data-variant-title="Fiery Hot" />
+          <input type="hidden" class="qty" name="quantity" value="1"/>
+          <input type="hidden" class="max" data-max="100"/>
+          <input type="button" value="Add To Cart" class="btn btn btn-default bf-collection-addtocart" />
+          <div class="quantity">
+            <div class="current_value">
+            <div class="minus" data-bundle-minus>
+                <svg height="10px" viewBox="0 -192 469.33333 469" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+              </div>
+              <div class="value" data-bundle-qty-value="1">1 Bundle</div>
+              <div class="plus" data-bundle-plus>
+                <svg height="10px" viewBox="0 0 448 448" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/></svg>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% assign index = 0 %}
+{% for block in section.blocks %}
+  {% if block.type == "block" %}
+  {% assign index = index | plus: 1 %}
+  {% if index == 1 %}
+	{% assign block_index = false %}
+  {% else %}
+    {% assign block_index = true %}
+  {% endif %}
+  {%- assign _set = block.settings -%}
+  <div class="bf-collection-content">
+    <div class="title">{{ _set.title }}</div>
+    
+    {% if collections[block.settings.collection_name].title == "gift5" %}
+      <div class="mystery_content">{{ section.settings.mystery_text }}</div>
+    {% endif %}
+    
+    <div class="collection-content">
+      {% unless _set.collection_name == blank %}
+        {% assign collection = collections[_set.collection_name] %}
+        {% for product in collection.products %}
+          
+          <div class="product-item" {% if index == 4 %}style="margin-top: 30px;"{% endif %}>
+            <a class="product-item-image">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ product.featured_image | img_url: '600x' }}" alt="">
+            </a>
+            <div class="product-title">{{ product.title }}</div>
+            <div class="price">
+              <span class="old-price">{{ product.compare_at_price | money }}</span>
+              <span class="current-price">{{ product.price | money }}</span>
+            </div>
+            {% if block_index %}
+              <a data-fancybox="ingre_fancy_{{ product.id }}" class="ingre_link buybtn big" data-src="#ingre_fancy_{{ product.id }}" href="javascript:;">View Nutrition Facts ></a>
+              <div id="ingre_fancy_{{ product.id }}" class="" style="max-width:800px; display:none; padding: 0;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Nutritional_-_Cereal_19Mar.png?v=1616179459" alt="">
+              </div>
+              <a data-fancybox="ingre_fancy_{{ product.id }}" class="ingre_link buybtn big" data-src="#ingre_fancy_{{ product.id }}" href="javascript:;" style="opacity: 0; position: absolute; z-index: -1;">View Nutrition Facts ></a>
+              <div id="ingre_fancy_{{ product.id }}" class="" style="max-width:800px; display:none; padding: 0;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Cheddar_Jalapeno_-_nutritional_label_-_19Mar.png?v=1616179459" alt="">
+              </div>
+            {% endif %}
+            <form style="margin-bottom:20px" class="product-form" action="/cart/add" data-productid="{{product.id}}"  method="post"> 
+              <input type="hidden" name="id" data-productid="{{product.id}}" class="product-select" value="{{ product.variants[0].id }}" data-variant-title="{{ product.variants[0].title }}" />
+              <input type="hidden" class="qty" name="quantity" value="1"/>
+              <input type="hidden" class="max" data-max="{{ product.selected_or_first_available_variant.inventory_quantity }}"/>
+              <input type="button" value="Add To Cart" class="btn btn btn-default bf-collection-addtocart" />
+              <div class="quantity">
+                <div class="current_value">
+                 <div class="minus" data-bundle-minus>
+                    <svg height="10px" viewBox="0 -192 469.33333 469" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"/></svg>
+                  </div>
+                  <div class="value" data-bundle-qty-value="1">1 Bundle</div>
+                   <div class="plus" data-bundle-plus>
+                    <svg height="10px" viewBox="0 0 448 448" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/></svg>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        {% endfor %}
+      {% endunless %}
+    </div>
+  </div>
+  {% endif %}
+{% endfor %}
+
+
+{% schema %}
+{
+  "name": "Gifts Collection",
+  "class": "gifts-collection-section",
+  "settings":[
+    {
+      "type": "richtext",
+      "id": "mystery_text",
+      "label": "Mystery text"
+    }
+  ],
+  "blocks":[
+    {
+      "type": "block",
+      "name": "block",
+      "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "title"
+        },
+        {
+          "type": "collection",
+          "id": "collection_name",
+          "label": "Collection"
+        }
+      ]
+    },
+    {
+      "type": "varaint_item",
+      "name": "Variant Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "old_price",
+          "label": "Old Price"
+        },
+        {
+          "type": "text",
+          "id": "new_price",
+          "label": "New Price"
+        },
+        {
+          "type": "text",
+          "id": "product_id",
+          "label": "Product ID"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID"
+        }
+      ]
+    }
+   ]
+}
+{% endschema %}

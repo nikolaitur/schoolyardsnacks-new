@@ -1,0 +1,240 @@
+<style>
+  .hero--{{ section.id }} .hero__content--title,
+  .hero--{{ section.id }} .hero__content--subtext {color: {{ section.settings.text_color }};}
+  .hero--{{ section.id }} .hero__image {background-color: {{ section.settings.bg_color }};}
+
+  @keyframes bgScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 20000%;
+    }
+  }
+
+  @keyframes bgScroll2 {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 20000% 0;
+    }
+  }
+
+  @keyframes bgScroll3 {
+    0% {
+      background-position: 0 center;
+    }
+    100% {
+      background-position: 20000% center;
+    }
+  }
+
+  {% if template == 'index' %}
+    #shopify-section-16439026343df3cd1d {
+      display: none !important;
+    }
+  {% endif %}
+
+  {% if template == 'index.gif_cro1' %}
+    #shopify-section-1640279601e1104126 {
+      display: none !important;
+    }
+
+    @media (min-width: 769px) {
+      .section--hero-cro1 {
+        display: flex;
+      }
+      .animation-bg {
+        width: 37%;
+        background-image: url(https://cdn.shopify.com/s/files/1/0048/4330/7123/files/desktop_1_1.png?v=1643903772);
+        animation: bgScroll 1500s linear infinite;
+        background-size: 100% auto;
+        background-repeat: repeat-y;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section--hero-cro1 {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      .animation-bg {
+        width: 100%;
+        height: 180px;
+        margin-top: 30px;      
+        background-image: url(https://cdn.shopify.com/s/files/1/0048/4330/7123/files/mobile_1.png?v=1643910368);
+        animation: bgScroll2 1500s linear infinite;
+        background-size: auto 100%;
+        background-repeat: repeat-x;
+      }
+    }
+  {% endif %}
+  {% if template == 'index.gif_cro2' %}
+    #shopify-section-1640279601e1104126 {
+      display: none !important;
+    }
+
+    @media (min-width: 769px) {
+      
+      .animation-bg {
+        background-image: url(https://cdn.shopify.com/s/files/1/0048/4330/7123/files/desktop_2.png?v=1643911286);
+        animation: bgScroll3 1000s linear infinite;
+        background-size: auto 80%;
+        background-repeat: repeat-x;
+        background-color: #76D8D1;
+        width: 100%;
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      
+      .animation-bg {
+        background-image: url(https://cdn.shopify.com/s/files/1/0048/4330/7123/files/desktop_2.png?v=1643911286);
+        animation: bgScroll3 3000s linear infinite;
+        background-size: auto 80%;
+        background-repeat: repeat-x;
+        background-color: #76D8D1;
+        width: 100%;
+        height: 120px;
+      }
+    }
+
+  {% endif %}
+</style>
+
+<section class="section section--hero {% if template == 'index.gif_cro1' %}section--hero-cro1{% endif %} section--hero-secondary hero hero--{{ section.id }} {{ section.settings.width }} {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}" {{ section.shopify_attributes }} >
+
+  <div class="hero__image">    
+    <div class="hero__content">
+      <h1 class="hero__content--title">{{ section.settings.title | replace: '|', '<br>' }}</h1>      
+      <p class="hero__content--subtext">
+        <img class="star-image" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/stars_d20ad666-7b9c-4ec0-bdb9-4589e35065db.png?v=1639699022" alt="stars">
+        <span>{{ section.settings.subtext }}</span>
+      </p>
+    </div>    
+    <div class="hero__4_images">
+      {% for block in section.blocks %}
+        {% if block.settings.title == "test" %}
+        <div class="hero_image-item">
+        {% else %}
+        <a href="{{ block.settings.link }}" class="hero_image-item">
+        {% endif %}
+          <div class="hide--mobile">
+            {{ block.settings.image | image_url: width: 512 | image_tag }}
+          </div>
+          <div class="hide--desktop">
+            {{ block.settings.image_mobile | default: block.settings.image | image_url: width: 512 | image_tag }}
+          </div>
+          {% if block.settings.title %}
+            <div class="title">{{ block.settings.title }}</div>
+          {% endif %}
+        {% if block.settings.title == "test" %}
+        </div>
+        {% else %}
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <img class="hero__tagline-image hide--mobile" data-dsk-src="{{ section.settings.tagline_image | img_url: '805x' }}" src="{{ section.settings.tagline_image | img_url: '400x' }}" alt="{% if section.settings.tagline_image != blank %}{{ section.settings.tagline_image }}{% else %}{{ section.settings.title }}{% endif %}" onload="if(screen.width>400){this.setAttribute('src', this.getAttribute('data-dsk-src'));} this.removeAttribute('onload');">
+    <img class="hero__tagline-image hide--desktop" data-dsk-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/as_seen_in_1.png?v=1640032325" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/as_seen_in_1.png?v=1640032325" alt="">
+
+  </div>
+  <div class="animation-bg">
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Settings"
+    },
+    {
+      "type":"color",
+      "id":"bg_color",
+      "label":"Background Color",
+      "default":"#f8cbcb"
+    },
+    {
+      "type":"color",
+      "id":"text_color",
+      "label":"Text Color",
+      "info":"Text Color for Title",
+      "default":"#272b60"
+    },
+    {
+      "type":"select",
+      "id":"image_position",
+      "label":"Image Position",
+      "options":[
+        {"value":"top-left","label":"Top Left"},
+        {"value":"top-center","label":"Top Center"},
+        {"value":"top-right","label":"Top Right"},
+        {"value":"center-left","label":"Center Left"},
+        {"value":"center-center","label":"Center Center"},
+        {"value":"center-right","label":"Center Right"},
+        {"value":"bottom-left","label":"Bottom Left"},
+        {"value":"bottom-center","label":"Bottom Center"},
+        {"value":"bottom-right","label":"Bottom Right"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type":"text",
+      "id":"title",
+      "label":"Hero Title"      
+    },
+    {
+      "type":"text",
+      "id":"subtext",
+      "label":"Sub Text"
+    },
+    {
+      "type":"image_picker",
+      "id":"tagline_image",
+      "label":"Tagline Image"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "name": "Image",
+      "type": "image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Hero CRO 1",
+    "category": "Content"
+  }]
+}
+{% endschema %}

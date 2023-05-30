@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" fontify-lang="{{ shop.locale }}">
+<head>
+
+<script>
+/* >> TriplePixel :: start*/
+~function(W,H,A,L,E){try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0))}catch(e){}function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}A=window,A[H]||(L=function(){return"tp.."+Date.now().toString(36)+Math.random().toString(36)},E=A[H]=function(t,e,n){return W=L(),(E._q=E._q||[]).push([W,e,n]),W},E.ch=W,O(5))}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
+
+
+  {% render 'google-tag-manager', tag: 'head' %}
+  {% include 'head-meta' %}
+  {% include 'buddha-megamenu' %}
+  {{ content_for_header }} 
+ {{ shop.metafields.fontify.stylesheets }}
+  {% include 'judgeme_core' %}
+  {% comment %} {{ 'bundle.critical.css' | asset_url | stylesheet_tag }} {% endcomment %}
+  {{ 'sales.scss.css' | asset_url | stylesheet_tag }}
+	
+  {% render 'shogun-head' %}
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="{{ 'bundle.product1.js' | asset_url }}" defer></script>
+  </head>
+
+<body id="{% if template contains 'gift_card' %}gift-card-id{% else %}{{ page_title | truncatewords: 3 | handle }}-id{% endif %}" class="{{ bodyClasses | split: ' ' | uniq | join: ' ' }}">
+  {% render 'google-tag-manager', tag: 'body' %}
+  <div class="wrapper">
+    {{content_for_layout}}
+  </div>
+ 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />   
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.pro-items').slick({asNavFor: '.pro-nav', slidesToShow:1,  slidesToScroll:1});
+	
+	$('.pro-nav').slick({
+		arrows:false, slidesToShow:4,  slidesToScroll:1, asNavFor:'.pro-items', focusOnSelect:true, infinite: true
+	});
+	
+	$('.customer-reviews').slick({
+		slidesToShow:3,  slidesToScroll:3, dots:true,
+		responsive: [
+		{
+		breakpoint:1023,
+		settings:{
+			slidesToShow:2,
+			slidesToScroll:2
+		}
+		},
+		{
+		breakpoint:640,
+		settings:{
+			slidesToShow:1,
+			slidesToScroll:1
+		}
+		}
+		]
+	});
+	
+	$('.facts-slider').slick({
+		slidesToShow:2,
+		responsive: [
+		{
+		breakpoint:1023,
+		settings:{
+			slidesToShow:1
+		}
+		}
+		]
+	});
+	$(".insta-shots").slick({
+		slidesToShow: 2,
+		prevArrow: '<div class="swiper__button swiper__button--prev swiper__button-prev--product-social-puffs" tabindex="0" role="button" aria-label="Previous slide"><svg fill="none" height="23" viewBox="0 0 23 23" width="23" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m13.435 3.53553c.3906-.39052.3906-1.02369 0-1.41421l-1.4142-1.414213c-.3905-.390525-1.0237-.390525-1.4142 0l-7.77816 7.778173-2.121321 2.12132c-.390524.3905-.390524 1.0237 0 1.4142l2.121321 2.1213 7.77816 7.7782c.3905.3905 1.0237.3905 1.4142 0l1.4142-1.4142c.3906-.3905.3906-1.0237 0-1.4142l-7.07103-7.0711c-.39052-.3905-.39052-1.0237 0-1.4142z" fill="currentColor" fill-rule="evenodd"></path></svg></div>',
+    	nextArrow: '<div class="swiper__button swiper__button--next swiper__button-next--product-social-puffs" tabindex="0" role="button" aria-label="Next slide"><svg fill="none" height="23" viewBox="0 0 23 23" width="23" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m9.1924 19.0919c-.39052.3905-.39052 1.0237 0 1.4142l1.4142 1.4142c.3905.3905 1.0237.3905 1.4142 0l7.7782-7.7782 2.1213-2.1213c.3905-.3905.3905-1.0237 0-1.4142l-2.1213-2.12133-7.7782-7.778169c-.3905-.390524-1.0237-.390524-1.4142 0l-1.4142 1.414209c-.39053.39053-.39053 1.02369 0 1.41422l7.0711 7.07107c.3905.3905.3905 1.0237 0 1.4142z" fill="currentColor" fill-rule="evenodd"></path></svg></div>',
+		responsive: [
+		{
+		breakpoint:1023,
+		settings:{
+			slidesToShow:1
+		}
+		}
+		]
+	})
+	//$('.faq-items .item:first-child h4').addClass('active');
+	
+	$('.faq-items .item h4').click(function(){
+		$('.faq-items .item .ans').slideUp(200);
+		$('.faq-items .item h4').removeClass('active');
+		$(this).next().slideDown(300);
+		$(this).addClass('active');
+	});
+	//$('.buybtn').click(function(){
+	//	location.href = "/products/keto-puffs";
+	//})
+	$('.buybtn').click(function(){
+		$('html, body').animate({?.offset()?.top
+        	scrollTop: $("#bundle")?.offset()?.top
+    	}, 1000);
+		return false;
+	});
+	var now = new Date();
+var utcDate = new Date(now.toUTCString());
+utcDate.setHours(now.getHours() - 17);
+var usDate = new Date(utcDate);
+var week_array = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var mon_array = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+switch(usDate.getDay()){
+	case 0:
+		usDate.setDate(usDate.getDate() + 2);
+		break;
+	case 1:
+		usDate.setDate(usDate.getDate() + 2);
+		break;
+	case 2:
+		usDate.setDate(usDate.getDate() + 2);
+		break;
+	case 3:
+		usDate.setDate(usDate.getDate() + 2);
+		break;
+	case 4:
+		usDate.setDate(usDate.getDate() + 4);
+		break;
+	case 5:
+		usDate.setDate(usDate.getDate() + 4);
+		break;
+	case 6:
+		usDate.setDate(usDate.getDate() + 3);
+		break;
+}
+var targetString = "Get it by";
+targetString += " <strong>" + week_array[usDate.getDay()];
+targetString += ", " + mon_array[usDate.getMonth()];
+
+var suffix_str = 'th</strong>';
+  if(usDate.getDate() == 1) suffix_str = 'st</strong>';
+if(usDate.getDate() == 2) suffix_str = 'nd</strong>';
+else if(usDate.getDate() == 3) suffix_str = 'rd</strong>';
+console.log("suffix:-"+usDate.getDate()+"-: " + suffix_str);
+targetString += " " + usDate.getDate() + suffix_str;
+targetString += " when you order within ";
+if(usDate.getMinutes() != 0) targetString += "<strong>" +  (23 - usDate.getHours()) + "hr</strong> ";
+else targetString += "<strong>" + (24 - usDate.getHours()) + "hr</strong>  ";
+ targetString += "<strong>" +  (60 - usDate.getHours()) + "min</strong>";
+	$(".time_message").html(targetString);
+  $("#shopify-section-sales-how-works .work-items > .item:nth-child(2) .content p").html(targetString);
+	
+	$('#footer .navi a, .facts-slider .item .content .btns a').click(function(){
+		var alink = $(this).attr('href');
+		$('.poplayer').show();
+		$(alink).show();
+		return false;
+	});
+	
+	$('.poplayer2').click(function(){
+		$(this).hide();
+		$('.popup').hide();
+	});
+	
+	$('.popclose').click(function(){
+		$('.poplayer2').hide();
+		$('.popup').hide();
+		return false;
+	});
+	
+	$('#header .inn .navi ul li a').click(function(){
+		console.log("#header .inn .navi ul li a");
+		var nlink = $(this).attr('href');
+		$('html, body').animate({?.offset()?.top
+        	scrollTop: $(nlink)?.offset()?.top
+    	}, 1000);
+		return false;
+	});
+});
+</script>  
+<script>
+function DecimalGenerate() {
+    var min = 300,
+        max = 400,
+        NumberResult = Math.floor(Math.random() * (max - min) + min);
+
+    $('#text1, #text2').val((NumberResult));
+};  
+ 
+$( document ).ready(function() {
+	DecimalGenerate();
+});
+</script>
+  
+  </body>
+</html>

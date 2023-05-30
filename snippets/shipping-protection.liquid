@@ -1,0 +1,21 @@
+{%- assign shipping_product = all_products["shipping-protection"] -%}
+<div class="ik-shipping-protection visually-hidden">
+  <div class="route-widget mobile-align-undefined desktop-align-undefined">
+    <div class="rw-contents">
+      <div class="rw-left">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="rw-route-logo lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/icons8-fast-shipping-64.png?v=1617132027" alt="Route Logo">
+      </div>
+      <div class="rw-center">
+        <div class="rw-text-top">Shipping Protection</div>
+        <div class="rw-text-bottom">From Damage, Loss &amp; Theft for <strong>$0.98</strong></div>
+      </div>
+      <div class="rw-right">
+        <span class="rw-checkbox-span rw-unchecked" data-product-id="{{ shipping_product.selected_or_first_available_variant.id }}">
+          <span class="rw-slider rw-unchecked"></span>
+          <span class="rw-on-text rw-unchecked">On</span>
+          <span class="rw-off-text rw-unchecked">Off</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

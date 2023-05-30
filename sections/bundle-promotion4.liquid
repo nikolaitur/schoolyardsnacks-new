@@ -1,0 +1,52 @@
+<div class="section-wrap" style="background-color: {{ section.settings.bg_color }};">
+  <div class="section__header">
+    <h2 class="title">{{ section.settings.title }}</h2>
+  </div>
+  <div class="image-and-text">
+    <div class="image-wrap">
+      <img src="{{ section.settings.image | img_url: '768x' }}" alt="bundle image"/>
+    </div>
+    <div class="text-wrap">
+      <p class="subtitle">{{ section.settings.subtitle }}</p>
+      <a href="{{ section.settings.btn_url }}" class="btn">{{ section.settings.btn_text }}</a>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Bundle Promotion",
+  "class": "bundle-promotion",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button Url"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    }
+  ]
+}
+{% endschema %}

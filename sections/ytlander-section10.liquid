@@ -1,0 +1,70 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="image-and-text">
+    <div class="image-wrap">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Silway_Cheng.png?v=1632249000" alt="review image">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cora_helm_86e4f200-4cd3-4bab-94ed-fd1c5e728d4f.png?v=1632498513" alt="review image">
+      <img class="arrow-right" src="{{ 'arrow-right.png' | asset_url }}" alt="Arrow Right">
+    </div>
+    <div class="text-wrap">
+      {{ section.settings.content1 }}
+    </div>
+  </div>
+  <div class="image-and-text reverse">
+    <div class="image-wrap">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Buffy_Helton_Harris.png?v=1632249072" alt="review image">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Tyler_Jones.png?v=1632249111" alt="review image">
+      <img class="arrow-left" src="{{ 'arrow-left.png' | asset_url }}" alt="Arrow Left">
+    </div>
+    <div class="text-wrap">
+      {{ section.settings.content2 }}
+    </div>
+  </div>
+  <div class="image-and-text">
+    <div class="image-wrap">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/REGULAR_VS_SCHOOLYARD.png?v=1632249153" alt="review image">
+      <img class="arrow-right" src="{{ 'arrow-right.png' | asset_url }}" alt="Arrow Right">
+    </div>
+    <div class="text-wrap">
+      {{ section.settings.content3 }}
+    </div>
+  </div>
+  <div class="t-content">
+    {{ section.settings.content4 }}
+  </div>
+  <a href="/products/keto-puffs?ut=gdn" class="btn">Pick Your Flavors</a>
+</div>
+
+{% schema %}
+{
+  "name": "YT Lander 10",
+  "class": "ytlander-10 ytlander-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content1",
+      "label": "Content1"
+    },
+    {
+      "type": "richtext",
+      "id": "content2",
+      "label": "Content2"
+    },
+    {
+      "type": "richtext",
+      "id": "content3",
+      "label": "Content3"
+    },
+    {
+      "type": "richtext",
+      "id": "content4",
+      "label": "Content 4"
+    }
+  ]
+}
+{% endschema %}

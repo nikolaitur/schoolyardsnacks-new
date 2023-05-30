@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="review-images">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Natalia_Semenova.png?v=1632250783" alt="review image">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Megan_Grosky_McGowan.png?v=1632250810" alt="review image">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/merle_fisher.png?v=1632425344" alt="review image">
+  </div>
+  <div class="t-content">{{ section.settings.content }}</div>
+</div>
+{% schema %}
+{
+  "name": "YT Lander 11",
+  "class": "ytlander-11 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ]
+}
+{% endschema %}

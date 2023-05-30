@@ -1,0 +1,325 @@
+<link rel="preload" href="https://use.typekit.net/af/58af32/00000000000000003b9b2aae/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'GT-Walsheim-Condensed-Regular-Oblique.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'GT-Walsheim-Condensed-Regular.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://use.typekit.net/af/32d9e9/00000000000000003b9b2a9b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'GT-Walsheim-Condensed-Bold.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+
+<link rel="preload" as="style" href="{{ 'custom.scss.css' | asset_url }}">
+<link rel="preload" as="style" href="{{ 'bundle.theme.css' | asset_url }}">
+
+{% if template contains 'product' or template contains 'collection' %}<link rel="preload" as="style" href="{{ 'bundle.product.css' | asset_url }}">{% endif %}
+{% if template contains 'cart' %}<link rel="preload" as="style" href="{{ 'bundle.cart.css' | asset_url }}">{% endif %}
+{% if template contains 'blog' or template contains 'article' %}<link rel="preload" as="style" href="{{ 'bundle.blog.css' | asset_url }}">{% endif %}
+{% if page.handle == 'compression-socks-for-nurses' or page.handle == 'compression-socks-for-flying' %}<link rel="preload" as="style" href="{{ 'old-landing-split.scss.css' | asset_url }}">{% endif %}
+{% if page.handle == 'refer' or page.handle == 'rewards' %}<link rel="preload" as="style" href="{{ 'swell-rewards.scss.css' | asset_url }}">{% endif %}
+{% if page.handle == 'refer' or page.handle contains 'new-puffs' %}<link rel="preload" as="style" href="{{ 'new_puff.scss.css' | asset_url }}">{% endif %}
+{% if template contains 'gift_card' %}<link rel="preload" as="style" href="{{ 'gift-card.css' | asset_url }}">{% endif %}
+{% if template contains 'black-friday' %}<link rel="preload" as="style" href="{{ '_bf-collection.scss.css' | asset_url }}">{% endif %}
+{% if template contains 'black-friday-mystery' %}<link rel="preload" as="style" href="{{ '_bf-collection-mystery.scss.css' | asset_url }}">{% endif %}
+{% if template contains 'gifts' %}<link rel="preload" as="style" href="{{ '_gift.scss.css' | asset_url }}">{% endif %}
+
+<style>
+  @font-face {
+    font-family: 'GT-Walsheim';
+    font-display: swap;
+    src: url("{{ 'GT-Walsheim-Condensed-Regular.eot' | asset_url }}") format('eot'),
+         url("{{ 'GT-Walsheim-Condensed-Regular.woff2' | asset_url }}") format('woff2'),
+         url("{{ 'GT-Walsheim-Condensed-Regular.woff' | asset_url }}") format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'GT-Walsheim';
+    font-display: swap;
+    src: url("{{ 'GT-Walsheim-Condensed-Regular-Oblique.eot' | asset_url }}") format('eot'),
+         url("{{ 'GT-Walsheim-Condensed-Regular-Oblique.woff2' | asset_url }}") format('woff2'),
+         url("{{ 'GT-Walsheim-Condensed-Regular-Oblique.woff' | asset_url }}") format('woff');
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: 'GT-Walsheim';
+    font-display: swap;
+    src: url("{{ 'GT-Walsheim-Condensed-Bold.eot' | asset_url }}") format('eot'),
+         url("{{ 'GT-Walsheim-Condensed-Bold.woff2' | asset_url }}") format('woff2'),
+         url("{{ 'GT-Walsheim-Condensed-Bold.woff' | asset_url }}") format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'GT-Walsheim';
+    font-display: swap;
+    src: url("{{ 'GT-Walsheim-Condensed-Bold-Oblique.eot' | asset_url }}") format('eot'),
+         url("{{ 'GT-Walsheim-Condensed-Bold-Oblique.woff2' | asset_url }}") format('woff2'),
+         url("{{ 'GT-Walsheim-Condensed-Bold-Oblique.woff' | asset_url }}") format('woff');
+    font-weight: 700;
+    font-style: italic;
+  }
+  .ju_controls_btn,
+  #preview-bar-iframe {display: none !important}
+</style>
+
+<style>
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * roc-grotesk:
+ *   - http://typekit.com/eulas/00000000000000003b9b2a9a
+ *   - http://typekit.com/eulas/00000000000000003b9b2a9b
+ *   - http://typekit.com/eulas/00000000000000003b9b2aae
+ *   - http://typekit.com/eulas/00000000000000003b9b2abb
+ *   - http://typekit.com/eulas/00000000000000003b9b2abc
+ * roc-grotesk-compressed:
+ *   - http://typekit.com/eulas/00000000000000003b9b2a9c
+ *   - http://typekit.com/eulas/00000000000000003b9b2a9f
+ * roc-grotesk-condensed:
+ *   - http://typekit.com/eulas/00000000000000003b9b2aa5
+ *   - http://typekit.com/eulas/00000000000000003b9b2aa8
+ * roc-grotesk-extrawide:
+ *   - http://typekit.com/eulas/00000000000000003b9b2ab0
+ *   - http://typekit.com/eulas/00000000000000003b9b2ab3
+ * roc-grotesk-wide:
+ *   - http://typekit.com/eulas/00000000000000003b9b2abe
+ *   - http://typekit.com/eulas/00000000000000003b9b2ac1
+ *
+ * © 2009-2021 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2020-07-01 21:12:01 UTC"}*/
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("https://use.typekit.net/af/3e7e48/00000000000000003b9b2a9a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("woff2"),url("https://use.typekit.net/af/3e7e48/00000000000000003b9b2a9a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("woff"),url("https://use.typekit.net/af/3e7e48/00000000000000003b9b2a9a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:800;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("https://use.typekit.net/af/32d9e9/00000000000000003b9b2a9b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/32d9e9/00000000000000003b9b2a9b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/32d9e9/00000000000000003b9b2a9b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:600;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("https://use.typekit.net/af/58af32/00000000000000003b9b2aae/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/58af32/00000000000000003b9b2aae/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/58af32/00000000000000003b9b2aae/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("https://use.typekit.net/af/ea6e68/00000000000000003b9b2abb/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/ea6e68/00000000000000003b9b2abb/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/ea6e68/00000000000000003b9b2abb/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:500;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("https://use.typekit.net/af/4976ef/00000000000000003b9b2abc/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/4976ef/00000000000000003b9b2abc/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/4976ef/00000000000000003b9b2abc/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"roc-grotesk-compressed";
+src:url("https://use.typekit.net/af/44f211/00000000000000003b9b2a9c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/44f211/00000000000000003b9b2a9c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/44f211/00000000000000003b9b2a9c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"roc-grotesk-compressed";
+src:url("https://use.typekit.net/af/d50ee1/00000000000000003b9b2a9f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/d50ee1/00000000000000003b9b2a9f/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/d50ee1/00000000000000003b9b2a9f/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"roc-grotesk-condensed";
+src:url("https://use.typekit.net/af/8c160f/00000000000000003b9b2aa5/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/8c160f/00000000000000003b9b2aa5/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/8c160f/00000000000000003b9b2aa5/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"roc-grotesk-condensed";
+src:url("https://use.typekit.net/af/3843d5/00000000000000003b9b2aa8/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/3843d5/00000000000000003b9b2aa8/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/3843d5/00000000000000003b9b2aa8/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"roc-grotesk-extrawide";
+src:url("https://use.typekit.net/af/7a2ff2/00000000000000003b9b2ab0/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/7a2ff2/00000000000000003b9b2ab0/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/7a2ff2/00000000000000003b9b2ab0/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"roc-grotesk-extrawide";
+src:url("https://use.typekit.net/af/fb96bb/00000000000000003b9b2ab3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/fb96bb/00000000000000003b9b2ab3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/fb96bb/00000000000000003b9b2ab3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"roc-grotesk-wide";
+src:url("https://use.typekit.net/af/b3480e/00000000000000003b9b2abe/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/b3480e/00000000000000003b9b2abe/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/b3480e/00000000000000003b9b2abe/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"roc-grotesk-wide";
+src:url("https://use.typekit.net/af/1ad6a7/00000000000000003b9b2ac1/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/1ad6a7/00000000000000003b9b2ac1/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/1ad6a7/00000000000000003b9b2ac1/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;
+}
+
+.tk-roc-grotesk { font-family: "roc-grotesk",sans-serif; }
+.tk-roc-grotesk-compressed { font-family: "roc-grotesk-compressed",sans-serif; }
+.tk-roc-grotesk-condensed { font-family: "roc-grotesk-condensed",sans-serif; }
+.tk-roc-grotesk-extrawide { font-family: "roc-grotesk-extrawide",sans-serif; }
+.tk-roc-grotesk-wide { font-family: "roc-grotesk-wide",sans-serif; }
+</style>
+
+<!--<script>
+  /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+  (function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS})("undefined"!=typeof global?global:this);
+</script>-->
+
+{% include 'critical-css'%}
+{% comment %} {{ 'bundle.critical.css' | asset_url | stylesheet_tag }} {% endcomment %}
+
+{% assign contain_css = false %}
+{% if template contains 'product' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template contains 'collection' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template contains 'ytlander' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template contains 'lander-dsp' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-1' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cocoa-cereal-on-keto-try-this' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-fruity-loops-on-keto-try-this' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cinnamon-cereal-on-keto-try-this' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-barbecue-chips-on-keto-try-this' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-sour-cream-onion-chips-on-keto' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips-on-keto-b' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-sour-cream-onion-chips-c' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if article.handle == 'blog/miss-bbq-chips' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template.suffix == 'sampler_vs_2case' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template.suffix == 'puffs' %}
+  {% assign contain_css = true %}
+{% endif %}
+{% if template.suffix == 'cereal' %}
+  {% assign contain_css = true %}
+{% endif %}
+
+{% if contain_css  %}
+  <!-- <link rel="stylesheet" href="{{ 'bundle.product.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'bundle.product.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'bundle.product.css' | asset_url }}"></noscript>
+
+{% endif %}
+
+{% if template contains 'cart' %}
+  <!-- <link rel="stylesheet" href="{{ 'bundle.cart.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'bundle.product.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'bundle.product.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if template contains 'blog' or template contains 'article' %}
+  <!-- <link rel="stylesheet" href="{{ 'bundle.blog.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'bundle.blog.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'bundle.blog.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if page.handle == 'compression-socks-for-nurses' or page.handle == 'compression-socks-for-flying' %}
+  <!-- <link rel="stylesheet" href="{{ 'old-landing-split.scss.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'old-landing-split.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'old-landing-split.scss.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if page.handle == 'refer' or page.handle == 'rewards' %}
+  <!-- <link rel="stylesheet" href="{{ 'swell-rewards.scss.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'swell-rewards.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'swell-rewards.scss.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if page.handle == 'refer' or page.handle contains 'new-puffs' %}
+  <!-- <link rel="stylesheet" href="{{ 'new_puff.scss.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'new_puff.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'new_puff.scss.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% comment %}Gift Card Order CSS{% endcomment %}
+{% if template contains 'gift_card' %}
+  <!-- <link rel="stylesheet" href="{{ 'gift-card.css' | asset_url }}"> -->
+  <link rel="preload" href="{{ 'gift-card.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ 'gift-card.css' | asset_url }}"></noscript>
+{% endif %}
+
+
+{% comment %}Main Theme CSS{% endcomment %}
+<!-- <link rel="stylesheet" href="{{ 'bundle.theme.css' | asset_url }}"> -->
+{%- comment -%}
+<link rel="preload" href="{{ 'bundle.theme.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'bundle.theme.css' | asset_url }}"></noscript>
+{%- endcomment -%}
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css
+"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+
+
+<style id="bundle_css"></style>
+<script>window.XMLHttpRequest?xmlhttp=new XMLHttpRequest:xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"),xmlhttp.onreadystatechange=function(){4==xmlhttp.readyState&&200==xmlhttp.status&&(document.getElementById("bundle_css").innerHTML=xmlhttp.responseText)},xmlhttp.open("GET","{{ 'bundle.theme.css' | asset_url }}",!1),xmlhttp.send();</script>
+
+{% if template contains 'black-friday' %}
+<!-- <link rel="stylesheet" href="{{ '_bf-collection.scss.css' | asset_url }}"> -->
+<link rel="preload" href="{{ '_bf-collection.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ '_bf-collection.scss.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if template contains 'black-friday-mystery' %}
+<!-- <link rel="stylesheet" href="{{ '_bf-collection-mystery.scss.css' | asset_url }}"> -->
+<link rel="preload" href="{{ '_bf-collection-mystery.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ '_bf-collection-mystery.scss.css' | asset_url }}"></noscript>
+{% endif %}
+
+{% if template contains 'gifts' %}
+<link rel="stylesheet" href="{{ '_gift.scss.css' | asset_url }}">
+{% endif %}
+
+<!-- <link rel="stylesheet" href="{{ 'custom.scss.css' | asset_url }}"> -->
+{%- comment -%}
+<link rel="preload" href="{{ 'custom.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'custom.scss.css' | asset_url }}"></noscript>
+{%- endcomment -%}
+
+<style id="custom_css"></style>
+<script>window.XMLHttpRequest?xmlhttp=new XMLHttpRequest:xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"),xmlhttp.onreadystatechange=function(){4==xmlhttp.readyState&&200==xmlhttp.status&&(document.getElementById("custom_css").innerHTML=xmlhttp.responseText)},xmlhttp.open("GET","{{ 'custom.scss.css' | asset_url }}",!1),xmlhttp.send();</script>

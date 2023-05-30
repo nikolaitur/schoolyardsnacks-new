@@ -1,0 +1,763 @@
+<!doctype html>
+<html
+  lang="{{ locale }}"
+  dir="{{ direction }}"
+  class="{{ checkout_html_classes }} page-checkout"
+  fontify-lang="{{ shop.locale }}"
+>
+  <head>
+    <!-- Begin BlackCrow Script Tag: DO NOT MODIFY! -->
+    <script
+      type="text/javascript"
+      async
+      src="https://shopify-init.blackcrow.ai/js/core/the-cereal-school.js?shopify_app_version=1.0.39&shop=the-cereal-school.myshopify.com"
+    ></script>
+    <!-- End BlackCrow Script Tag -->
+    <script
+      id="script_tag_id"
+      data-last-check-status-key="_prevCheckIsOk"
+      data-last-check-timestamp-key="_prevCheckTimestamp"
+      data-refresh-interval-ms="120000"
+      data-script-src="https://d2fj3s7h83rb61.cloudfront.net/pUMV2or5zC/bin"
+      data-app-info="1-1--1.1.11"
+      data-app-platform="1"
+      data-app-type="1"
+      data-app-version="1.1.11"
+    >
+      (function () {
+        var currentScript = document.currentScript;
+        var currentScriptDataset = currentScript.dataset;
+        var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
+        var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
+        var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
+        var scriptSrc = currentScriptDataset.scriptSrc;
+
+        if (
+          lastCheckStatusKey &&
+          lastCheckTimestampKey &&
+          refreshIntervalMs &&
+          scriptSrc &&
+          !isNaN(refreshIntervalMs)
+        ) {
+          if (localStorage.getItem(lastCheckStatusKey) === null) {
+            localStorage.setItem(lastCheckStatusKey, String(false));
+          }
+
+          if (localStorage.getItem(lastCheckTimestampKey) === null) {
+            localStorage.setItem(lastCheckTimestampKey, String(0));
+          }
+
+          var locationHref = document.location.href;
+          var now = Date.now();
+          var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
+          var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
+
+          if (!isNaN(lastCheckTimestamp)) {
+            var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
+
+            if (needRefreshByInterval || lastCheckStatus) {
+              var LOAD = 'load';
+              var ERROR = 'error';
+              var script = document.createElement('script');
+
+              function scriptEventHandler(evt) {
+                var target = evt.target;
+                var evtType = evt.type;
+
+                var currentCheckStatus = false;
+                var currentCheckTimestamp = Date.now();
+
+                if (evtType === LOAD) {
+                  currentCheckStatus = true;
+                }
+
+                localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
+                localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
+
+                target.removeEventListener(LOAD, scriptEventHandler);
+                target.removeEventListener(ERROR, scriptEventHandler);
+              }
+
+              if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
+                script.defer = true;
+              }
+
+              script.addEventListener(LOAD, scriptEventHandler);
+              script.addEventListener(ERROR, scriptEventHandler);
+
+              script.src = scriptSrc;
+
+              document.head.insertBefore(script, currentScript);
+            }
+          }
+        } else {
+          console.error('wrapper is not right configured');
+        }
+      })();
+    </script>
+    <script src="/a/app_proxy/bin"></script>
+    {% include 'elevar-head' %}
+
+    <script
+      src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"
+      integrity="sha384-wF7Jc4ZlWVxe/L8Ji3hOIBeTgo/HwFuaeEfjGmS3EXAG7Y+7Kjjr91gJpJtr+PAT"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      Sentry.init({ dsn: 'https://067fbef253c043699fd45df44ba57333@o387865.ingest.sentry.io/5223824' });
+    </script>
+
+    <!-- begin Convert Experiences code -->
+    <script
+      type="text/javascript"
+      src="//cdn-3.convertexperiments.com/js/10034191-10031931.js"
+    ></script>
+    <!-- end Convert Experiences code -->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0"
+    >
+    <meta name="referrer" content="origin">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="https://use.typekit.net/lnr8xty.css">
+    {{ content_for_header }}
+    {{ shop.metafields.fontify.stylesheets }}
+    {{ checkout_stylesheets }}
+    {{ 'checkout.scss' | asset_url | stylesheet_tag }}
+    <script src="//code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script
+      src="//cdn.jsdelivr.net/npm/jquery-countdown@2.2.0/dist/jquery.countdown.min.js"
+    ></script>
+    {{ checkout_scripts }}
+
+    {% comment %} Postscript SDK {% endcomment %}
+    <script
+      type="application/javascript"
+      async
+      src="https://sdk.postscript.io/integrations/sdk-min.js"
+    ></script>
+    {% comment %} End Postscript SDK {% endcomment %}
+
+    <script>
+      function getCheckoutToggles(f) {
+        request = new XMLHttpRequest();
+        request.open('GET', '/?section_id=checkout-toggles', true);
+        request.onload = f;
+        request.send();
+      }
+
+      function checkFlashSale() {
+        getCheckoutToggles(function (e) {
+          var checkoutToggles = e.target.responseText.toString();
+          var flashSaleEnabled = checkoutToggles.includes('data-flash-sale-enabled="true"');
+          //Flash sale
+          if (flashSaleEnabled) {
+            console.log('flash sale enabled --------');
+            var flashSaleCookieName = 'sys_july_2020_flash_sale';
+            var flashSaleCookie = Cookies.get(flashSaleCookieName);
+
+            flashSaleCookie = null;
+
+            if (flashSaleCookie) {
+              var endDate = new Date(flashSaleCookie);
+              if (endDate > new Date()) {
+                setBannerCountdown(endDate);
+              } else {
+                //hide banner
+                clearBannerCountdown();
+              }
+            } else {
+              var endDate = new Date();
+              endDate.setMinutes(endDate.getMinutes() + 10);
+              Cookies.set(flashSaleCookieName, endDate);
+              localStorage.setItem(flashSaleCookieName, endDate);
+              setBannerCountdown(endDate);
+              // show banner
+            }
+          } else {
+            clearBannerCountdown();
+          }
+        });
+      }
+
+      function makeTimer(endDate) {
+        var endTime = new Date(endDate);
+        endTime = Date.parse(endTime) / 1000;
+
+        var now = new Date();
+        now = Date.parse(now) / 1000;
+
+        var timeLeft = endTime - now;
+
+        console.log('timeLeft::', timeLeft);
+        if (timeLeft == 0 || timeLeft < 0) $('.flash-banner').hide();
+
+        var days = Math.floor(timeLeft / 86400);
+        var hours = Math.floor((timeLeft - days * 86400) / 3600);
+        var minutes = Math.floor((timeLeft - days * 86400 - hours * 3600) / 60);
+        var seconds = Math.floor(timeLeft - days * 86400 - hours * 3600 - minutes * 60);
+
+        if (hours < '10') {
+          hours = '0' + hours;
+        }
+        if (minutes < '10') {
+          minutes = '0' + minutes;
+        }
+        if (seconds < '10') {
+          seconds = '0' + seconds;
+        }
+
+        $('.countdown').html(minutes + ':' + seconds);
+      }
+
+      function setBannerCountdown(endDate) {
+        console.log('set banner count down');
+        console.log(endDate);
+
+        setInterval(function () {
+          makeTimer(endDate);
+        }, 1000);
+
+        // $('.countdown').countdown(endDate, function (event) {
+        //   $(this).html(event.strftime('%M:%S'));
+        // })
+        //   .on('finish.countdown', function () {
+        //     clearBannerCountdown();
+        //   })
+        $('.flash-banner').removeClass('hidden');
+      }
+
+      function clearBannerCountdown() {
+        $('.flash-banner').addClass('hidden').html('').hide();
+      }
+
+      $(document).ready(function () {
+        updateGiftCardTitle();
+        $(document).on('submit', 'form', function (event) {
+          updateGiftCardTitle();
+        });
+
+        function updateGiftCardTitle() {
+          setTimeout(function () {
+            var gift_cart_item = $('[data-product-type="Gift Card"] .product__price .order-summary__emphasis').html();
+            if (gift_cart_item == 'Free for a limited time')
+              $('[data-product-type="Gift Card"] .product__price .order-summary__emphasis').html('$0.00');
+          }, 3000);
+        }
+
+        $('.edit_checkout:last').submit(function (event) {
+          setTimeout(function () {
+            var $psContainer = $('#ps__container');
+            $psContainer
+              .find('.checkbox__label')
+              .html(
+                '<span>Send me special offers through text*<br>*I agree to receive recurring automated marketing text messages (e.g. cart reminders) at the phone number provided. Consent is not a condition to purchase. Msg & data rates many apply. Msg frequency varles. Reply HELP for help and STOP to cancel. View our <a href="/policies/terms-of-service" title="Go to Terms of Service">Terms of Service</a> and <a href="/policies/privacy-policy" title="Go to Privacy Policy">Privacy Policy</a>.</span>'
+              );
+            if (
+              $('#checkout_shipping_address_phone')?.val() === null ||
+              $('#checkout_shipping_address_phone')?.val() === ''
+            ) {
+              $('#ps_accepts_sms').attr('checked', false);
+            } else if (
+              $('#checkout_shipping_address_phone')
+                .val()
+                .replace(/[^0-9]/g, '').length > 5
+            ) {
+              $('#ps_accepts_sms').attr('checked', true);
+              console.log('ps_accepts_sms true 3000');
+            }
+          }, 3000);
+          setTimeout(function () {
+            if (
+              $('#checkout_shipping_address_phone')?.val() === null ||
+              $('#checkout_shipping_address_phone')?.val() === ''
+            ) {
+              $('#ps_accepts_sms').attr('checked', false);
+            } else if (
+              $('#checkout_shipping_address_phone')
+                .val()
+                .replace(/[^0-9]/g, '').length > 5
+            ) {
+              $('#ps_accepts_sms').attr('checked', true);
+              console.log('ps_accepts_sms true 6000');
+            }
+          }, 6000);
+          setTimeout(function () {
+            if (
+              $('#checkout_shipping_address_phone')?.val() === null ||
+              $('#checkout_shipping_address_phone')?.val() === ''
+            ) {
+              $('#ps_accepts_sms').attr('checked', false);
+            } else if (
+              $('#checkout_shipping_address_phone')
+                .val()
+                .replace(/[^0-9]/g, '').length > 5
+            ) {
+              $('#ps_accepts_sms').attr('checked', true);
+              console.log('ps_accepts_sms true 9000');
+            }
+          }, 9000);
+        });
+
+        var waitForEl = function (selector, callback) {
+          if (jQuery(selector).length) {
+            callback();
+          } else {
+            setTimeout(function () {
+              waitForEl(selector, callback);
+            }, 100);
+          }
+        };
+
+        waitForEl('#ps__container', function () {
+          var $psContainer = $('#ps__container');
+          // $psContainer.find('.checkbox__label').html("Text Me A Discount Code For My Next Order* (Recommended)<br>Sign up to the Schoolyard Snacks VIP list and we'll send you early access to flavors and discounts through text");
+          $psContainer
+            .find('.checkbox__label')
+            .html(
+              '<span>Send me special offers through text*<br>*I agree to receive recurring automated marketing text messages (e.g. cart reminders) at the phone number provided. Consent is not a condition to purchase. Msg & data rates many apply. Msg frequency varles. Reply HELP for help and STOP to cancel. View our <a href="/policies/terms-of-service" title="Go to Terms of Service">Terms of Service</a> and <a href="/policies/privacy-policy" title="Go to Privacy Policy">Privacy Policy</a>.</span>'
+            );
+        });
+        waitForEl('.order-summary-toggle__text--show span', function () {
+          $('.order-summary-toggle__text--show span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--show span').css('display', 'inline');
+        });
+        waitForEl('.order-summary-toggle__text--hide span', function () {
+          $('.order-summary-toggle__text--hide span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--hide span').css('display', 'inline');
+        });
+        checkFlashSale();
+
+        setTimeout(function () {
+          $('.order-summary-toggle__text--show span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--show span').css('display', 'inline');
+          $('.order-summary-toggle__text--hide span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--hide span').css('display', 'inline');
+        }, 5000);
+
+        setTimeout(function () {
+          $('.order-summary-toggle__text--show span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--show span').css('display', 'inline');
+          $('.order-summary-toggle__text--hide span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--hide span').css('display', 'inline');
+        }, 10000);
+
+        setTimeout(function () {
+          $('.order-summary-toggle__text--show span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--show span').css('display', 'inline');
+          $('.order-summary-toggle__text--hide span').html('Apply Discount Code');
+          $('.order-summary-toggle__text--hide span').css('display', 'inline');
+        }, 15000);
+
+        if (localStorage.getItem('utmDiscountCode')) {
+          $('.flash-banner').css('display', 'none');
+        }
+      });
+    </script>
+
+    <script>
+      $(document).on('change', '#checkout_billing_address_phone', function () {
+        if ($(this).val() != '') {
+          $('#ps_accepts_sms').prop('checked', true);
+        }
+      });
+
+      $(document).on('keypress', '#section--tip--custom-amount', function (e) {
+        if (e.keyCode == 45) {
+          e.preventDefault();
+        }
+      });
+
+      setTimeout(function () {
+        console.log('ik--------herehere');
+
+        var tar = $('#checkout_shipping_address_phone');
+        if (tar?.val() === null || tar?.val() === '') {
+          $('#ps_accepts_sms').prop('checked', false);
+        } else {
+          var phoneNumber = $('#checkout_shipping_address_phone')
+            .val()
+            .replace(/[^0-9]/g, '');
+          if (phoneNumber.length > 5) {
+            $('#ps_accepts_sms').prop('checked', true);
+          }
+        }
+
+        var total_val = $('[data-checkout-payment-due-target]').attr('data-checkout-payment-due-target') / 100;
+
+        $(document).on('keypress', '#section--tip--custom-amount', function (e) {
+          if (e.keyCode == 45) {
+            e.preventDefault();
+          }
+        });
+
+        /*
+        if (checkoutReturningUser()) {
+          // $(".flash-banner").html("🚨 Low Inventory Alert: 163 sold in the last 22 hours");
+        }
+
+        function checkoutReturningUser() {
+          console.log("returning user function");
+          var returningUserDate = localStorage.getItem('returningUser');
+          var today = new Date();
+          if (returningUserDate) {
+            returningUserDate = new Date(returningUserDate);
+            // allow for a 24 hour buffer
+            return today >= returningUserDate;
+          } else {
+            today.setSeconds(today.getSeconds() + 60);
+            localStorage.setItem('returningUser', today.toISOString());
+            return false;
+          }
+        }
+        */
+
+        // if(total_val <= 50) {
+        //   $(".flash-banner .flash-banner-1").show();
+        //   $(".flash-banner .flash-banner-2").hide();
+        // }else {
+        //   $(".flash-banner .flash-banner-1").hide();
+        //   $(".flash-banner .flash-banner-2").show();
+        // }
+
+        const $property = $('.product__description__property');
+        $property.each(function (index, item) {
+          var str = $(item).text();
+          if (str.includes('free_gift')) {
+            $(item).html('');
+          }
+        });
+        const summary = $('.order-summary__emphasis');
+        summary.each(function (index, item) {
+          var str = $(item).text();
+          if (str.includes('limited time')) {
+            $(item).html('$0.00');
+          }
+        });
+        $('.product__description__property').show();
+        $('.order-summary__emphasis').show();
+      }, 3000);
+    </script>
+
+    <!-- Post script -->
+
+    <script
+      type="application/javascript"
+      async
+      src="https://sdk.postscript.io/integrations/sdk-min.js"
+    ></script>
+
+    <style>
+      .total-recap__final-price {
+        display: block !important;
+      }
+
+      .order-summary-toggle__text--show span {
+        display: none;
+      }
+
+      .order-summary-toggle__text--hide span {
+        display: none;
+      }
+      .flash-banner {
+        display: none !important;
+      }
+      #ps__footer {
+        display: none;
+      }
+
+      nav[aria-label='Breadcrumb'] {
+        display: none;
+      }
+
+      .product__description__property {
+        display: none;
+      }
+
+      .order-summary__emphasis {
+        display: none;
+      }
+
+      .flash-banner .countdown,
+      .flash-banner .discount-code {
+        font-weight: 600;
+      }
+
+      @media screen and (max-width: 60em) {
+        .flash-banner.mobile {
+          background-color: rgb(252, 236, 212);
+          font-size: 15px;
+          text-align: center;
+          font-weight: 500;
+          padding: 0.5rem 2rem;
+          color: #24254e;
+          line-height: 19px;
+          position: fixed;
+          z-index: 10;
+          width: 100%;
+        }
+
+        .flash-banner.desktop {
+          display: none;
+        }
+
+        .flash-banner.mobile:not(.hidden) + .banner {
+          margin-top: 54px;
+          padding: 0.5rem 0;
+        }
+      }
+
+      #ps__container a {
+        text-decoration: underline;
+        color: #424242;
+      }
+
+      @media (max-width: 767px) {
+        #ps__checkbox_container .checkbox__label {
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+
+      @media screen and (min-width: 60em) {
+        .flash-banner.mobile {
+          display: none;
+        }
+
+        .flash-banner.desktop {
+          background-color: rgb(252, 236, 212);
+          font-size: 17px;
+          text-align: center;
+          font-weight: 500;
+          padding: 1rem 0.5rem;
+          color: #24254e;
+          line-height: 19px;
+          border-radius: 5px;
+          margin-top: 20px;
+          border: 1px #d9d9d9 solid;
+        }
+      }
+
+      .coupon-code {
+        font-weight: bold;
+      }
+    </style>
+
+    {% render 'shogun-head' %}
+
+    {% comment %}Luna Subscriptions Widget{% endcomment %}
+
+    <style>
+      {%- assign brand_color = '%23ff595a' -%}
+      .btn--luna {padding-top: 1.1em; padding-bottom: 1.1em; font-size: 16px; font-weight: 500; width: 100%; flex:1;}
+      .luna-features li { position: relative; padding-left: 36px; font-style: normal;margin-top: 16px;font-weight: 500;font-size: 16px;line-height: 24px; }
+      .luna-features li:before {background-repeat: no-repeat; background-position: center center; background-size: contain; content: "";height: 26px;width: 26px;position: absolute;left: 0;top: 0;}
+      .luna-features li:nth-child(1):before {background-image: url("data:image/svg+xml,%3Csvg width='24' height='26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.2 0c.72 0 1.302.583 1.302 1.302v3.9h-2.6v-3.9A1.3 1.3 0 0 1 5.2 0Zm13.002 0A1.3 1.3 0 0 1 19.5 1.302v3.9h-2.6v-3.9C16.9.582 17.482 0 18.2 0Z' fill='{{ brand_color }}'/%3E%3Cpath d='M20.799 2.6H2.6C1.17 2.6 0 3.77 0 5.202V23.4C0 24.83 1.17 26 2.6 26H20.8c1.43 0 2.6-1.17 2.6-2.6V5.201c0-1.43-1.17-2.6-2.6-2.6Zm-1.3 20.8H3.9a1.3 1.3 0 0 1-1.298-1.3V9.1h18.198V22.1a1.3 1.3 0 0 1-1.3 1.3Z' fill='{{ brand_color }}'/%3E%3C/svg%3E");}
+      .luna-features li:nth-child(2):before {background-image: url("data:image/svg+xml,%3Csvg width='26' height='26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 7.5H3.222V3.222' stroke='{{ brand_color }}' stroke-width='4' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M3.464 7.511A10.993 10.993 0 0 1 13 2c6.075 0 11 4.925 11 11s-4.925 11-11 11S2 19.075 2 13' stroke='{{ brand_color }}' stroke-width='4' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");}
+      .luna-features li:nth-child(3):before {background-image: url("data:image/svg+xml,%3Csvg width='29' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.5 14.687c.861 0 1.564.703 1.564 1.563s-.703 1.564-1.563 1.564-1.564-.704-1.564-1.564c0-.86.704-1.563 1.564-1.563Zm0-2.187a3.75 3.75 0 0 0-3.75 3.75A3.75 3.75 0 0 0 22.5 20a3.75 3.75 0 0 0 3.751-3.75 3.75 3.75 0 0 0-3.75-3.75Zm-15 2.187c.86 0 1.564.703 1.564 1.563S8.36 17.814 7.5 17.814c-.86 0-1.563-.704-1.563-1.564 0-.86.703-1.563 1.563-1.563Zm0-2.187a3.75 3.75 0 0 0-3.75 3.75A3.75 3.75 0 0 0 7.5 20a3.75 3.75 0 0 0 3.75-3.75A3.75 3.75 0 0 0 7.5 12.5Z' fill='{{ brand_color }}'/%3E%3Cpath d='m23.65 4.688 2.914 5.83v3.396a4.69 4.69 0 0 0-4.062-2.351c-1.054 0-2.03.349-2.812.94V4.688h3.96Zm.58-2.189h-6.727V16.25H20a2.502 2.502 0 0 1 5.002 0h2.499a1.25 1.25 0 0 0 1.251-1.249V10L25.348 3.19A1.248 1.248 0 0 0 24.23 2.5Z' fill='{{ brand_color }}'/%3E%3Cpath d='M18.752 9.999v6.251h1.25a2.502 2.502 0 0 1 5.001 0h2.498A1.25 1.25 0 0 0 28.753 15V10H18.752Z' fill='{{ brand_color }}'/%3E%3Cpath d='M0 1.25c0 .688.56 1.249 1.25 1.249H7.5a1.25 1.25 0 0 1 0 2.5h-5a1.25 1.25 0 1 0 0 2.501H5A1.25 1.25 0 1 1 5 10H2.5c-.69 0-1.25.56-1.25 1.252V15c0 .689.56 1.249 1.25 1.249H5a2.502 2.502 0 0 1 5.001 0h10V2.499A2.498 2.498 0 0 0 17.5 0H1.25C.56 0 0 .56 0 1.25Z' fill='{{ brand_color }}'/%3E%3C/svg%3E");}
+      .luna-features li:nth-child(4):before { background-image: url("data:image/svg+xml,%3Csvg width='27' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.598 24a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8ZM21.598 24a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8ZM19.825 13.2a2.4 2.4 0 0 0 2.098-1.235l4.324-7.783A1.202 1.202 0 0 0 25.198 2.4h-17.7L6.807.739A1.2 1.2 0 0 0 5.693 0l-2.09.01a1.2 1.2 0 0 0 .01 2.4L4.9 2.404l.69 1.656c.188.446.624.738 1.108.738l6.797.001-5.909 9.39a2.492 2.492 0 0 0 2.113 3.812h13.103a1.2 1.2 0 0 0 0-2.4H9.698l-.078-.14 1.413-2.26h8.792v-.002Z' fill='{{ brand_color }}'/%3E%3Cpath d='M9.144 7.198 7.68 9.526l-.048.072H0v-2.4h9.144ZM6.132 11.998l-1.524 2.4H0v-2.4h6.132Z' fill='{{ brand_color }}'/%3E%3C/svg%3E");}
+      .luna-manage-subscription {background: #ffedd2; border-radius: 8px; margin-top: 32px;padding: 20px;}
+      @media all and (min-width: 1050px) {
+        .btn--luna { max-width: 50%; margin-bottom: 7px; }
+        .luna-features {display: flex; flex-wrap: wrap; margin: 0;}
+        .luna-features li {flex: 1 50%; max-width: 50%; width: 50%; box-sizing: border-box;}
+      }
+    </style>
+    <script>
+      (function ($) {
+        $(document).on('page:load page:change', function () {
+          if (Shopify.Checkout.page === 'thank_you' || Shopify.Checkout.OrderStatus) {
+            const orderStatusHeader = document.getElementsByClassName('os-header')[0];
+            const orderStatusAccountBlock = `<div class="luna-manage-subscription">
+            <a href="/account/login" class="btn btn--luna">Go To Your Account</a>
+            <ul class="luna-features"><li>Review Upcoming Orders</li><li>Manage Your Subscriptions</li><li>Track Shipments</li><li>Faster Checkouts</li></ul></div>`;
+            orderStatusHeader.insertAdjacentHTML('afterend', orderStatusAccountBlock);
+          }
+        });
+      })(Checkout.$);
+    </script>
+  </head>
+
+  <body>
+    {% include 'elevar-checkout-end' %}
+
+    {{ skip_to_content_link }}
+
+    <div class="flash-banner mobile hidden" data-kis>
+      <!--
+        <div class="flash-banner-1">Flash Sale! Use code <span class='discount-code'>SECRET</span> in next <span class='countdown'></span> (today only!)</div>
+      -->
+      {%- comment -%}
+         <div class="flash-banner-1">
+          Flash Sale! Use code <span class="discount-code">SECRET</span> in next
+          <span class="countdown"></span>
+        </div>
+      {%- endcomment -%}
+      <div class="flash-banner-1">
+        Use code <span class="discount-code">SECRET</span> in next <span class="countdown"></span> for extra savings
+      </div>
+      <!--
+        <div class="flash-banner-2" style="display: none;">Back In Stock Sale! Use code <span class='discount-code'>WEREBACK</span> in next <span class='countdown'></span></div>
+      -->
+    </div>
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            <div class="flash-banner desktop hide--mobile hidden">
+              <div class="flash-banner-1">
+                Use code <span class="discount-code">SECRET</span> in next <span class="countdown"></span> for extra
+                savings
+              </div>
+              <!--
+                <div class="flash-banner-2" style="display: none;">Back In Stock Sale! Use code <span class='discount-code'>WEREBACK</span> in next <span class='countdown'></span></div>
+              -->
+            </div>
+            {{ breadcrumb }}
+            <div id="upsellplus"></div>
+            <div class="express-checkout">
+              {{ alternative_payment_methods }}
+            </div>
+          </div>
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            <h2 class="section__title">Order Summary</h2>
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+
+    {% include 'convert-checkout' %}
+
+    <script>
+      $(document).ready(function () {
+        var tar = $('#checkout_shipping_address_phone');
+        if (tar?.val() === null || tar?.val() === '') {
+          $('#ps_accepts_sms').prop('checked', false);
+        } else {
+          var phoneNumber = $('#checkout_shipping_address_phone')
+            .val()
+            .replace(/[^0-9]/g, '');
+          if (phoneNumber.length > 5) {
+            $('#ps_accepts_sms').prop('checked', true);
+          }
+        }
+      });
+
+      $(document).on('keyup', '#checkout_shipping_address_phone', function () {
+        console.log('checkout_shipping_address_phone');
+        if ($(this)?.val() === null || $(this)?.val() === '') {
+          $('#ps_accepts_sms').prop('checked', false);
+        } else {
+          var phoneNumber = $('#checkout_shipping_address_phone')
+            .val()
+            .replace(/[^0-9]/g, '');
+          if (phoneNumber.length > 5) {
+            $('#ps_accepts_sms').prop('checked', true);
+          }
+        }
+      });
+
+      $('#checkout_billing_address_phone').on('keyup', function () {
+        console.log('checkout_billing_address_phone');
+        if ($(this)?.val() === null || $(this)?.val() === '') {
+          $('#ps_accepts_sms').prop('checked', false);
+        } else {
+          var phoneNumber = $('#checkout_billing_address_phone')
+            .val()
+            .replace(/[^0-9]/g, '');
+          if (phoneNumber.length > 5) {
+            $('#ps_accepts_sms').prop('checked', true);
+          }
+        }
+      })(function () {
+        if (typeof Checkout === 'object') {
+          if (typeof Checkout.$ === 'function') {
+            var x = document.getElementsByClassName('step')[0];
+            if (x.getAttribute('data-step') === 'contact_information') {
+              // Onload page we triggered click to uncollapse hidden block.
+              // Change class to .order-summary-toggle--hide for collapsing block.
+              Checkout.$('button.order-summary-toggle.order-summary-toggle--show').trigger('click');
+            }
+            if (x.getAttribute('data-step') === 'shipping_method' || x.getAttribute('data-step') === 'payment_method') {
+              Checkout.$('.main__footer').css('display', 'none');
+            }
+          }
+        }
+      })();
+      setTimeout(function (e) {
+        var tar = $('#checkout_shipping_address_phone');
+        if (tar?.val() === null || tar?.val() === '') {
+          $('#ps_accepts_sms').prop('checked', false);
+        } else {
+          var phoneNumber = $('#checkout_shipping_address_phone')
+            .val()
+            .replace(/[^0-9]/g, '');
+          if (phoneNumber.length > 5) {
+            $('#ps_accepts_sms').prop('checked', true);
+          }
+        }
+
+        const totalPrice = parseFloat($('.payment-due__price').html().replace('$', ''));
+        if (totalPrice < 30) {
+          $('.coupon-code').html('BF5');
+        } else if (totalPrice < 50) {
+          $('.coupon-code').html('BF20');
+        } else {
+          $('.coupon-code').html('BF25');
+        }
+        if ($('.reduction-code').length) {
+          $('.flash-banner').remove();
+        }
+      }, 1000);
+    </script>
+
+    <style>
+      @media screen and (max-width: 60em) {
+        .flash-banner.mobile {
+          font-size: 14px;
+        }
+      }
+    </style>
+    <!-- navidium app -->
+    {% include 'navidium-widget-v6' %}
+
+    <div data-rebuy-id="44614"></div>
+    <script
+      async
+      src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop=the-cereal-school.myshopify.com"
+    ></script>
+    <script id="upsellplus_data">
+      Shopify.customer_tags_upsell = {{ checkout.customer.tags | json }};Shopify.customer_address_upsell = {{ checkout.customer.default_address | json }}
+    </script>
+    <script src="https://app.upsellplus.com/script/upsellplus_widget.js" defer></script>
+  </body>
+</html>

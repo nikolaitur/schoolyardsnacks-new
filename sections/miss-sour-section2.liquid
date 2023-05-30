@@ -1,0 +1,172 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="review-images hide--mobile">
+    <div class="half-column">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/showtime.png?v=1631932347"
+        alt="review image"
+      >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jess_1ac64593-878d-4f9c-ba05-cc63e7aa1fe2.png?v=1631932269"
+        alt="review image"
+      >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/audrey.png?v=1631932288"
+        alt="review image"
+      >
+    </div>
+    <div class="half-column">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/alice.png?v=1631932247"
+        alt="review image"
+      >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jennifer.png?v=1631932304"
+        alt="review image"
+      >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/deegarcia.png?v=1631932364"
+        alt="review image"
+      >
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/eatliftlivelife.png?v=1631932323"
+        alt="review image"
+      >
+    </div>
+  </div>
+  <div class="image-slider2 image-slider social hide--desktop">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/showtime_23ad5820-7e7d-471f-8363-0ffac1fe660a.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/audrey_3032f3b6-1f86-47ba-878c-23ddbd86260b.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jess_997f5c6e-5688-4473-a803-fc37f87ec4d6.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jennifer_1d99f9a5-6e1d-4ca4-8a0a-bf20254a7f8e.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/alice_99cb0cff-47be-4ef9-b53f-c7dbe3cb1738.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/eatliftlivelife_18a30a38-9228-41ad-b16c-7c5a855e31b6.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/deegarcia_1eb7de30-771e-47b4-88a0-70539180e923.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+    </div>
+    <div class="swiper__button swiper__button--next swiper__button--next2">
+      {% include 'icon', handle: 'next' %}
+    </div>
+    <div class="swiper__button swiper__button--prev swiper__button--prev2">
+      {% include 'icon', handle: 'prev' %}
+    </div>
+  </div>
+  <div class="subtitle">{{ section.settings.subtitle1 }}</div>
+  <h2 class="title">You May Recognize Some Of Our Fans</h2>
+  <div class="review-images hide--mobile">
+    <div class="half-column">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/edge.png?v=1631932190"
+        alt="review image"
+      >
+    </div>
+    <div class="half-column">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jewel.png?v=1631932205"
+        alt="review image"
+      >
+    </div>
+  </div>
+
+  {% assign cta_link = '/products/keto-puffs?ut=gdn' %}
+  {% if template.suffix == 'miss_cream_1' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/products/keto-puffs?ut=gdn' %}
+  {% endif %}
+  {% if template.suffix == 'miss_cream_2' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/pages/lander-dsp-b?ut=gdn' %}
+  {% endif %}
+  {% if template.suffix == 'miss_cream_3' %}
+    {% assign cta_link = 'https://schoolyardsnacks.com/pages/lander-dsp-c?ut=gdn' %}
+  {% endif %}
+
+  <a href="{{ cta_link }}" class="btn btn-flavor-select hide--mobile"
+    >Get Yours Now</a
+  >
+  <div class="image-slider1 image-slider social hide--desktop">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/edge_bc8668db-9fd3-407e-838c-1241b0a4ff1a.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+
+      <div class="swiper-slide">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jewel_edbd4ab9-f8db-430f-be9a-e976b2e12cff.png?v=1632424858"
+          alt="review image"
+        >
+      </div>
+    </div>
+    <div class="swiper__button swiper__button--next swiper__button--next1">
+      {% include 'icon', handle: 'next' %}
+    </div>
+    <div class="swiper__button swiper__button--prev swiper__button--prev1">
+      {% include 'icon', handle: 'prev' %}
+    </div>
+  </div>
+
+  <a
+    href="https://schoolyardsnacks.com/products/keto-cheese-puffs-6-family-size-bags"
+    class="btn btn-flavor-select hide--desktop"
+    >Get Yours Now</a
+  >
+</div>
+{% schema %}
+{
+  "name": "Miss Sour 2",
+  "class": "ytlander-4 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle1",
+      "label": "Subtitle1"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle2",
+      "label": "Subtitle2"
+    }
+  ]
+}
+{% endschema %}

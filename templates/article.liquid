@@ -1,0 +1,69 @@
+{% section 'article-template' %}
+{% assign contain_product = false %}
+{% if article.handle == 'behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-1' %}
+  {% assign contain_product = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cocoa-cereal-on-keto-try-this' %}
+  {% assign contain_product = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-fruity-loops-on-keto-try-this' %}
+  {% assign contain_product = true %}
+{% endif %}
+{% if article.handle == 'blog/if-you-miss-cinnamon-cereal-on-keto-try-this' %}
+  {% assign contain_product = true %}
+{% endif %}
+{% if contain_product %}
+  {% if article.handle == 'behind-the-scenes/if-you-miss-sour-cream-onion-chips-on-keto-try-this-1' %}
+    {% assign product = all_products['keto-puffs'] %}
+    {% section 'product-upper-puffs' %}
+    {% section 'cheese_puffs_slider' %}
+    {% section 'product-icons-highlights-puffs' %}
+    {% section 'product-nutritional-puffs' %}
+    {% section 'product-faq-puffs' %}
+    {% section 'product-icons-seen-puffs' %}
+    {% section 'product-social-puffs' %}
+  {% else %}
+    {% assign product = all_products['cereal'] %}
+    {% section 'product-upper-cereal' %}
+    {% section 'cereal_slider' %}
+    {% section 'product-icons-highlights-cereal' %}
+    {% section 'product-nutritional-cereal' %}
+    {% section 'product-faq-cereal' %}
+    {% section 'product-icons-seen-cereal' %}
+    {% section 'product-social-cereal' %}
+  {% endif %}
+  {% include 'product-reviews' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "brand": "{{ product.vendor }}",
+      "name": "{{ product.title }}",
+      "mainEntityOfPage": "{{ canonical_url }}",
+      "url": "{{ canonical_url }}",
+      "image": "https:{{ product.featured_image.src | img_url:'2000x' }}",
+      "description": "{{ product.description | escape | strip_html | strip_newlines }}",
+      "offers": [
+        {% for variant in product.variants %}
+        {
+          "@type": "Offer",
+          "priceCurrency": "{{ shop.currency }}",
+          "price": "{{ variant.price | money_without_currency }}",{% if variant.available %}
+          "availability": "http://schema.org/InStock",{% else %}
+          "availability": "http://schema.org/OutOfStock",{% endif %}
+          "sku": "{{ variant.sku }}",
+          "seller": {
+            "@type": "Organization",
+            "name": "{{ shop.name }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+
+  {% unless product == empty %}
+    <script type="application/json" id="product__json">{{ product | json }}</script>
+    <script type="application/json" id="current_variant__json">{{ product.selected_variant | json }}</script>
+  {% endunless %}
+{% endif %}

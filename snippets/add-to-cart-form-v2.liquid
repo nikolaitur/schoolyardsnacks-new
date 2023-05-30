@@ -1,0 +1,459 @@
+{% assign form_class = product.type | handleize %}
+
+{% form 'product', product, id: 'add-to-cart-form', class: form_class, data-productid: product.id, data-cart-submit: true %}
+  {% if section.settings.all_flavors_sold_out %}
+    <div class="product-sold-out-text">
+      {{ section.settings.all_flavors_sold_out_text }}
+    </div>
+    <button class="btn btn--block" disabled>Sold Out</button>
+    {% else %}
+    {%- comment -%}
+    {% if product.available %}
+        {% if is_alternate_template == true %}
+            <div class="product-option-row product-option-row--bundle">
+                {% include 'subscription-product-alternate' %}
+            </div>
+        {% else %}
+            {% include 'subscription-product' %}
+        {% endif %}
+    {% endif %}
+    
+    <div class="product-option-row product-option-row--bundle">
+      <div class="option-name">{{ section.settings.bundle_label }}</div>
+      <div class="product-options product-options--bundles">
+        {% for block in section.blocks %}
+          {% if block.type == 'bundle' %}
+            <div class="product-option product-option--bundle{% if block.settings.default == true %} product-option--selected{% endif %}{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+              <div class="product-option__wrapper">
+                <input type="radio" name="single-option-select-bundle" id="swatch-1-{{ block.settings.value }}" value="{{ block.settings.value }}" class="single-option-select visually-hidden" data-type="bundle" data-flavor-limit="{{ block.settings.flavor_limit }}"{% if block.settings.default == true %} checked{% endif %}{% if block.settings.sold_out %} disabled{% endif %} />
+                <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                  {{ block.settings.title }}
+                  <span class="product-option__label-icon"></span>
+                </label>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {%- endcomment -%}
+    {%- comment -%}
+    add to cart flow:
+    each flavor is a variant.
+    upon incrementing or decrementing we update an array of add-to-cart objects.
+    Each flavor will have a qty of 1, and the variant will represent the flavor of that dozen count.
+    The needed info will be stored in an object like this
+    {flavors: [
+        "cheddar": [
+            cheddar_1_doz_variant_id,
+            cheddar_2_doz_variant_id,
+            cheddar_3_doz_variant_id,
+            cheddar_4_doz_variant_id,
+            cheddar_5_doz_variant_id,
+            cheddar_6_doz_variant_id
+        ],
+        "Fiery": [
+            Fiery_1_doz_variant_id,
+            Fiery_2_doz_variant_id,
+            Fiery_3_doz_variant_id,
+            Fiery_4_doz_variant_id,
+            Fiery_5_doz_variant_id,
+            Fiery_6_doz_variant_id
+        ],
+        "sour_cream": [
+            sour_cream_1_doz_variant_id,
+            sour_cream_2_doz_variant_id,
+            sour_cream_3_doz_variant_id,
+            sour_cream_4_doz_variant_id,
+            sour_cream_5_doz_variant_id,
+            sour_cream_6_doz_variant_id
+        ],
+    ]}
+    Example: Each dozen has chedder, Fiery, and sour cream. An order with 1 doz cheddar, and 3 doz Fiery would use the 
+    above object and the field qtys and be transformed to this when posting
+
+    {items: [
+        {
+            id: cheddar_1_doz_variant_id,
+            quantity: 1
+        },
+        {
+            id: Fiery_3_doz_variant_id,
+            quantity: 1
+        } 
+    ]}
+    {%- endcomment -%}
+{% if product_type == "puffs" or product_type == "cereal" %}
+<script>
+    $(document).ready(function() {
+      //$("#new_styl_pdp_form .product-option__label--swatch[for='swatch-2-bbq']")[0].remove();
+    });
+    // TODO handle the subscription products
+    {% if product_type == "cereal" %}
+      var defaults = {
+        "peanut-butter": 1,
+        "cocoa": 1
+      }
+    {% endif %}
+
+    {% if product_type == "puffs" %}
+      var defaults = {
+        "cheddar-cheese": 1,
+        "cheddar-jalapeno": 1
+      }
+    {% endif %}
+
+    function idFromQtyAndFlavorSubscription(qty, flavor) {
+      console.log("{{ product.sku }}");
+      console.log(dozSubscriptionProducts[qty]);
+        return dozSubscriptionProducts[qty].variants.filter((i) => { return i.flavor == flavor })[0].id
+    }
+    function idFromQtyAndFlavor(qty, flavor) {
+        return dozProducts[qty].variants.filter((i) => { return i.flavor == flavor })[0].id
+    }
+    function updateOverallTotal() {
+        console.log("updateOverallTotal");
+        // check all inputs, set price
+        var sub_currentDoz = dozSubscriptionProducts[numberOfDoz()];
+        var onetime_currentDoz = dozProducts[numberOfDoz()];
+
+        console.log("onetime_currentDoz");
+        console.log(onetime_currentDoz);
+        console.log("sub_currentDoz");
+        console.log(sub_currentDoz);
+
+        $(".rc_label__onetime #ik-slash_price_one_time").html(onetime_currentDoz.compare_at_price);
+        $(".rc_label__onetime #ik-rc_price_onetime").html(onetime_currentDoz.sell_price);
+        $(".rc_label__onetime .ik-per-bag.per-bag--once [data-open-accessibility-text-original]:last-child").html(onetime_currentDoz.price_per_bag);
+
+        $(".rc_label__autodeliver #ik-slash_price_subscription").html(sub_currentDoz.compare_at_price);
+        $(".rc_label__autodeliver #ik-rc_price_autodeliver").html(sub_currentDoz.sell_price);
+        
+        $("#sub_rc_price_autodeliver").html(sub_currentDoz.sell_price);
+
+        $(".rc_label__autodeliver .ik-per-bag.per-bag--subs [data-open-accessibility-text-original]:last-child").html(sub_currentDoz.price_per_bag);
+
+        // var currentDoz = dozProducts[numberOfDoz()]
+        $('#new_styl_pdp_form span.price-per-bag').html(onetime_currentDoz.price_per_bag);
+        $('#new_styl_pdp_form span.sell-price').html(onetime_currentDoz.sell_price);
+        $('#new_styl_pdp_form span.compare-at-price').html(onetime_currentDoz.compare_at_price);
+    }
+
+    function generateBundleId() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function numberOfDoz() {
+        return $('#new_styl_pdp_form .flavor-qty-picker').get()
+            .map(function(e) { return parseInt($(e).val() || 0) })
+            .reduce((acc,currentVal) => acc + currentVal );
+    }
+    function isSubscription() {
+      return $('#new_styl_pdp_form #add-to-cart-form').hasClass('subscription');
+    }
+
+    function addToCartItems() {
+        var addToCart = [];
+        var bundleId = generateBundleId();
+        $('#new_styl_pdp_form .flavor-qty-picker').each(function() { 
+            if($(this).val() > 0) {
+              if(isSubscription()) {
+                addToCart.push({
+                  id: idFromQtyAndFlavorSubscription(numberOfDoz(),$(this).data('flavor')),
+                  quantity: $(this).val(),
+                  properties: {
+                    "shipping_interval_frequency": $('#new_styl_pdp_form [id^=rc_shipping_interval_frequency]').val(),
+                    "shipping_interval_unit_type": $('#new_styl_pdp_form [id^=rc_shipping_interval_unit_type]').val(),
+                    "subscription_id": $("#new_styl_pdp_form #rc_subscription_id").val(),
+                    "bundle_id": bundleId
+                  }
+                })
+              } else {
+                addToCart.push( {id: idFromQtyAndFlavor(numberOfDoz(),$(this).data('flavor')), quantity: $(this).val(), properties: {"bundle_id": bundleId}} )
+              }
+            } 
+        });
+        return addToCart;
+    }
+
+    function setupDefaults() {
+      console.log("new style form setup default");
+        Object.keys(defaults).forEach(function(k) { 
+          $('#new_styl_pdp_form input[name='+k+'-qty').val(defaults[k])
+          // $('#'+k+'-qty-count').html(defaults[k] * 12 + " bags"); 
+        });
+        updateOverallTotal(); 
+    }
+
+    function addToCartDOMLoaded() {
+        $('#new_styl_pdp_form .control.decrement').on('click', function(e){
+            e.preventDefault();
+            var input = $(this).siblings('input');
+            var inputAmount = parseInt(input.val() || 0);
+            var amount = inputAmount - 1;
+
+            if (amount >= 0) {
+              input.val(amount);
+              var total_qty = 0;
+              jQuery.each($(".flavor-qty-picker"), function (i, item) {
+                total_qty += parseInt(item.value);
+              });
+              if(total_qty != 0) updateOverallTotal();
+            }else {
+              input.val(0);
+            }
+            console.log("decre input amout: " + amount);
+            updateButtonStatus();
+            $(this).blur();
+        });
+        $('#new_styl_pdp_form .control.increment').on('click', function(e){
+            e.preventDefault();
+            var input = $(this).siblings('input');
+            var inputAmount = parseInt(input.val() || 0);
+            var amount = inputAmount + 1;
+
+            if (amount <= 6 && numberOfDoz() < 6) {
+              input.val(amount);
+              updateOverallTotal();
+            }
+            console.log("incre input amout: " + amount);
+            updateButtonStatus();
+            $(this).blur();
+        });
+
+        var updateButtonStatus = function() {
+          var total_qty = 0;
+          jQuery.each($(".flavor-qty-picker"), function (i, item) {
+            total_qty += parseInt(item.value);
+          });
+          console.log("total_qty: " + total_qty);
+          if (total_qty > 0) {
+            $('form[action^="/cart/add"] [type=submit]').removeClass("disabled");
+          }else {
+            console.log("total size is zero");
+            $("#ik-rc_price_onetime").html("");
+            $("#ik-rc_price_autodeliver").html("");
+            $("#ik-slash_price_one_time").html("");
+            $("#ik-slash_price_subscription").html("");
+            $(".ik-per-bag.per-bag--subs").html("");
+            $(".ik-per-bag.per-bag--once").html("");
+            $('form[action^="/cart/add"] [type=submit]').addClass("disabled");
+          }
+        }
+        
+        $('#new_styl_pdp_form #rc_radio_options input[type=radio]').on('change', function() {
+          updateOverallTotal();
+        });
+        
+        $('#new_styl_pdp_form #add-to-cart').off( "click", "**" );
+        $('#new_styl_pdp_form #add-to-cart').on('click', function(e) {
+            e.preventDefault();
+            console.log('adding to cart: %O', addToCartItems());
+            CartJS.addItems(addToCartItems());
+        })
+
+        // Setup defaults
+        setupDefaults();
+        // Check return cookie
+        var newStyleCookieName = 'sys_puffs_newstyle',
+          newStyleCookieExists = ( document.cookie.match('(^|; )'+newStyleCookieName+'=([^;]*)')||0 )[2];
+        if (!newStyleCookieExists) {
+          var aquiredDate = new Date(),
+            expireDate = new Date();
+          expireDate.setMonth(expireDate.getMonth() + 1);
+          document.cookie = newStyleCookieName + "=" + aquiredDate +'; expires='+expireDate.toGMTString() +'; path=/';
+          $('a[href~="/products/keto-puffs"]').each(function() {
+            $(this).attr('href', $(this).attr('href').concat('?view=newstyle'));
+          });
+        }
+    }
+
+    (function() {
+        document.addEventListener('DOMContentLoaded', addToCartDOMLoaded);
+    })()
+</script>
+<style>
+  /* Widget: Purchase options */
+  #new_styl_pdp_form label.rc_label {
+    color: {{ widget_label_color }};
+  }
+
+  #new_styl_pdp_form div.rc_block__type--active label.rc_label {
+    color: {{ widget_active_color }};
+  }
+  /* Widget: Popup */
+  #new_styl_pdp_form div.rc_popup__block {
+    z-index: {{ popup_zindex }};
+  }
+  #new_styl_pdp_form div.rc_popup__block:before {
+    border-bottom-color: {{ popup_background_color }};
+  }
+  #new_styl_pdp_form div.rc_popup__block {
+    background-color: {{ popup_background_color }} !important;
+  }
+  #new_styl_pdp_form div.rc_popup__close,
+  #new_styl_pdp_form div.rc_popup__block__content,
+  #new_styl_pdp_form div.rc_popup__block__content strong {
+    color: {{ popup_text_color }} !important;
+  }
+  #new_styl_pdp_form div.rc_popup__block__content a {
+    color: {{ popup_link_color }} !important;
+  }
+  /* ReCharge CSS */
+  {{ recharge_custom_css }}
+  
+
+</style>
+{% else %}
+{% endif %}
+
+{% for block in section.blocks %}
+    {% if block.type == 'flavor' %}
+    
+    {% endif %}
+{% endfor %}    
+  <div class="product-option-row product-option-row--flavor">
+    <div class="option-name">1. CHOOSE FLAVORS:</div>
+    <div class="product-options product-options--flavors">
+      {% for block in section.blocks %}
+        {% if block.type == 'flavor' %}
+        <label for="swatch-2-{{ block.settings.title | handle }}" class="product-option__label product-option__label--swatch {% if block.settings.new %}brand-new{% endif %}">
+            <div class="product-option__swatch">
+              {% if block.settings.new %}
+                <span class="product-option__new-flag">Brand New</span>
+              {% endif %}
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+              <span class="product-option__swatch-selected"></span>
+            </div>
+            <div class="product-option__text">
+                <span class="product-option__title">
+                {{ block.settings.title }}
+                </span>
+
+                <span id="{{ block.settings.title | handle }}-qty-count" class="product-option__qty-count">12 bags</span>
+            </div>
+            
+            <div class="qty-picker">
+              <button class="control decrement">-</button>
+              <input type="number" name="{{ block.settings.title | handle }}-qty" class="flavor-qty-picker disabled" value="0" data-flavor="{{ block.settings.title | handle }}" min="0" max="6" >
+              <button class="control increment">+</button>
+            </div>
+          </label>
+        {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+  {%- comment -%}
+  <div class="product-option-row product-option-row--flavor">
+    <div class="option-name">{{ section.settings.flavor_label }}</div>
+    <div class="product-options product-options--flavors">
+      {% for block in section.blocks %}
+        {% if block.type == 'flavor' %}
+          <div class="product-option product-option--flavor{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+            <div class="product-option__wrapper">
+              <!-- {{ block.settings.sold_out}}-->
+              <input type="checkbox" name="single-option-select-flavor" id="swatch-2-{{ block.settings.title | handle }}" value="{{ block.settings.title }}" class="single-option-select visually-hidden" data-type="flavor"{% if block.settings.sold_out %} disabled{% endif %} />
+              <label for="swatch-2-{{ block.settings.title | handle }}" class="product-option__label product-option__label--swatch">
+                <div class="product-option__swatch">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+                  <span class="product-option__swatch-selected"></span>
+                </div>
+                <span class="product-option__title">
+                  {{ block.settings.title }}
+                </span>
+                {% if block.settings.new %}
+                  <span class="product-option__new-flag">Brand New</span>
+                {% endif %}
+              </label>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {%- endcomment -%}
+
+  {% comment %} Main variant drop down (hidden) {% endcomment %}
+  {% if product.variants.size <= 1 %}
+    <input name="id" id="product-select" type="hidden" value="{{ product.variants.first.id }}" data-productid="{{product.id}}" />
+  {% else %}
+    <select name="id" id="product-select" data-productid="{{product.id}}">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }}</option>
+        {% else %}
+          <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  {% endif %}
+
+  {% if product.available %}
+    <div class="product-option-row product-option-row--bundle">
+      {% if is_alternate_template == true %}
+        {% include 'subscription-product-alternate' %}
+      {% else %}
+        {% include 'subscription-product-v2' %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if is_free_gift_template %}
+  <div class="product-option-row product-option-row--free-gift">
+    <input type="checkbox" name="properties[free_gift]" value="true" checked />
+    <label for="properties[free_gift]">Get My Free Mystery Gift (Today Only)</label>
+  </div>
+  {% endif %}
+
+  <div class="product-action{% if is_alternate_template %} product-action--alternate{% endif %}">
+    {% comment %}We're not letting them edit quantity here, but we still need to send 1 to the form{% endcomment %}
+    <input type="hidden" name="quantity" value="1" />
+    {% if product.tags contains 'SkipCart' %}
+    <input type="hidden" name="properties[skip_cart]" value="true" />
+    {% endif %}
+    {% comment %}
+    <div class="product-price-info">
+        <div class="price-per-bag-text">Only <span class="price-per-bag">{{ initial_price_per_bag }}</span> per bag</div>
+        <span class="compare-at-price">{{ initial_compare_at_price }}</span>
+        <div>
+            <span class="sell-price">{{ initial_sell_price }}</span>
+        </div>
+    </div>
+    {% endcomment %}
+      <button name="add" id="add-to-cart" type="submit" class="btn btn--block">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </button>
+     
+    </div>
+  {% endif %}
+{% endform %}
+
+{%- comment -%}
+
+<!-- {{collections}} -->
+{% for product in collections['Products'].products %}
+<!-- {{product.title}} -->
+{% if product.sku == "SYS-MYSTERY-1" %}
+{% endif %}
+{% endfor %}
+{% if is_free_gift_template and product_type == "puffs" %}
+<script type="text/javascript" id="free_gift__json">
+  var free_gift_id = 0;
+  document.addEventListener('DOMContentLoaded', function () {
+    $.getJSON('/products/mystery-gift.js', function(product) {
+      console.log(product);
+      free_gift_id = product.variants[0].id;
+    } );
+  });
+</script>
+{% endif %}
+{%- endcomment -%}

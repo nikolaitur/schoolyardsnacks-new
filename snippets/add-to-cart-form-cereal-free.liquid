@@ -1,0 +1,80 @@
+{% assign form_class = product.type | handleize %}
+
+{% form 'product', product, id: 'add-to-cart-form', class: form_class, data-productid: product.id, data-cart-submit: true, data-pro-handle: product.handle %}
+  {% comment %} Main variant drop down (hidden) {% endcomment %}
+  {% if product.variants.size <= 1 %}
+    <input name="id" id="product-select" type="hidden" value="{{ product.variants.first.id }}" data-productid="{{product.id}}" />
+  {% else %}
+    <select name="id" id="product-select" data-productid="{{product.id}}">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }}</option>
+        {% else %}
+          <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+        {% endif %}
+      {% endfor %}
+    </select>    
+  {% endif %}
+
+  {% if template.suffix == 'sampler-pack' %}
+    <div class="left-and-right-text">
+      <div class="left-text">You Get FREE Shipping!</div>
+      <div class="right-text">$12.99</div>
+    </div>
+  {% endif %}
+  <div a class="product-action{% if is_alternate_template %} product-action--alternate{% endif %}">
+    {% comment %}We're not letting them edit quantity here, but we still need to send 1 to the form{% endcomment %}
+    <input type="hidden" name="quantity" value="1" />
+    
+  {% if product.handle == 'sample-4-pack-of-keto-cereal' %}
+    <style>
+      .ik-normal-pack {
+        display: none !important;
+        z-index: -99 !important;
+        opacity: 0 !important;
+        position: absolute !important;
+      }
+    </style>
+  {% else %}
+    <style>
+      .ik-sample-pack {
+        display: none !important;
+        z-index: -99 !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        text-decoration: none;
+      }
+    </style>
+  {% endif %}
+  {%- comment -%}
+  {% assign cart_item = cart.items['sample-4-pack-of-keto-cereal'].quantity | plus: 1 %}
+  {%- endcomment -%}
+  {% assign cart_item = 1 %}
+    <a sample-pack-qty="{{ cart_item }}" class="btn loadAtc btn--block puff-add-to-cart candy non-prepay ik-sample-pack" 
+    href="https://schoolyardsnacks.com/apps/fast-checkout/checkouts/perm?sid=sK5Gl7mXz6NyEcn&variants=39852586139736:{{ cart_item }}&tag=c17cb964-f4b2-46ac-9370-83d9202a7522">
+      {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+      <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">
+        {% if template.suffix == 'sampler-pack' %}
+          Try 4 Flavors Today
+        {% else %}
+          Try 4 Flavors For FREE
+        {% endif %}
+      </span>  
+    </a>
+    <button name="button" id="add-to-cart" type="submit" class="btn loadAtc  btn--block puff-add-to-cart candy non-prepay ik-normal-pack">
+      {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+      <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">
+        {% if template.suffix == 'sampler-pack' %}
+          Try 4 Flavors Today
+        {% else %}
+          Try 4 Flavors For FREE
+        {% endif %}
+      </span>      
+
+      {% if is_alternate_template %}
+        - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+      {% endif %}
+    </button>
+  </div>
+{% endform %}
+

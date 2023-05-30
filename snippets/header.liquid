@@ -1,0 +1,72 @@
+{% assign hide_on_article = false %}
+
+{% assign no_links = false %}
+
+{% if article.tags contains 'no_navigation' %}
+  {% assign no_links = true %}
+{% endif %}
+
+<header class="header {% if template contains 'bundle-builder' %}not-sticky{% endif %} {% if no_links %}no_links{% endif %} {% if hide_on_article %}hide-on-article{% endif %}" {{ section.shopify_attributes }}>
+  <style>
+    .header-promo {background-color: {{ section.settings.bg_color }};}
+    .header-promo p {color: {{ section.settings.text_color }};}
+  </style>
+
+  {% comment %}
+  {% if template.suffix == 'new_cereal' %}
+    <div class="header-promo">{% if section.settings.promo_text != blank %}<p>10,000+ Reviews & 30 Day Money Back Guarantee</p>{% endif %}</div>  
+  
+  {% else %}
+    <div class="header-promo">{% if section.settings.promo_text != blank %}<p>{{ section.settings.promo_text }}</p>{% endif %}</div>
+  {% endif %}
+  {% endcomment %}
+  <!-- <div class="header-promo"><p>NEW Keto Cookies Are Here! <a href="https://schoolyardsnacks.com/products/low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free">Get Yours >></a></p></div> -->
+  <div class="header-promo"><a href="https://schoolyardsnacks.com/products/new-max-sweets-snacks-low-carb-keto-max-mallow-atkins-paleo-diabetic-diet-friendly-health-snack-gluten-free-soy-free-zero-sugar-snack-non-gmo-ketogenic-6-pack-by-max-sweets"><p>Sugar-Free Keto Marshmallows Are Here! Get Yours&nbsp; >></p></a></div>
+  <!-- <div class="header-promo"><p>'This Week Only: 10% OFF Father's Day Sale! Code: DAD10'</p></div> -->
+
+  <div class="header-main">
+    <div class="container--fluid">
+      <div class="header-mobile-toggle">
+        <button class="header__mobile-nav-toggle" type="button" id="mobile-navigation-toggle" aria-label="Toggle Navigation">
+          <span class="open">{% include 'icon', handle: 'hamburger' %}</span>
+          <span class="close">{% include 'icon', handle: 'close' %}</span>
+        </button>
+      </div>
+
+      <div class="header-logo">
+        <a href="/{% if article.handle contains '10-best-keto' %}?ut=articleD{% endif %}" title="{{ shop.name }}" aria-label="{{ shop.name }}">
+         <!-- <img src="{{ 'logo.png' | asset_img_url: '280x' }}" alt="{{ shop.name }}" /> -->
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAABcCAMAAACLIK0jAAADAFBMVEVHcEz/+vn+4+D/9PH/+fj//f3/////////8/H/+/r/8O7+5uL/+/r//////////Pz/////9/b/+fj/+/v//v7//f3/9/b/+Pf/+Pf/9PH/+/r/+/r/////+ff//v7/+vr//f380s3zb27/+fj/////////8e//+Pf////zeXbybmz0gX30eXn5s6z3oZ7//fz//f3//Pv/+vn//Pz//Pz////yZWfyaWr1iIL/+fj//v70eXbzcHLwTk/xYWL1iYj0fXv8zcn2mJH1hX/xW1rxWVv6vrv//Pv////5s7D5qqX4q6r3oJ/4q6nwWlfwW1r3np/+7ez6xcX4pqD3qKf82djwVln2l5X7zc394+L0h4n2kY3////tOz/uQ0buR0tyycfwWVzuPEDuQUXvTVHvRknuPkLuQETvTFDuREjuPUHxWFrvSk1qxsRoxcPwUlbwT1LtOj1tx8XuSU3wVVjwVlnuODtmxcLvUFTxYmR1ysjvS0/yaWvxW1381NPwXF+Cz8395+fxX2KM09H/+vr82NftMzfQ7e1sx8TtNTn2jY7yZWfwU1Z9zcv///9lxMH95eT4/f32k5T6urrxXWD1iYrtLjLzcnTe8/J/zsx6zMr/9/f/8/L2kJHi9PT+7Oz4pab8/v7zdHZ3y8n70NDvSEtvyMbya23K6+r3m5z0g4T/+fj/9vX0fX9iw8Da8fDx+vqa2df//v7wUlT7y8z+8fD+7+75t7fvSErr+Pi/5+aP1NK75eT7ycn5tbb2lZb0gIH//Pz83d3+6un1+/u35OP6vLz3n5/0d3j829pgwsCi29rzbW/7zs7939/4qqqd2tj//v2s4N73oaL1hoeS1tTH6un///6o3t2k3dv4r6/2mJnzeXv94uL0e3zT7+76xcWz4uHzcHGF0c/zcHLW8O/N7Oz3o6T3nZ3n9vaf29mJ0tCw4eD5s7Tv+fn4rK36x8ftMDSX19brICX6wsL6v7/vREfsKi74p6jqGBxdwb/uRkrD6OfsJClYv7xPvLmbabwWAAAAXHRSTlMAdg0Xfsnb/gSfHweQ6t6y7mAlps2rMVtJRJVt5zzhhLcBxjfV+BGN9JK6erEhd8HTvmhULeXo1F9Su4jX5eCmny82TMzqXsW+RVZkh461tNS2xE9N3vZxluvee7E8qiEAABAxSURBVHjazVp3XFRX2h4bUaMxdqMxJjExiTHZ9Gw2m+xmU7Z93+7X2+/MLTPXaTAD05iKMwzSh98IUgS7SO+iGBQVEFQQK2JDRMQSRDQo6uqY7PeeO0iRqYTsz/ePuffcdt573ud53vecO5wnxb58+ZecJ8VeZsjfcZ4QG/1fSnoi5wmx3/mLPnqa84TYH0XMy5wnxX7JGH7LeVLsbSLoTc6TYv8kUH3J+fls/MT5s0e9NmHKu+PGvePn5/fOuBm/mDJhwbw508Y7u3qJWP0F5+ewMbPeXzB9xmTkwp79/dypHwxgzltvfPUmZzF/5Mn09MJR0/2eQp7t9SnvLepFi10UaPjqc+XIkmnM7Ekvvo58sHfnjQawBAfStEnlz4wgmT4YO+4p5LM9Ne8buVpLGvxNNDNCZBo9e8pkH704nJMTirf5tJL56q3/hsHRjkSaXPT+lCrfHFmdh1bejbhnWQ37N4PV4v+BLGlQB/3xp3ry0ie/8jUyZWdjQ+8kM4mJ3c0IVemU8gT04fhPyUD1T0yTz0141meUbL57O2VzAMFTJxKbEOqRlFpbEHrhXyTaj34Sid/zQ8Owxm5Dwrlk48rYUvIiQmvl/Fx8NEfCLB6+K7Nm+sadLcd6d2IEJgtp3YvOi4nzCKXYuUfw0SSh9tPhCv3741z2mnfMycGtSUZdwffs7jmxiQ7egNBFJXcPytMp7Yfw0RSS+Ofh+TLPNY+XHVg79GBVbrRcaeB274b9Y1lKmrGuRy2lVt4+tEKlpPfC0b3+TMayOcPQlAVuJOVv9+4PdmZ5Pn7taKswWGgS3V0BXDJpTXKgUZeE9M9H4QGkcTlc0SPU+q/3G+8rase6hUoll3d2IIt36+4gtCdZScasjNGaIq4iFG5Qqwx1CF26nbwfqLVUfAlfuJanbEDoNd98GesBppvE4l0Dmg23o6sR2vADU4cdJXgJCN0R0sQ58Mk/IRyOHbKTWVWggjoD/wQ0fVGaqZ40Py9WbG1h98LXYySUEjoIU/VdFqMFhCABPOOa5DBAoXsdEMtgaLiyS0BL9kBzlNeuLHzBI39DVeLYPITWdBmDsDO7CBgEaB7aAr9dYlrSjJmtXrqs74a9aq1wHwoNMphYhvt56crEF5FnOyTmn8cIuH2vgIUzVxDz6NQRnpYdkk12pbGf/KdilYaGC1mEiZbsxu3nRgQsDtst4eHRbrBzN+BmrpDb2EvuE9HaRFqyD21L1IK89FtMtI6JCLIaAu7n4OZYL1yZ72UK+o7HPYuDpRVjlBwzKnm7HfVCiJwxJKpE1ahOpBL2DLhjfYbQREen5Pg3slh70bPeTkBe2gkBJtMFPmMqg9YKq9Yhr1sJIkC9NoTMOgXntOq9gyIbFB18cT3Kd7RmeEzNHivJY1W9CMgirCuAMHIyBTdXSkpVoXgbzYiXru8R8EAPb3LJhsE3r99+YXlf4wUPBYvHYanarzOdWMNyw5/AZForkMSweJAos47Bu/MYORy+ZMcxa+YJktw863m3vkzzWCbkZ3WThnubHKohxkNyXgzIwUomwuVBvr+YuJgHWms1hOPsDBx2bR+6TYm9Hba4vt8oVxOqxG7cxUqBEHrfZjF8uwyrDJ/m7gdQRyiNEMYEuVaXjyWa2OXGmVfc+DLTIZM5QQkub4+JDgwqoNUETjFXudzvECQ/pWUbtJrltGAldC+0X2AZhoFUZiKDVrhxZpzraZAjRNsykpN7Bt+zPPzRUIUTWt52tIGnpYE/eySS3Ri3Yqx8ABJ1xjJURhtwZiqQJxIghHXyHyzuYj7TlS9zHpUodq11cJj2WcT23Dx2t0CCk8oKFRMAgMgV2DcjtJ/La8acveuvhbwTarWSa8uSBGqaX4nQ9tKrrgfGTXKa2te1wBC7fOAdN7sJ2novhh2YpSLM3qosktgFzOZjDUkS8Lpw/LimAABLnsWQGCAgS0sNty9BmPLds2G+c18m9V1wlSs+MPCGrgi1XU6rBRikOcFCtp4+ICYuQNbjQ++4jNiKUIsokBbjNJl0z2SiBfQR4/4W5Mmece7LAHXZI+Bh/Ob1vlRogEhYucFKB+OD5wgJYLTXgWUZAvBsdSwpqsPwheS3FufsA9HREYnVKA95trkDVyY+/ujzN57Gu1MGXJHLx8N+NjGo0SH5XCIFVwLiTaCe/krrCraOIQ3hwGxMpr0sYsMDRCqTQ1K29OR0rfHsyOCk/YY/o1Vp+b+GhYGBs8RTWfaMw6ggGZQNP3sZwQS1YEnB6rqVsF9EbBZSApsauZLteL9U2RhO8y0pgfwLg7ryIUp/UarowEDaxHuTM6h02au2x1bFdDPqRH4WNBOCWT3f/K0ydjXq4gmhgVMjCeeSJJhM+YmMKYOrlTQ2C4Oqh3boFZeWkKZA7eK/ak3iJXMHTz4yhDn75AH+IbQIMswxI8nfhWlkIHWrAdu4eMNslpyAmRC/tAWHNTnRRHenrDHy4Qpf7NlFvb78iWcSfQar5b9RGowDeYwDIopJ6T6AGgX4zLKlZGwe6yJprMKS8h1LJrt8JSoLsZuw8pbpkoOjN6E6u6DAJ1/6K6uP7drSL2D7DZ+xsGg7VKmrxO8JSEgMCRDVgVN4bnxE7qgke4T2FHxOkIBjZleGrAHMii86JPtmwj48WtzG4Q3Ml2SI8M945xsxm9bQngieMkK0HrNHSNPBe0A8BVhuYiS8m47yVlgJ8idnpeQAX74fA0eSNAD3RjvooC82tY9JZODn7M7bQoItqZNpEWOJwHXpRZK2MtVY+4QnoF8C1A1fIJA3Qv9Cqygcam1GFApieO/+d/2P3kVoraHs3kYv1/f6qLQ4SPwbvB3/fwQXlOpOtD+hs2iVRgRI0JqITZhGoCKY598uY2fMJH8r6Iw60BCblKGKuIovyNiwjY0Sm30qhQI2Xa47mu2dMwv7nPm1SPw23k5vMMh3Qz2kFJ4HwTCoQgEJahP3LDsHAxVZbiQz2FpFTOqW4y6jdSIhHcEidUWvRH9vPQxhFtLyO9DIfvDjZS9p3e+MncDOzKsLkAflo8YIhoaXPCcQ1QES6MBSeNd8nRIS86kGkg1TrsCBzmq+RK2MSBlE4as/MDENElrATqKP15uLH52IX7cu3pUvvxj4FcyAwzTx9YL7QUCEBlK+gRX+gDrUBY+tRI6SaQ1ORryrMDBCJqN3GmtZqvrboMeeUonVAtKiDGbnjUcLmx6duGymqNQrLpg0ZoAzvxVrv36J82L+2u15eF7I+GMebbrPbAP2OiZ723ksshPkjC5/jU4Z/GiquPrw43mnOZgbJIrm97DgDSs8DUOCMdxBKaKiKFuRq6TUb38iTIL/mIWq2DlHjkNLTlUmHcbMVhuqMdd53GasL7xEEV1qsIe4ScKHDpgsuYfZ3fJUWwUA5xrsnrGlHj+jyCzyoqb6WGz97D/71jXYSd9yQCgOmTJ2uePgHdyOlVi0ajsv3NNCr8OKqKhsAM7fSxAKk4ZB1MxDLx66LvPvZAj3XO+syt+gPdw3xaK1vLXslEhkqGP1I1hORogOIe/spJS6jIrNmfp4FBaVWo46HseM8zntEnlicKMjM35rsDzCAWa2ZB87Q2VM2xynN8UmrEdeWpsmrQPVSjXX8S5V4p5I/Tb6M5FVwBKgh09e6q+9hYFsKu7iQTLw3jZmt7HgOGjrRBvN0rhiQHEqJWtzNjtxtpL3b3JacpFN00KioG/h9irX4VmzICLBe1/KwzQ2G47ITttRdFomfYgPRkrTpa1Dp21PO52YJAUnRt9kF1n4lZgTkPXYUr8Zb3W3g71Pe8VxUn2aPjUe0CLbcTJKc9RxuFaqj6t5PEbjnVfgZSGMXXcML4qyETlyfz/8ptgl22ET2pDT4v3AHJWlNTXFRbWijrS4sDSqZGNvumzSa04OvvL3L3GcmR9erqDxctt2SZCpDOTfnrwL5s3i7q244h5ccMW3Zq9zEpzagzvi2Xhk7kSXMyE4RVQ7pc9kkXIdbmilZLWD7pjg4jsanGqxWvHE43sBbb+55RwhNkLu6RbkDq0dK8wKqeL4EOboNdL6EoxaGdWKVukLK1C2Iq2zKXMndtTWBESnZBUD71jgdKX505fexypnNHABNPlqJS3KyAiMBpDUNTuJzsF6SkalPqgYfPRWoUJBpcoiUY1ZCh1H/qiJRG02M8rWpMOgnLZRYafj4mQDU/h7znx508p9axTCiVnETkxv3rPSgcIIvDvU2Oem1R5Np3b2tlcdv4J/bbKw1lWd9bWoNVMKfl5uK8du30JFmdIdCD0sTNcr0uqvDfh6O8tpiL5mBH+ei0vZDJWjUmyWyPmxruY8qyiFuQPFhyk64wGW61B2VH39FdhLO4hQTWd9BaqV6R8loJ2FZ1B5nAy7cDIuSkod39gvL2Oc42UJof36f9nyqZRxVIp1Kzcfc0WVM7b0VbAp0YTB+6aWXLEp2qNuYSfj0Y12SnESnZHFlTsuvWG2XQePpJ3Yh5rI7PL+p0xy+f8MviUj5MjuFMISccIjbWvMsqOYqTttt1CxtPBaZ+ZOc3oY+8aR6Yp2qgiVyNqLewdRL9sB3hfWP17sve7ma87HfJ1WHkxaJKptbtx41IG0lg3Wgwpgrtls24E6Fawzx23SuFQQ/lvS9hpUFAlHrigyYVOrONrxmNKN5ri2L5YKtSqrvdt/hUdfsH60YV37e1M8dGamIFidGkzoJpum5GAUNG9JU2+gW3g0ah8UQkSLix/7QDiV49beWqxiSo37vVkrKKIoQEh8G37zh1Jz1EnUESc7jqGkuAbsgRCelqbX7ki3pYFbiuvxQ5O05+84/1odegp5YzWpev0qtGULK3NRaTAIlyngbqRMWoI69LLrAB2NmcrUy1rB8eKhfzeYyvFsC5C3dlzWpzDXqKgzoMdSRSQU3u03UJtU8RCL4oMomz7S6c3Tx3j1udz7lJyWroGwsIzSK65A31H6DqgVSlB5WhrVio9XlFwvd7r+Mt/Lj8Mfeu3NSU2aopWVkVTKXAwTAEX7RhRGtZ8xK8yFbqaPr3qOUH8J4X2gpPrUGoxlfdRBBAorPQrDU2hWgMrEFbn8b8qk0T58wffeGRgGDdaa7CicdYrYuqC406Y52NHqcpI/fRHHF5vrvTPr0jPD2MotE8RkhzQTgzU+27UnaMIYjm828VXvHClHrJSsQ71J6MwDBfy6s5nTOD7bbC9cib9e+BBhNlMAjiZNExxJz6x1v7a7iDMce80LJv0oO40wm2Fkatp/vAZguVLj7vvRqEWcYdpMz0Gi4qhsVEFhzKyTUZHur37lEyedjCC/SzSp6WZ9GtaT8sh4d1e+OmkAVH6eSN2Is+kpqabN03Uz3huBvyPOecqTN6fbzbc8rIy9MGoMZ0Rs9EyPjIp3e/qdsQs5I2ez3H+w9eDJNM4I2/x3h+PI8xM+GaHoPGYfTHrGJ0f8po+dxfkZbaGX/rw6Y+7sf8Rf9KfNXvCryW6+PIybPnb2/NGcf6BNmzNv0sw/zHjlmcnPY5vs986MP8ycMHbqc/Dv65G3/we+JPzf4fgyhQAAAABJRU5ErkJggg==" alt="{{ shop.name }}" />
+        </a>
+      </div>
+
+      <div class="header-menu">
+        {% include 'navigation' linklist: section.settings.main_linklist %}
+      </div>
+
+      <div class="header-actions">
+        <div class="header-account">
+          <a href="{{ routes.account_url }}">
+            <span class="visually-hidden">View Account</span>
+            {% include 'icon', handle: 'account' %}
+          </a>
+        </div>
+        <div class="header-cart">
+           {%- comment -%}// Start GrowLTV Edit{%- endcomment -%}
+          <a aria-label="Toggle Cart Drawer">
+            <span>{% include 'icon', handle: 'bag' %}</span>
+            <span class="cart-count GrowAOV_CartCount">{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
+          </a>
+          {%- comment -%}// End GrowLTV Edit{%- endcomment -%}
+          {%- comment -%}
+          <button class="cart-drawer-toggle" type="button" aria-label="Toggle Cart Drawer">
+            <span>{% include 'icon', handle: 'bag' %}</span>
+            <span class="cart-count">{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
+          </button>
+          {%- endcomment -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'navigation-mobile' %}
+</header>

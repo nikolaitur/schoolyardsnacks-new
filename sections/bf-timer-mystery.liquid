@@ -1,0 +1,155 @@
+<div class="timer-section-wrap">
+  <span id="bf_collection_set_time" data-set-time="{{ section.settings.event_time }}" style="opacity: 0; position: absolute;z-index: -1;"></span>
+  <div class="title">{{ section.settings.title }}</div>
+  <div class="subtitle">{{ section.settings.subtitle }}</div>
+  <div id="countdown">
+    <ul>        
+      <li><span id="days" class="number"></span><span>Days</span></li>
+      <li><span id="hours" class="number"></span><span>Hours</span></li>
+      <li><span id="minutes" class="number"></span><span>Minutes</span></li>
+      <li><span id="seconds" class="number"></span><span>Seconds</span></li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .timer-section-wrap {
+    background: #F5B335;
+    text-align: center;
+    padding: 80px 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .timer-section-wrap .title {
+    color: #262B60;
+    font-size: 20px;
+    font-weight: bold;  
+    padding-top: 45px;  
+  }
+
+  .timer-section-wrap .title p {
+    margin: 0;
+  }
+
+  .timer-section-wrap .subtitle {
+    margin-top: 20px;
+    background: #FF595A;
+    color: white;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 30px;
+  }
+
+  #countdown ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #countdown ul li {
+    list-style: none;
+    flex-grow: 1;
+    flex: 0 0 80px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    margin-left: 24px;
+  }
+
+  #countdown ul li:first-child {
+    margin-left: 0;
+  }
+
+  #countdown ul li span {
+    font-size: 14px !important;
+  }
+
+  #countdown ul li span.number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+    font-size: 45px !important;
+    font-weight: bold;
+    
+  }
+  @media (max-width: 375px) {
+      #countdown ul li span.number {
+        width: 50px;
+        height: 50px;
+        font-size: 35px !important;
+      }
+      #countdown ul li {
+        flex: 0 0 50px;
+      }
+      p strong {
+        display: block;
+      }
+      .timer-section-wrap {
+        padding-bottom: 0px;
+      }
+       .timer-section-wrap .title {
+        padding-top: 65px;  
+      }
+  }
+
+
+
+</style>
+
+<script>
+  (function () {
+  const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+  let birthday = "{{ section.settings.event_time }}",
+      countDown = 1606809600000,//new Date(birthday).getTime(),
+      x = setInterval(function() {    
+        
+        let now = new Date().getTime(),
+            distance = countDown - now;
+
+          if(document.getElementById("hours") != null) {
+            document.getElementById("days").innerText = Math.floor(distance / (day)),
+            document.getElementById("hours").innerText = Math.floor((distance % (day) ) / (hour)),
+            document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
+            document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+          }
+
+        //do something later when date is reached
+        if (distance < 0) {
+          document.getElementById("countdown").style.visibility = "hidden";
+
+          clearInterval(x);
+        }
+        //seconds
+      }, 0)
+  }());
+</script>
+
+{% schema %}
+{
+  "name": "Timer Section",
+  "class": "timer-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ]
+}
+{% endschema %}

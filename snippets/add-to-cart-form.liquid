@@ -1,0 +1,260 @@
+{% assign form_class = product.type | handleize | append: "" %}
+{% form 'product', product, id: 'add-to-cart-form', class: form_class, data-productid: product.id, data-cart-submit: true, data-pro-handle: product.handle %}
+  {% if section.settings.all_flavors_sold_out %}
+    <div class="product-sold-out-text">
+      {{ section.settings.all_flavors_sold_out_text }}
+    </div>
+    <button class="btn btn--block" disabled>Sold Out</button>
+  {% else %}
+	 {% assign subscription_product = product.metafields.subscriptions %}
+      {% assign discount_percentage = subscription_product.discount_percentage | round: 2 %}
+      <div class="form--header__price-group">
+        <span  class="hide--desktop original-price"></span>
+        <span class="hide--desktop open_br"></span><span class="hide--desktop mb-per-bag--subs"></span><span class="hide--desktop close_br"></span>
+        {% if discount_percentage > 0 %}
+          <span class="hide--desktop slash-price compare-price"></span>
+            {% endif %}
+      </div>
+    <div class="product-option-row product-option-row--bundle">
+      <div class="option-name">{{ section.settings.bundle_label }}</div>
+      <div class="new_bundle_style_2  product-options product-options--bundles">
+        {% for block in section.blocks %}
+          {% if block.type == 'bundle' %}
+            <div class="product-option product-option--bundle{% if block.settings.default == true %} product-option--selected{% endif %}{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+              <div class="product-option__wrapper">
+                <input type="radio" name="single-option-select-bundle" id="swatch-1-{{ block.settings.value }}" value="{{ block.settings.value }}" class="single-option-select visually-hidden" data-type="bundle" data-flavor-limit="{{ block.settings.flavor_limit }}"{% if block.settings.default == true %} checked{% endif %}{% if block.settings.sold_out %} disabled{% endif %} />
+                <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                  {{ block.settings.title }}
+                  <span class="product-option__label-icon"></span>
+                </label>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% if template.suffix == 'variant1' %}
+          <div class="product-option product-option--bundle product-option--variant1">
+            <div class="product-option__wrapper">
+              <input type="radio" name="single-option-select-bundle" id="swatch-1-custom" value="custom" class="single-option-select visually-hidden" data-type="bundle"/>
+              <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                Bestsellers - 48 Bags
+                <span class="product-option__label-icon"></span>
+              </label>
+            </div>
+          </div>
+        {% endif %}
+        {% if template.suffix == 'variant2' %}
+          <div class="product-option product-option--bundle product-option--variant1">
+            <div class="product-option__wrapper">
+              <input type="radio" name="single-option-select-bundle" id="swatch-1-custom" value="custom" class="single-option-select visually-hidden" data-type="bundle"/>
+              <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                <span class="option-label">Top 4 Flavors - 48 bags</span>
+                <div class="label-badge">
+                  <img src="{{ '10.png' | asset_url }}" alt="$10 Gift Card">
+                  <img src="{{ 'check-mark2.png' | asset_url }}" alt="Check Mark">
+                  <span>Bonus applied at checkout</span>
+                </div>
+                <span class="product-option__label-icon"></span>
+              </label>
+            </div>
+          </div>
+        {% endif %}
+        {% if template.suffix == 'variant3' %}
+          <div class="product-option product-option--bundle product-option--variant2-1">
+            <div class="product-option__wrapper">
+              <input type="radio" name="single-option-select-bundle" id="swatch-1-custom" value="custom" class="single-option-select visually-hidden" data-type="bundle"/>
+              <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                <span class="hide--mobile">Top Flavors Bundle <br> 48 Bags</span>
+                <span class="hide--desktop">Top Puffs Flavors Bundle - 48 Bags</span>
+                <span class="product-option__label-icon"></span>
+              </label>
+            </div>
+          </div>
+          <div class="product-option product-option--bundle product-option--variant2-2">
+            <div class="product-option__wrapper">
+              <input type="radio" name="single-option-select-bundle" id="swatch-1-custom" value="custom" class="single-option-select visually-hidden" data-type="bundle"/>
+              <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                <span class="hide--mobile">Sweet & Salty Bestsellers <br> 48 Bags</span>
+                <span class="hide--desktop">Sweet & Salty Bestsellers - 48 Bags</span>
+                <span class="product-option__label-icon"></span>
+              </label>
+            </div>
+          </div>
+        {% endif %}
+        
+      </div>
+    </div>
+
+  <div class="product-option-row product-option-row--flavor">
+    <div class="option-name">{{ section.settings.flavor_label }}</div>
+    <div class="product-options product-options--flavors">
+      {% if template.suffix == 'new-sourcream' %}
+        {% assign block = section.blocks[6] %}
+        <div class="product-option product-option--flavor{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+          <div class="product-option__wrapper">
+            <!-- {{ block.settings.sold_out}}-->
+            <input type="checkbox" name="single-option-select-flavor" id="swatch-2-{{ block.settings.title | handle }}" value="{{ block.settings.title }}" class="single-option-select visually-hidden" data-type="flavor"{% if block.settings.sold_out %} disabled{% endif %} />
+            <label for="swatch-2-{{ block.settings.title | handle }}" class="product-option__label product-option__label--swatch">
+              <div class="product-option__swatch">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+                <span class="product-option__swatch-selected"></span>
+              </div>
+              <span class="product-option__title">
+                {{ block.settings.title }}
+              </span>
+              {% if block.settings.new %}
+                <span class="product-option__new-flag">Best Seller</span>
+              {% endif %}
+            </label>
+          </div>
+        </div>
+      {% endif %}
+      {% for block in section.blocks %}
+        {% if block.type == 'flavor' %}
+          {% if template.suffix == 'new-sourcream' and forloop.index == 7 %}
+            {% continue %}
+          {% endif %}
+          <div class="product-option product-option--flavor{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+            <div class="product-option__wrapper">
+              <!-- {{ block.settings.sold_out}}-->
+              <input type="checkbox" name="single-option-select-flavor" id="swatch-2-{{ block.settings.title | handle }}" value="{{ block.settings.title }}" class="single-option-select visually-hidden" data-type="flavor"{% if block.settings.sold_out %} disabled{% endif %} />
+              <label for="swatch-2-{{ block.settings.title | handle }}" class="product-option__label product-option__label--swatch">
+                <div class="product-option__swatch">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+                  <span class="product-option__swatch-selected"></span>
+                </div>
+                <span class="product-option__title">
+                  {{ block.settings.title }}
+                </span>
+                {% if block.settings.new %}
+                  <span class="product-option__new-flag">Best Seller</span>
+                {% endif %}
+              </label>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% include 'sweet-salty-flavor' %}
+
+  {% comment %} Main variant drop down (hidden) {% endcomment %}
+  {% if product.variants.size <= 1 %}
+    <input name="id" id="product-select" type="hidden" value="{{ product.variants.first.id }}" data-productid="{{product.id}}" />
+  {% else %}
+    <select name="id" id="product-select" data-productid="{{product.id}}">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }}</option>
+        {% else %}
+          <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+
+    {% if product.handle == 'keto-puffs' %}      
+      {% assign new_product = all_products['new-keto-cheese-puffs-7'] %}
+      <select name="" id="product-select" class="product-select-12" data-productid="{{new_product.id}}">
+        {% for variant in new_product.variants %}
+        <option value="{{ variant.id }}" data-title="{{ variant.title }}" data-discount-id="{{ variant.metafields.subscriptions.discount_variant_id }}">{{ variant.title }}</option>
+        {% endfor %}
+      </select>
+    {% endif %}
+  {% endif %}
+
+  {% if product.available %}
+    <div class="product-option-row product-option-row--bundle subs">
+      {% if is_alternate_template == true %}
+        {% include 'subscription-product-alternate' %}
+      {% else %}
+        {% include 'subscription-product' %}
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  {% if section.settings.is_preupsell %}
+    {% include 'product-pre-upsell', section: section  %}
+  {% endif %}
+
+  {% if is_free_gift_template %}
+  <div class="product-option-row product-option-row--free-gift">
+    <input type="checkbox" name="properties[free_puffs_gift]" value="true" checked />
+    <label for="properties[free_puffs_gift]">Get My Free Mystery Gift (Today Only)</label>
+  </div>
+  {% endif %}
+
+<div data-upsell="{{pre_upsell_product}}" style="display:none;" class="note">
+  <p><strong>Delivered Monthly</strong></p>
+  <p>You’re in control: Text reminder 3 days before every shipment. Cancel or switch flavors anytime.</p>
+</div>
+
+{% include 'beta-tester' %}
+<!-- {% include 'beta-tester-1' %} -->
+
+
+    <div class="product-action product-temp-sub">
+      {% comment %}We're not letting them edit quantity here, but we still need to send 1 to the form{% endcomment %}
+      <input type="hidden" name="quantity" value="1" />
+      
+      {% if template.suffix contains 'sub' %}
+        <div class="sub-product">
+          <span id="sub_slash_price_one_time" class="sub-slash-price"></span>
+          <span id="sub_rc_price_autodeliver" class="sub-rc_price__autodeliver" aria-label="recurring price"></span>
+        </div>
+      {% endif %}
+
+      {% if product.tags contains 'SkipCart' %}
+      {% endif %}
+      <button name="button" id="add-to-cart" type="button" class="btn btn--block  puff-add-to-cart {% if product.handle == 'keto-puffs' %}keto-puff-add-to-cart{%endif %} non-prepay">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </button>
+      <div name="button" id="add-to-cart" class="btn btn--block puff-add-to-cart for-prepay hide--item">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </div>
+
+      {% if template.suffix contains 'variant' %}
+        <span data-variant-id="39674809319512" data-discount-variant-id="39683302228056" style="display: none;" name="button" class="btn btn--block btn-atc-variant1 btn-extra-atc">Add to Cart</span>
+      {% endif %}
+
+      {% if template.suffix == 'variant3' %}
+      <span data-variant-id="39674782810200" data-discount-variant-id="39683302260824" style="display: none;" name="button" class="btn btn--block btn-atc-variant2 btn-extra-atc">Add to Cart</span>        
+      {% endif %}
+
+
+      
+    </div>    
+  {% endif %}
+{% endform %}
+
+<!-- {{collections}} -->
+{% for product in collections['Products'].products %}
+<!-- {{product.title}} -->
+{% if product.sku == "SYS-MYSTERY-1" %}
+{% endif %}
+{% endfor %}
+{% if is_free_gift_template %}
+<script type="text/javascript" id="free_gift__json">
+  /*
+  var free_gift_id = 0;
+  document.addEventListener('DOMContentLoaded', function () {
+    $.getJSON('/products/mystery-gift.js', function(product) {
+      console.log(product);
+      free_gift_id = product.variants[0].id;
+    } );
+  });
+  */
+  var free_gift_id = {{ all_products['mystery-gift'].selected_or_first_available_variant.id }};
+</script>
+{% endif %}

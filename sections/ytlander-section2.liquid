@@ -1,0 +1,22 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>  
+  <div class="rich-content">{{ section.settings.content }}</div>
+</div>
+{% schema %}
+{
+  "name": "YT lander 2",
+  "class": "ytlander-2 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ]
+}
+{% endschema %}

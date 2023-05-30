@@ -1,0 +1,63 @@
+<div class="section section--reviews">
+  <div class="container--slim">
+    <div class="section__header">
+      <h2 class="h1 center">Picky eaters say...</h2>
+    </div>
+    <div class="section__content">
+      {% assign backup = product %}
+      {% if product.handle contains 'cereal' %}
+        {% assign product = all_products.cereal %}
+      {% elsif product.handle contains 'low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free' %}
+        {% assign product = all_products['low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free'] %}
+      {% elsif product.handle contains 'carro-only-multi-flavor-phat-crackers-5-pack-by-real-phat-foods' %}
+        {% assign product = all_products['carro-only-multi-flavor-phat-crackers-5-pack-by-real-phat-foods'] %}
+      {% elsif product.handle contains 'lowcarb-high-protein-plant-based-pasta-sys-by-kaizen-food-company' %}
+        {% assign product = all_products['lowcarb-high-protein-plant-based-pasta-sys-by-kaizen-food-company'] %}
+      {% else %}
+        {% if product.handle == 'keto-cookie-dough-bar-with-chocolate-chips' %}
+          {% assign product = all_products['keto-cookie-dough-bar-with-chocolate-chips'] %}
+        {% elsif product.handle
+            contains 'new-max-sweets-snacks-low-carb-keto-max-mallow-atkins-paleo-diabetic-diet-friendly-health-snack-gluten-free-soy-free-zero-sugar-snack-non-gmo-ketogenic-6-pack-by-max-sweets'
+        %}
+          {% assign product = all_products['new-max-sweets-snacks-low-carb-keto-max-mallow-atkins-paleo-diabetic-diet-friendly-health-snack-gluten-free-soy-free-zero-sugar-snack-non-gmo-ketogenic-6-pack-by-max-sweets'] %}
+        {% elsif product.handle contains 'wonder-monday' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'variety-pack-pack-of-8-by-prevail-jerky' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'keto-krisp-by-keto-krisp' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'fall-best-sellers-by-good-dees' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'keto-cereal-6-boxes' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'sys-10-pieces-of-pb-caramel-crunch-updated-by-keto-krackd' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'snack-owl-gummies-ⓥ-by-pink-panda' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'keto-crunchy-chips-by-mr-tortilla-by-mr-tortilla-store' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'sys-12-pieces-of-assorted-dark-chocolate-truffle-by-keto-krackd' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'sys-20-pieces-of-aloha-caramel-by-keto-krackd' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'fusilli-sys-by-kaizen-food-company' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'keto-bread-by-kiss-my-keto' %}
+          {% assign product = product %}
+        {% elsif product.handle contains 'keto-chocolate-peanut-butter-cups-buckeyes-6-pack-by-better-than-good-foods' %}
+          {% assign product = product %}
+        {% else %}
+          {% assign product = all_products['keto-puffs'] %}
+        {% endif %}
+      {% endif %}
+
+      <div
+        data-oke-reviews-widget
+        data-oke-reviews-product-id="shopify-{{ product.id }}"
+      >
+        {{ product.metafields.okendo.ProductReviewsWidgetSnippet }}
+      </div>
+      {% assign product = backup %}
+    </div>
+  </div>
+</div>

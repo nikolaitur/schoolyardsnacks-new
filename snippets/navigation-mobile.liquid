@@ -1,0 +1,162 @@
+<nav id="mobile-navigation-wrapper">
+  <ul class="mobile-navigation-items" template-suffix="{{ template.suffix }}">
+    {% unless template.suffix contains 'ytlander' or template.suffix contains 'lander-dsp' or template.suffix contains "us-vs-magic" %}
+    {% for link in linklists[section.settings.main_linklist].links %}
+      <li class="mobile-navigation-item mobile-navigation-item--{{ link.title | handleize }}">
+        <a href="{{ link.url }}" title="{{ link.title | escape }}">
+          {% if link.url contains '/products/cereal' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cereal_photo.png?v=1642779752" alt="cereal image">
+          {% endif %}
+          {% if link.url contains '/products/keto-puffs' or link.url contains '/products/keto-cheese-puffs' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheese_puffs_photo.png?v=1642779770" alt="puffs image">
+          {% endif %}
+          {% if link.url contains '/products/keto-cookie-dough-bar-with-chocolate-chips' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/bars.png?v=1640372064" alt="bars image">
+          {% endif %}
+          {% if link.url contains '/pages/bundle-builder' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/build_your_own_bundle.png?v=1640372064" alt="bundle image">
+          {% endif %}
+          {% if link.url contains '/pages/holiday-bundles' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/bundles_photo.png?v=1642779792" alt="bundle image">
+          {% endif %}
+          {% if link.url contains '/products/low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/image_cookies_v4_1.png?v=1656095205" alt="cookie image">
+          {% endif %}
+          {% if link.url contains 'new-max-sweets-snacks-low-carb-keto-max-mallow-atkins-paleo-diabetic-diet-friendly-health-snack-gluten-free-soy-free-zero-sugar-snack-non-gmo-ketogenic-6-pack-by-max-sweets' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/mobile_dropdown_marshmallow_image_v3.png?v=1657898819" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'carro-only-multi-flavor-phat-crackers-5-pack-by-real-phat-foods' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/crackers_mobile_dropdown_image.png?v=1658862290" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'fusilli-sys-by-kaizen-food-company' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/pasta.png?v=1660316871" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'variety-pack-by-wonder-monday' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheesecake_mobile_dropdown_image.png?v=1661528346" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'variety-pack-pack-of-8-by-prevail-jerky' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/jerky_mobile_dropdown_image.png?v=1663346059" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'krisp' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Protein_Bars_mobile_v2_ec24bee5-dcc6-4b8e-b30c-f2293b371a40.png?v=1663941978" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'buckeyes' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Selected_Mobile_-_Peanut_Butter_Cups_V4.png?v=1677610943" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'dees' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Baking_Mixes_v1.png?v=1664546010" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'gummies' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Gummies_desktop.png?v=1668772132" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'truffle' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Truffles_desktop.png?v=1670427438" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'tortilla' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Tortilla_Chips_desktop.png?v=1669295263" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'sys-10-pieces-of-pb-caramel-crunch-updated-by-keto-krackd' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Candy_Bars_desktop_v3.png?v=1665590951" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'sys-20-pieces-of-aloha-caramel-by-keto-krackd' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Aloha_Caramel_desktop.png?v=1671126478" alt="max sweets image">
+          {% endif %}
+          {% if link.url contains 'keto-bread-by-kiss-my-keto' %}
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Bread_Desktop.png?v=1681754748" alt="max sweets image">
+          {% endif %}
+          <div class="navigation-mobile-item-text">
+            <span>{{ link.title | escape }}</span>
+
+            {% if link.url contains '/products/cereal' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cereal_texts_1262e3bf-50e0-4bb6-b411-646e35b8cfdf.png?v=1657647029" alt="cereal texts">
+            {% endif %}
+
+            {% if link.url contains '/products/keto-puffs' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/puffs_texts_e9cb2748-df2d-49f3-9116-5564277016d8.png?v=1657647029" alt="cereal texts">
+            {% endif %}
+
+            {% if link.url contains '/products/low-carb-keto-friendly-cookies-no-sugar-added-gluten-free-and-grain-free' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cookies_texts.png?v=1657647029" alt="bars image">
+            {% endif %}
+            {% if link.url contains 'new-max-sweets-snacks-low-carb-keto-max-mallow-atkins-paleo-diabetic-diet-friendly-health-snack-gluten-free-soy-free-zero-sugar-snack-non-gmo-ketogenic-6-pack-by-max-sweets' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/marshmallow_texts_4c5b327e-d5ca-4928-aced-1d10ab601c69.png?v=1657898828" alt="max sweets">
+            {% endif %}
+            {% if link.url contains 'carro-only-multi-flavor-phat-crackers-5-pack-by-real-phat-foods' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/crackers_texts_d97a2617-9b7d-4c54-8764-cef9ac2c8aa2.png?v=1658862290" alt="max sweets image">
+            {% endif %}
+            {% if link.url contains 'fusilli-sys-by-kaizen-food-company' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/pasta_texts.png?v=1660316871" alt="max sweets image">
+            {% endif %}
+            {% if link.url contains 'variety-pack-by-wonder-monday' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheesecake_texts.png?v=1663350898" alt="max sweets image">
+            {% endif %}
+            {% if link.url contains 'variety-pack-pack-of-8-by-prevail-jerky' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/NEWjerky_texts.png?v=1663351781" alt="max sweets image">
+            {% endif %}
+            {% if link.url contains 'keto-chocolate-peanut-butter-cups-buckeyes-6-pack-by-better-than-good-foods' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Selected_Mobile_-_Peanut_Butter_Cups_V4.png?v=1677610943" alt="max sweets image">
+            {% endif %}
+            {% if link.url contains 'keto-bread-by-kiss-my-keto' %}
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Bread_Desktop.png?v=1681754748" alt="max sweets image">
+            {% endif %}
+
+
+          </div>
+          {% if link.links.size > 0 %}
+            <div class="mobile-navigation-item__toggle">{% include 'icon', handle: 'chevron-down' %}</div>
+          {% endif %}
+        </a>
+
+        {% if link.links.size > 0  %}
+          <ul class="mobile-dropdown mobile-dropdown-level-2">
+            {% for sub_link in link.links %}
+              <li>
+                {% if link.url != '#heading' %}<a href="{{ sub_link.url }}" title="{{ sub_link.title | escape }}">{% else %}<h4>{% endif %}
+                  {{ sub_link.title }}
+                {% if link.url != '#heading' %}</a>{% else %}</h4>{% endif %}
+
+                {% if link.links.size > 0  %}
+                  <ul class="mobile-dropdown mobile-dropdown-level-3">
+                    {% for sub_sub_link in sub_link.links %}
+                      <li><a href="{{ sub_sub_link.url }}" title="{{ sub_sub_link.title | escape }}">{{ sub_sub_link.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+    {% if customer %}
+      <li class="mobile-navigation-item mobile-navigation-item--account">
+        <a href="{{ routes.account_url }}" title="Account">My Account</a>
+      </li>
+    {% else %}
+      <li class="mobile-navigation-item mobile-navigation-item--login">
+        <a href="{{ routes.account_login_url }}" title="Login">Login</a>
+      </li>
+    {% endif %}
+    {% else %}
+      <!--  -->
+      {% unless template.suffix contains 'sub' %}
+        <li class="mobile-navigation-item">
+          <a href="https://schoolyardsnacks.com/products/cereal" title="Cereal" data-anchor-link="best_sellers">
+            Shop Now
+          </a>
+        </li>
+      {% endunless %}
+      <!-- <li class="mobile-navigation-item">
+        <a href="#best-macros-img" title="Cereal" data-anchor-link="best-macros-img">
+          Comparison
+        </a>
+      </li> -->
+      <li class="mobile-navigation-item">
+        <a href="#shopify-section-ytlander-section4" title="Cereal" data-anchor-link="shopify-section-ytlander-section4">
+          Our Reviews
+        </a>
+      </li>
+      <!--  -->
+    {% endunless %}
+  </ul>
+</nav>

@@ -1,0 +1,235 @@
+{% assign form_class = product.type | handleize %}
+
+{% form 'product', product, id: 'add-to-cart-form', class: form_class, data-productid: product.id, data-cart-submit: true, data-pro-handle: product.handle %}
+ 
+  {% if section.settings.all_flavors_sold_out %}
+    <div class="product-sold-out-text">
+      {{ section.settings.all_flavors_sold_out_text }}
+    </div>
+    <button class="btn btn--block" disabled>Sold Out</button>
+
+  {% else %}
+  {% assign subscription_product = product.metafields.subscriptions %}
+  {% assign discount_percentage = subscription_product.discount_percentage | round: 2 %}
+  <div class="form--header__price-group">
+    <span class="hide--desktop original-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+    <span class="hide--desktop open_br"></span><span class="hide--desktop mb-per-bag--subs"></span><span class="hide--desktop close_br"></span>
+    {% if discount_percentage > 0 %}
+      <span class="hide--desktop slash-price compare-price"></span>
+		{% endif %}
+  </div>
+    <div class="product-option-row product-option-row--bundle">
+      <div class="option-name">{{ section.settings.bundle_label }}</div>
+      <div class="scroll__content">
+        <div id="flavor-option-selector" class="new_bundle_style_2  product-options product-options--bundles">
+          {% for block in section.blocks %}
+            {% if block.type == 'bundle' %}
+              <div class="product-option product-option--bundle{% if block.settings.default == true %} product-option--selected{% endif %}{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+                <div class="product-option__wrapper">
+                  <input type="radio" name="single-option-select-bundle" id="swatch-1-{{ block.settings.value }}" value="{{ block.settings.value }}" class="single-option-select visually-hidden" data-type="bundle" data-flavor-limit="{{ block.settings.flavor_limit }}"{% if block.settings.default == true %} checked{% endif %}{% if block.settings.sold_out %} disabled{% endif %} />
+                  <label for="swatch-1-{{ block.settings.value }}" class="product-option__label">
+                    {{ block.settings.title }}
+                    <span class="product-option__label-icon"></span>
+                  </label>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        </div>
+    </div>
+
+  <div class="product-option-row product-option-row--flavor">
+    <div class="option-name">{{ section.settings.flavor_label }}</div>
+    <div class="scroll__content">
+      <div class="product-options product-options--flavors">
+        {% for block in section.blocks %}
+          {% if block.type == 'flavor' %}
+            <div class="product-option product-option--flavor{% if block.settings.sold_out %} product-option--sold-out{% endif %}">
+              <div class="product-option__wrapper">
+                <!-- {{ block.settings.sold_out}}-->
+                <input type="checkbox" name="single-option-select-flavor" id="swatch-2-{{ block.settings.title | handle }}" value="{{ block.settings.title }}" class="single-option-select visually-hidden" data-type="flavor"{% if block.settings.sold_out %} disabled{% endif %} />
+                <label for="swatch-2-{{ block.settings.title | handle }}" class="product-option__label product-option__label--swatch">
+                  <div class="product-option__swatch">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+                    <span class="product-option__swatch-selected"></span>
+                  </div>
+                  <span class="product-option__title">
+                    {{ block.settings.title }}
+                  </span>
+                  {% if block.settings.new %}
+                    <span class="product-option__new-flag">Best Seller</span>
+                  {% endif %}
+                </label>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        <div class="product-option nutinfo-popup product-option--flavor" style="display: none;">
+          <div class="product-extra-option">
+            <div class="product-option__swatch">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazy" data-src="{{ block.settings.swatch_image | img_url: '200x200', crop: 'center' }}" alt="{{ block.settings.title }}" />
+              <span class="product-option__swatch-selected"></span>
+            </div>
+            <a class="product-opion-title hide--desktop" data-fancybox="ingre_fancy_cereal_nutinfo_mobile" data-src="#ingre_fancy_cereal_nutinfo_mobile" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title hide--desktop" data-fancybox="ingre_fancy_cereal_nutinfo_mobile" data-src="#ingre_fancy_cereal_nutinfo_mobile" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title hide--desktop" data-fancybox="ingre_fancy_cereal_nutinfo_mobile" data-src="#ingre_fancy_cereal_nutinfo_mobile" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title hide--desktop" data-fancybox="ingre_fancy_cereal_nutinfo_mobile" data-src="#ingre_fancy_cereal_nutinfo_mobile" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title hide--desktop" data-fancybox="ingre_fancy_cereal_nutinfo_mobile" data-src="#ingre_fancy_cereal_nutinfo_mobile" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a class="product-opion-title hide--mobile" data-fancybox="ingre_fancy_cereal_nutinfo" data-src="#ingre_fancy_cereal_nutinfo" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title" data-fancybox="ingre_fancy_cereal_nutinfo" data-src="#ingre_fancy_cereal_nutinfo" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title" data-fancybox="ingre_fancy_cereal_nutinfo" data-src="#ingre_fancy_cereal_nutinfo" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title" data-fancybox="ingre_fancy_cereal_nutinfo" data-src="#ingre_fancy_cereal_nutinfo" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+            <a style="display: none;" class="product-opion-title" data-fancybox="ingre_fancy_cereal_nutinfo" data-src="#ingre_fancy_cereal_nutinfo" href="javascript:;">
+              View<br>Nutritional<br>Facts
+            </a>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+  <div id="ingre_fancy_cereal_nutinfo" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_6508258c-a868-48d0-baf8-7736027512d9.png?v=1631049280" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_6508258c-a868-48d0-baf8-7736027512d9.png?v=1631049280" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cinnamon_01aa832e-8bf3-4885-9c78-bdbf5b929955.png?v=1631049280" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cinnamon_01aa832e-8bf3-4885-9c78-bdbf5b929955.png?v=1631049280" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cookies_90704cec-913a-4036-9022-14e4e2472b4a.png?v=1631049280" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cookies_90704cec-913a-4036-9022-14e4e2472b4a.png?v=1631049280" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/fruity_d7cc1c7a-3888-422e-b41d-b6ecce8745dd.png?v=1631049280" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/fruity_d7cc1c7a-3888-422e-b41d-b6ecce8745dd.png?v=1631049280" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/peanut_1dcef15c-f7e7-4a3b-aa3b-a14f8a21ae2f.png?v=1631049280" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/peanut_1dcef15c-f7e7-4a3b-aa3b-a14f8a21ae2f.png?v=1631049280" alt="">    
+  </div>
+
+  <div id="ingre_fancy_cereal_nutinfo_mobile" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/peanut_7165a42d-fc7e-4669-b5aa-16041b3998cc.png?v=1631046713" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/peanut_7165a42d-fc7e-4669-b5aa-16041b3998cc.png?v=1631046713" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo_mobile" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/fruity_9ec1ace9-83fb-41b6-9b50-76a0397dfef7.png?v=1631046713" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/fruity_9ec1ace9-83fb-41b6-9b50-76a0397dfef7.png?v=1631046713" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo_mobile" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cookies_a1668b2b-3bb0-41ae-bab3-61a98479867c.png?v=1631046713" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cookies_a1668b2b-3bb0-41ae-bab3-61a98479867c.png?v=1631046713" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo_mobile" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_393e9349-5702-45cb-ab39-776d0afb46ba.png?v=1631046713" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_393e9349-5702-45cb-ab39-776d0afb46ba.png?v=1631046713" alt="">    
+  </div>
+  <div id="ingre_fancy_cereal_nutinfo_mobile" class="" style="max-width:600px; display:none; padding: 0;">
+    <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cinnamon_88a6a562-70b9-46b1-8344-4615c936a20f.png?v=1631046713" class="lazy" data-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cinnamon_88a6a562-70b9-46b1-8344-4615c936a20f.png?v=1631046713" alt="">    
+  </div>
+
+
+
+  {% comment %} Main variant drop down (hidden) {% endcomment %}
+  {% if product.variants.size <= 1 %}
+    <input name="id" id="product-select" type="hidden" value="{{ product.variants.first.id }}" data-productid="{{product.id}}" />
+  {% else %}
+    <select name="id" id="product-select" data-productid="{{product.id}}">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }}</option>
+        {% else %}
+          <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+        {% endif %}
+      {% endfor %}
+    </select>    
+  {% endif %}
+
+  
+
+  {% if product.available %}
+    <div class="product-option-row product-option-row--bundle subs">
+      {% if is_alternate_template == true %}
+        {% include 'subscription-product-alternate' %}
+      {% else %}
+        {% include 'subscription-product' %}
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  {% if section.settings.is_preupsell %}
+    {% include 'product-pre-upsell', section: section  %}
+  {% endif %}
+  {% include 'beta-tester' %}
+  {% if is_free_gift_template %}
+  <div class="product-option-row product-option-row--free-gift">
+    <input type="checkbox" name="properties[free_puffs_gift]" value="true" checked />
+    <label for="properties[free_puffs_gift]">Get My Free Mystery Gift (Today Only)</label>
+  </div>
+  {% endif %}
+
+<div data-upsell="{{pre_upsell_product}}" style="display:none;" class="note">
+  <p><strong>Delivered Monthly</strong></p>
+  <p>You’re in control: Text reminder 3 days before every shipment. Cancel or switch flavors anytime.</p>
+</div>
+
+  <div a class="product-action{% if is_alternate_template %} product-action--alternate{% endif %}">
+    {% comment %}We're not letting them edit quantity here, but we still need to send 1 to the form{% endcomment %}
+    <input type="hidden" name="quantity" value="1" />
+    {% if product.tags contains 'SkipCart' %}
+    {% endif %}
+      <button name="button" id="add-to-cart" type="submit" class="btn btn--block puff-add-to-cart candy {% if product.handle == 'keto-puffs' %}keto-puff-add-to-cart{%endif %} non-prepay">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </button>
+      <div name="button" id="add-to-cart" class="btn btn--block puff-add-to-cart for-prepay hide--item">
+        {% assign add_to_cart_text = section.settings.add_to_cart_text %}
+        <span id="add-to-cart-text" class="minicart-add-to-cart-text" data-sold-out-text="Sold Out" data-add-to-cart-text="{{ add_to_cart_text }}">{{ add_to_cart_text }}</span>
+        <span id="loading-text" class="minicart-add-to-cart-text" data-open-accessibility-text-original="20px" style="font-size: 20px;">Loading</span>
+
+        {% if is_alternate_template %}
+          - <span id="rc_price_autodeliver" class="rc_price rc_price__autodeliver" aria-label="recurring price"></span> {% include 'icon', handle: 'arrow-right' %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endform %}
+
+<!-- {{collections}} -->
+{% for product in collections['Products'].products %}
+<!-- {{product.title}} -->
+{% if product.sku == "SYS-MYSTERY-1" %}
+{% endif %}
+{% endfor %}
+{% if is_free_gift_template %}
+<script type="text/javascript" id="free_gift__json">
+  /*
+  var free_gift_id = 0;
+  document.addEventListener('DOMContentLoaded', function () {
+    $.getJSON('/products/mystery-gift.js', function(product) {
+      console.log(product);
+      free_gift_id = product.variants[0].id;
+    } );
+  });
+  */
+  var free_gift_id = {{ all_products['mystery-gift'].selected_or_first_available_variant.id }};
+
+  
+</script>
+{% endif %}

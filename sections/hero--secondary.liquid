@@ -1,0 +1,219 @@
+<style>
+  .hero--{{ section.id }} .hero__content--title,
+  .hero--{{ section.id }} .hero__content--subtext {color: {{ section.settings.text_color }};}
+  .hero--{{ section.id }} .hero__image {background-color: {{ section.settings.bg_color }};}
+</style>
+
+<section
+  class="section section--hero section--hero-secondary hero hero--{{ section.id }} {{ section.settings.width }} {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="hero__image">
+    <div class="hero__wrap {% if template.suffix == 'new-hero' %}new-hero__wrap{% endif %}">
+      <div class="hero__content {% if template.suffix == 'new-hero' %}new-hero-content{% endif %}">
+        <p class="hero__content--subtext">
+          <img
+            class="star-image"
+            src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/stars_d20ad666-7b9c-4ec0-bdb9-4589e35065db.png?v=1639699022"
+            alt="stars"
+          >
+          <span>{{ section.settings.subtext }}</span>
+        </p>
+        <h1 class="hero__content--title">
+          {{ section.settings.title | replace: '|', '<br>' }}
+        </h1>
+        {% if template.suffix == 'new-hero' %}
+          <div class="hero-cta hide--mobile">
+            <a
+              href="https://schoolyardsnacks.com/collections/all?view=variants"
+              class="btn"
+              >Shop All</a
+            >
+          </div>
+        {% endif %}
+      </div>
+      {% if template.suffix == 'new-hero' %}
+        {% include 'cro-hero-new' %}
+      {% else %}
+        {% include 'cro-hero' %}
+      {% endif %}
+      {% if template.suffix == 'new-hero' %}
+        <div class="hero-cta hide--desktop">
+          <a
+            href="https://schoolyardsnacks.com/collections/all?view=variants"
+            class="btn"
+            >Shop All</a
+          >
+        </div>
+      {% endif %}
+    </div>
+    <img
+      class="hero__tagline-image hide--mobile"
+      data-dsk-src="{{ section.settings.tagline_image | img_url: '805x' }}"
+      src="{{ section.settings.tagline_image | img_url: '400x' }}"
+      alt="{% if section.settings.tagline_image != blank %}{{ section.settings.tagline_image }}{% else %}{{ section.settings.title }}{% endif %}"
+      onload="if(screen.width>400){this.setAttribute('src', this.getAttribute('data-dsk-src'));} this.removeAttribute('onload');"
+    >
+    <img
+      class="hero__tagline-image hide--desktop"
+      data-dsk-src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/as_seen_in_1.png?v=1640032325"
+      src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/as_seen_in_1.png?v=1640032325"
+      alt=""
+    >
+  </div>
+</section>
+
+<script>
+  if($(window).width() > 768) {
+    $('.hero__4_images').slick({
+      slidesToShow: 3,
+      arrows: true,
+      dots: false,
+    });
+  } else {
+    $('.hero__4_images').slick({
+      slidesToShow: 2,
+      arrows: true,
+      dots: false,
+    });
+  }
+  // var swiper,
+  //   swiper_options = {
+  //     effect: 'slide',
+  //     loop: true,
+  //     centeredSlides: false,
+  //     slidesPerView: 1,
+  //     spaceBetween: 48,
+  //     threshold: 10,
+  //     breakpoints: {
+  //       960: {
+  //         slidesPerView: 3,
+  //       }
+  //     }
+  //   };
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   swiper = new Swiper('.hero__4_images ', swiper_options)
+  // });
+</script>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f8cbcb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "info": "Text Color for Title",
+      "default": "#272b60"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center Left"
+        },
+        {
+          "value": "center-center",
+          "label": "Center Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Title"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Sub Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tagline_image",
+      "label": "Tagline Image"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "name": "Image",
+      "type": "image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Secondary",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

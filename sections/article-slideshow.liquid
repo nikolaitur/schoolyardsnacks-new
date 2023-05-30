@@ -1,0 +1,130 @@
+
+<main class="content content--no-sidebar" role="main">
+  <div class="article">
+    <div class="container--slim">
+      <div class="article__header">
+        <h1 class="article__title">{{ article.title }}</h1>
+              
+        <div class="article__byline ">
+          <div class="author-image">
+            <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/helen_circle_image.png?v=1645453684" alt="helen image">
+          </div>
+          <div class="author-pub-date">
+            <strong>Helen Guo</strong> Feb 20, 2022
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article__content">      
+      <div class="slideshow-slider">
+        <div class="slideshow-contents swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="slideshow-item swiper-slide">
+              <div class="slide-index hide--desktop">
+                <span class="index">{{ forloop.index }}</span> of 13
+              </div>
+              <div class="image-wrap">
+                {{ block.settings.image | image_url: width: 768 | image_tag }}
+              </div>
+              <div class="content-wrap">
+                <div class="slide-index hide--mobile">
+                  <span class="index">{{ forloop.index }}</span> of 10
+                </div>
+                {{ block.settings.content }}  
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="swiper__button swiper__button--next swiper__button--next1">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/next.png?v=1645197047" alt="arrow-right">
+        </div>
+        <div class="swiper__button swiper__button--prev swiper__button--prev1">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/back.png?v=1645197048" alt="arrow-left">
+        </div>
+      </div>
+
+      <div class="also-like">
+        <h2 class="title">You Might Also Like</h2>
+        <div class="products-wrap container--slim">
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cheddar_190c99ab-b1d9-457d-9c7f-369fafa2c95d.png?v=1633355029" alt="product image">
+            </div>
+            <div class="product-title">Cheddar Cheese</div>
+            <div class="product-subtitle">Keto Puffs</div>
+            <div class="product-info">Grain Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleB">Shop Now</a>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/cocoa_de18c1be-7001-49a1-8878-3bf3759c4fc0.png?v=1633355028" alt="product image">
+            </div>
+            <div class="product-title">Cocoa</div>
+            <div class="product-subtitle">Keto Cereal</div>
+            <div class="product-info">Sugar Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/cereal?ut_content=articleB">Shop Now</a>
+          </div>
+          <div class="product-item">
+            <div class="product-image">
+              <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/sour_cream_da73e0c2-00c2-4e34-8b42-22764585d804.png?v=1633355029" alt="product image">
+            </div>
+            <div class="product-title">Sour Cream & Onion</div>
+            <div class="product-subtitle">Keto Puffs</div>
+            <div class="product-info">Grain Free, 1g Net Carb, 100 Calories</div>
+            <a class="btn" href="https://schoolyardsnacks.com/products/keto-puffs?ut_content=articleB">Shop Now</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+
+
+    
+  </div>
+
+</main>
+
+<script>
+  imageSwiper = new Swiper($('.slideshow-slider'), {
+    effect: 'slide',
+    loop: true,
+    autoHeight: true,
+    centeredSlides: true,
+    slidesPerView: 1,
+    spaceBetween: 48,
+    navigation: {
+      nextEl: '.swiper__button--next1',
+      prevEl: '.swiper__button--prev1',
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Article Slideshow",
+    "settings": [      
+    ],
+    "blocks": [
+      {
+        "name": "Slideshow",
+        "type": "slideshow",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

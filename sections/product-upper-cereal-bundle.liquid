@@ -1,0 +1,186 @@
+
+{% if product.handle == 'copy-of-the-cereal-school' %}
+{% assign is_alternate_template = true %}
+{% endif %}
+{% if request.path contains 'free-gift' %}
+{% assign is_free_gift_template = true %}
+{% endif %}
+
+{% if template.suffix contains 'alt1' %}
+{% assign displayPricesInBag = true %}
+{% endif %}
+
+
+
+
+<div class="product-container container {% if is_free_gift_template %}free-gift-product-container{% endif %}">
+  <div class="product-container__side product-container__side--left">
+    <div class="product__part product__part--gallery">
+      <div class="gallery swiper-container">
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+            <div class="swiper-slide" data-index="{{ forloop.index0 }}">
+              <div class="gallery__item-wrapper">
+                {% comment %}<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '560x' }} 1x, {{ image | img_url: '1120x' }} 2x" />{% endcomment %}
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="gallery__item lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '560x' }}" data-srcset="{{ image | img_url: '600x' }}" />
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper__button swiper__button--next swiper__button-next--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'next' %}</div>
+        <div class="swiper__button swiper__button--prev swiper__button-prev--{{ section.id }}{% if desktop_no_sliding == true %} swiper-button--mobile-only{% endif %}">{% include 'icon', handle: 'prev' %}</div>
+      </div>
+      <div class="thumbs">
+        {% for image in product.images %}
+          <div class="thumbs__item" data-index="{{ forloop.index0 }}">
+            <div class="thumbs__item-image-wrapper">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="thumbs__item-image lazy" alt="{{ image.alt | escape }}" data-src="{{ image | img_url: '200x200', crop: 'center' }}" />
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="product-container__side product-container__side--right">
+    <div class="product__part product__part--form">
+      <header class="product-header">
+        <h1 class="product-header__title h6" {{product.metafields.wqwe.qweqweq}}>{{ section.settings.title | replace: '|', ' <br>' }}</h1>
+        <div class="product-header__reviews">
+          {% assign backup = product %}
+          {% assign product = all_products['cereal'] %}
+          {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge' %}
+          {% assign product = backup %}
+          <div class="sold-in">
+            <span class="sold-in-emoji">🔥 </span><span class="sold-in-number">...</span> sold in the last 22 hours
+          </div>
+        </div>
+        <div class="product-header__tagline">
+          {% assign tagline_items = section.settings.tagline | split: '|' %}
+          {% for item in tagline_items %}{{ item | strip }}{% unless forloop.last %}<span>&middot;</span>{% endunless %}{% endfor %}
+        </div>
+        
+        <div class="cro_text cro_text_1">
+          <img class="hide--mobile" src="{{ 't_d_1.png' | asset_url }}" alt="text 1">
+          <img class="hide--desktop" src="{{ 't_m_1.png' | asset_url }}" alt="text 1">
+        </div>
+      </header>    
+      <div class="bundle-variants-container">
+        {% for block in section.blocks %}
+          <div class="variant-item" data-variant-id="{{ block.settings.variant_id }}" data-discount-id="{{ block.settings.variant_discount_id }}">
+            <div class="image">
+              <img src="{{ block.settings.image | img_url: '400x' }}" alt="{{ block.settings.image.alt }}"/>
+            </div>
+            <div class="title">{{ block.settings.title }}</div>
+            <a data-fancybox="ingre_fancy_{{ block.settings.variant_id }}" data-src="#ingre_fancy_{{ block.settings.variant_id }}"  class="ingre_link view-ingredients-btn" href="javascript:;">View Ingredients</a>
+            <div id="ingre_fancy_{{ block.settings.variant_id }}" class="" style="max-width:800px; display:none; padding: 0;">      
+              <img src="{{ block.settings.ingredient_image | img_url: 'master' }}" class="lazy" data-src="{{ block.settings.ingredient_image | img_url: 'master' }}" alt="">
+            </div>
+            <div class="case">12 Bags/Case</div>
+            <div class="price">{{ block.settings.price }}</div>
+            <a href="#" class="variant-add-btn">+ ADD</a>
+            <div class="quantity">
+              <div class="current_value">
+              <div class="minus" data-bundle-qty-minus="">
+                  <svg height="10px" viewBox="0 -192 469.33333 469" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m437.332031.167969h-405.332031c-17.664062 0-32 14.335937-32 32v21.332031c0 17.664062 14.335938 32 32 32h405.332031c17.664063 0 32-14.335938 32-32v-21.332031c0-17.664063-14.335937-32-32-32zm0 0"></path></svg>
+                </div>
+                <div class="value" data-bundle-qty-value="1">1 Case</div>
+                <div class="plus" data-bundle-qty-plus="">
+                  <svg height="10px" viewBox="0 0 448 448" width="10px" xmlns="http://www.w3.org/2000/svg"><path fill="#FFF" d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"></path></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>      
+      <button disabled class="btn btn-initial-desktop hide--mobile">Select Flavors</button>
+    </div>
+  </div>
+
+  <div class="bottom-bar initial hide--mobile">
+    <div class="price-wrap">
+      <div class="subtotal-label">Subtotal:</div>
+      <div class="price" data-item-count="0">
+        <div class="old-price slash">$0</div>
+        <div class="current-price">$0</div>
+      </div>
+      <div class="perbag-label">(Only $2.25 per bag)</div>
+    </div>
+    <div class="action-wrap">
+      <div class="subscription-toggle">
+        <span>Subscribe & Save 12.5%</span>
+        <div class="toggle-switch">
+          <label class="switch">
+            <input type="checkbox" checked class="subscription-switch">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <button disabled class="btn bundle-atc">Complete Bundle</button>
+      <div class="guarantee-text">
+        30 Day Money Back Guarantee
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
+{% schema %}
+{
+  "name": "Product Upper",
+  "settings": [    
+    {
+      "type":"text",
+      "id":"title",
+      "label":"Title",
+      "info":"Use a pipe (|) for a forced line break"
+    },
+    {
+      "type":"text",
+      "id":"tagline",
+      "label":"Tagline",
+      "info":"Use a pipe (|) to create dots between items",
+      "default":"Keto|Sugar Free|1g Net Carb|16g Protein"
+    }
+  ],
+  "blocks":[
+    {
+      "name": "variant",
+      "type": "variant",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID"
+        },
+        {
+          "type": "text",
+          "id": "variant_discount_id",
+          "label": "Variant Discount ID"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price"
+        },
+        {
+          "type": "image_picker",
+          "id": "ingredient_image",
+          "label": "Ingredient Image"
+        }
+      ]
+    }    
+  ]
+}
+{% endschema %}

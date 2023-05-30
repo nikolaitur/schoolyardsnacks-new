@@ -1,0 +1,678 @@
+{%- assign is_account_portal = false -%}
+{%- if request.path contains '/tools/recurring' -%}
+  {%- assign is_account_portal = true -%}
+  {% layout none %}
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Redirecting...</title>
+      <meta http-equiv="refresh" content="0;url=/a/account">
+    
+ 
+  
+  </head>
+    <body></body>
+  </html>
+{%- else -%}
+  {% if template contains 'article' and blog.metafields.blogfeeder.use_canonical == 'yes' %}
+    {% assign canonical_url = article.metafields.blogfeeder.canonical %}
+  {% endif %}
+
+  <!DOCTYPE html>
+  <html data-template="{{template}}" lang="en" fontify-lang="{{ shop.locale }}">
+    <head>
+      {%- if template.name == 'product' -%}
+        {%- if product.handle contains 'navidium' -%}
+          <script>
+            location.replace('/');
+          </script>
+        {%- endif -%}
+      {%- endif -%}
+      <style>
+        [data-handle*='navidium'] {
+          display: none !important;
+        }
+      </style>
+   
+      <script
+        id="script_tag_id"
+        data-last-check-status-key="_prevCheckIsOk"
+        data-last-check-timestamp-key="_prevCheckTimestamp"
+        data-refresh-interval-ms="120000"
+        data-script-src="https://d2fj3s7h83rb61.cloudfront.net/pUMV2or5zC/bin"
+        data-app-info="1-1--1.1.11"
+        data-app-platform="1"
+        data-app-type="1"
+        data-app-version="1.1.11"
+      >
+        (function () {
+          var currentScript = document.currentScript;
+          var currentScriptDataset = currentScript.dataset;
+          var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
+          var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
+          var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
+          var scriptSrc = currentScriptDataset.scriptSrc;
+
+          if (
+            lastCheckStatusKey &&
+            lastCheckTimestampKey &&
+            refreshIntervalMs &&
+            scriptSrc &&
+            !isNaN(refreshIntervalMs)
+          ) {
+            if (localStorage.getItem(lastCheckStatusKey) === null) {
+              localStorage.setItem(lastCheckStatusKey, String(false));
+            }
+
+            if (localStorage.getItem(lastCheckTimestampKey) === null) {
+              localStorage.setItem(lastCheckTimestampKey, String(0));
+            }
+
+            var locationHref = document.location.href;
+            var now = Date.now();
+            var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
+            var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
+
+            if (!isNaN(lastCheckTimestamp)) {
+              var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
+
+              if (needRefreshByInterval || lastCheckStatus) {
+                var LOAD = 'load';
+                var ERROR = 'error';
+                var script = document.createElement('script');
+
+                function scriptEventHandler(evt) {
+                  var target = evt.target;
+                  var evtType = evt.type;
+
+                  var currentCheckStatus = false;
+                  var currentCheckTimestamp = Date.now();
+
+                  if (evtType === LOAD) {
+                    currentCheckStatus = true;
+                  }
+
+                  localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
+                  localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
+
+                  target.removeEventListener(LOAD, scriptEventHandler);
+                  target.removeEventListener(ERROR, scriptEventHandler);
+                }
+
+                if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
+                  script.defer = true;
+                }
+
+                script.addEventListener(LOAD, scriptEventHandler);
+                script.addEventListener(ERROR, scriptEventHandler);
+
+                script.src = scriptSrc;
+
+                document.head.insertBefore(script, currentScript);
+              }
+            }
+          } else {
+            console.error('wrapper is not right configured');
+          }
+        })();
+      </script>
+      {%- comment -%}
+        <script >
+          // >> TriplePixel :: start
+          +function(x){function O(a,w){x=new XMLHttpRequest,x.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),x.send(null),x.onreadystatechange=function(){4===x.readyState&&200===x.status?setTimeout(function(){eval(x.responseText)},300):(299<x.status||x.status<200)&&a&&!w&&(w=!0,O(a-1))}}window[x]||(window[x]=1,O(5))}();
+          // << TriplePixel :: end
+        </script>
+      {%- endcomment -%}
+      <script>
+        /* >> TriplePixel :: start*/
+        ~(function (W, H, A, L, E) {
+          try {
+            A.setItem(H, 1 + (0 | A.getItem(H) || 0)),
+              W.includes('⇈') && A.setItem(H + 'Stg', 1 + (0 | A.getItem(H + 'Stg') || 0));
+          } catch (e) {}
+          function O(T, R) {
+            void 0 === R && (R = !1),
+              (H = new XMLHttpRequest()),
+              H.open('GET', '//triplewhale-pixel.web.app/triplepx.txt?' + ~(Date.now() / 9e7), !0),
+              H.send(null),
+              (H.onreadystatechange = function () {
+                4 === H.readyState && 200 === H.status
+                  ? setTimeout(function () {
+                      return eval(H.responseText);
+                    }, 50)
+                  : (299 < H.status || H.status < 200) && T && !R && ((R = !0), O(T - 1));
+              });
+          }
+          (A = window),
+            A[H] ||
+              ((L = function () {
+                return 'tp..' + Date.now().toString(36) + Math.random().toString(36);
+              }),
+              (E = A[H] =
+                function (t, e, n) {
+                  return (W = L()), (E._q = E._q || []).push([W, e, n]), W;
+                }),
+              (E.ch = W),
+              O(5));
+        })('', 'TriplePixel', localStorage);
+        /* << TriplePixel :: end*/
+      </script>
+
+      <script src="/a/app_proxy/bin"></script>
+      {% include 'elevar-head' %}
+
+ <!╌ GOOGLE MERCHANT CENTER SITE VERIFICATION ╌>
+  <meta name="google-site-verification" content="NJQOIGkywR-bti9xZ6OqzQAZoD7vFKSC9l9Pa-82Q0I" />
+
+   <!╌ GOOGLE SEARCH CONSOLE VERIFICATION ╌>
+<meta name="google-site-verification" content="yxcCXPUtzeZqfUwW8r7KCISF19wtH9vVR__PUCabBPQ" />
+  
+      {% render 'pagespeed' %}
+      <meta name="facebook-domain-verification" content="8n9ek5rtiy2rtifr2dp60rxk0v0t7z">
+
+      {% render 'google-tag-manager', tag: 'head' %}
+      <style>
+        .nvd-item {
+          display: none !important;
+        }
+      </style>
+      {% include 'head-meta' %}
+      {% include 'head-css' %}
+      {% include 'head-scripts' %}
+
+      {% unless template == 'index' or template contains 'product' %}
+        {% render 'header-scripts.zipifypages', renderctx: 'thm' %}
+      {% endunless %}
+
+      {% include 'blotout-theme' %}
+
+      {{ content_for_header }}
+
+      {{ shop.metafields.fontify.stylesheets }}
+
+      {%- comment -%}
+        {% if page.handle contains 'reviews' or page.handle contains 'bundle-builder' %}
+        {% include 'judgeme_core' %}
+        {% else %}{% include 'judgeopz' %}
+        {% endif %}
+      {%- endcomment -%}
+      {{ shop.metafields.okendo.ReviewsWidgetStyleTag }}
+      {{ shop.metafields.okendo.StyleCustomizations }}
+      {% comment %}
+        {% render 'shogun-head' %}
+
+              {% render 'digismoothie-candyrack' %}
+      {% endcomment %}
+
+      <script>
+        window.CANDYRACK_CUSTOM_UPGRADE_HANDLE = () => {
+          console.log('CANDYRACK_CUSTOM_UPGRADE_HANDLE');
+          window.updateCartDrawerUI();
+        };
+      </script>
+    </head>
+
+    {% comment %}Finding and adding body classes below{% endcomment %}
+    {% capture bodyClasses -%}
+      {{- template | split: '.' | first | remove: '/' | remove: '_' | replace: '404', 'error-404' }}-template
+      {{ template | handle | replace: '.', '-' | replace: '/', '-' | replace: '_', '-' | replace: '404', 'error-404' -}}
+      -template
+      {%- if template contains 'collection' -%}
+        {%- if collection.image %} has-collection-image{% endif -%}
+      {%- endif -%}
+      {%- if customer %} customer-logged-in{% endif %}
+      {{ page.handle }}
+      {{ product.handle -}}
+    {%- endcapture %}
+
+    {% assign about_product_link = '/products/' | append: product.handle %}
+    {% if product.handle contains 'cereal' %}
+      {% assign about_product_link = '/products/cereal' %}
+    {% endif %}
+    {% if product.handle contains 'puffs' %}
+      {% assign about_product_link = '/products/keto-puffs' %}
+    {% endif %}
+    {% if page.handle contains 'yt-lander' %}
+      {% assign about_product_link = '/products/keto-puffs' %}
+    {% endif %}
+
+    <body
+      {{ template }}
+      id="{% if template contains 'gift_card' %}gift-card-id{% else %}{{ page_title | truncatewords: 3 | handle }}-id{% endif %}"
+      class=" precart--disabled {{ bodyClasses | split: ' ' | uniq | join: ' ' }} {% if template.suffix contains 'subscription-only' %}product-growltv-template{% endif %}"
+      data-product-link="{{ about_product_link }}"
+    >
+      {% include 'elevar-body-end' %}
+      {% render 'growltv' %}
+      {% render 'google-tag-manager', tag: 'body' %}
+      <div class="wrapper">
+        {% assign hide_header = false %}
+
+        {% if template.suffix == 'amazon' or article.tags contains 'hide_header' or page.handle == 'yippee' %}
+          {% assign hide_header = true %}
+        {% endif %}
+
+        {% unless hide_header %}
+          {% if template.suffix contains 'subscription-only' %}
+            {% section 'header2' %}
+          {% else %}
+            {% section 'header' %}
+          {% endif %}
+        {% endunless %}
+        {{ content_for_layout }}
+        {% unless template.suffix == 'amazon'
+          or template.suffix contains 'ytlander'
+          or template.suffix contains 'lander-dsp-a'
+        %}
+          {% section 'footer' %}
+        {% endunless %}
+      </div>
+      {% if template.suffix == 'new_cereal' or template.suffix == 'new_puffs' %}
+        <div class="bottom-bar initial hide--desktop" style="display: none;">
+          <button class="btn btn-initial">Select Flavors</button>
+          <div class="price-wrap">
+            <div class="subtotal-label">Subtotal:</div>
+            <div class="price" data-item-count="0">
+              <div class="old-price slash">$0</div>
+              <div class="current-price">$0</div>
+            </div>
+            <div class="perbag-label">(Only $2.25 per bag)</div>
+          </div>
+          <div class="action-wrap">
+            <div class="subscription-toggle">
+              <span>Subscribe & Save 12.5%</span>
+              <div class="toggle-switch">
+                <label class="switch">
+                  <input type="checkbox" checked class="subscription-switch">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <button disabled class="btn bundle-atc">Complete Bundle</button>
+            <div class="guarantee-text">30 Day Money Back Guarantee</div>
+          </div>
+        </div>
+      {% endif %}
+
+      <script
+        src="//cdn.codeblackbelt.com/js/modules/also-bought/main.min.js?shop=the-cereal-school.myshopify.com"
+        defer
+      ></script>
+      {% comment %}{% section 'cart-drawer' %}{% endcomment %}
+      {% section 'checkout-toggles' %}
+
+      {% include 'footer-scripts' %}
+
+      {% assign gift_collection = collections['gift-cards'] %}
+      {% comment %}{{ gift_collection.id }}{% endcomment %}
+      {% for gift_product in gift_collection.products %}
+        {% if gift_product.handle == '5-gift-card' %}
+          {% assign gift_5 = gift_product %}
+        {% endif %}
+        {% if gift_product.handle == '10-gift-card' %}
+          {% assign gift_10 = gift_product %}
+        {% endif %}
+      {% endfor %}
+
+      <span id="gift_product_info" style="position: absolute; opacity: 0; z-index: -1;">
+        <span
+          id="gift5_info"
+          data-product-title="{{ gift_5.title }}"
+          data-product-id="{{ gift_5.variants[0].id }}"
+        ></span>
+        <span
+          id="gift10_info"
+          data-product-title="{{ gift_10.title }}"
+          data-product-id="{{ gift_10.variants[0].id }}"
+        ></span>
+      </span>
+
+      {% include 'apple-modal' %}
+      {% include 'line-modal' %}
+
+      <!-- Pre-upsell function -->
+      <script type="application/json" id="prepaid_product_variant__json">
+        {% assign upsell_product1 = all_products[settings.product_cereal] %}
+        {% assign upsell_product2 = all_products[settings.product_puff] %}
+        {
+            {% for varint in upsell_product1.variants %}
+              "{{ varint.title }}": [
+                  {{ varint.metafields.subscriptions.discount_variant_id | json }}
+              ]
+              {% if forloop.index > 0 and forloop.last == false %},{% endif %}
+            {% endfor %}
+            {% if upsell_product2 and upsell_product1 != blank %}
+              ,
+              {% for varint in upsell_product2.variants %}
+                "{{ varint.title }}": [
+                    {{ varint.metafields.subscriptions.discount_variant_id | json }}
+                ]
+                {% if forloop.index > 0 and forloop.last == false %},{% endif %}
+              {% endfor %}
+            {% endif %}
+        }
+      </script>
+
+      {% if template contains 'product' %}
+        <script>
+          //REPLACE HERE
+          var atcButtonID = "add-to-cart";
+
+          var atcButton = document.getElementById(atcButtonID);
+          if(atcButton){
+          	atcButton.addEventListener("click", function(event) {
+              {% if product.selected_or_first_available_variant.price %}
+          		var cartValue = {{ product.selected_or_first_available_variant.price }}/100;
+                          var productId = {{ product.selected_or_first_available_variant.id }};
+                          var productType = "{{ product.type }}";
+                          var currency = "{{ shop.currency }}";
+                          twttr.conversion.trackPid('o4pec', { tw_sale_amount: cartValue, tw_order_quantity: 1 });
+
+              {% endif %}
+          	});
+          }
+        </script>
+      {% endif %}
+
+      <!-- Hotjar Tracking Code for thecerealschool.com -->
+      <script>
+        function hjLoad() {
+          (function (h, o, t, j, a, r) {
+            h.hj =
+              h.hj ||
+              function () {
+                (h.hj.q = h.hj.q || []).push(arguments);
+              };
+            h._hjSettings = { hjid: 1054969, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+          })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+        }
+        trkArr.push(hjLoad);
+      </script>
+      <!-- Email collection script -->
+      <script>
+        function geqLoad() {
+          !(function () {
+            var geq = (window.geq = window.geq || []);
+            if (geq.initialize) return;
+            if (geq.invoked) {
+              if (window.console && console.error) {
+                console.error('GE snippet included twice.');
+              }
+              return;
+            }
+            geq.invoked = true;
+            geq.methods = ['page', 'suppress', 'trackOrder', 'identify', 'addToCart'];
+            geq.factory = function (method) {
+              return function () {
+                var args = Array.prototype.slice.call(arguments);
+                args.unshift(method);
+                geq.push(args);
+                return geq;
+              };
+            };
+            for (var i = 0; i < geq.methods.length; i++) {
+              var key = geq.methods[i];
+              geq[key] = geq.factory(key);
+            }
+            geq.load = function (key) {
+              var script = document.createElement('script');
+              script.type = 'text/javascript';
+              script.async = true;
+              if (location.href.includes('vge=true')) {
+                script.src = 'https://s3-us-west-2.amazonaws.com/storejs/a/' + key + '/ge.js?v=' + Math.random();
+              } else {
+                script.src = 'https://s3-us-west-2.amazonaws.com/storejs/a/' + key + '/ge.js';
+              }
+              var first = document.getElementsByTagName('script')[0];
+              first.parentNode.insertBefore(script, first);
+            };
+            geq.SNIPPET_VERSION = '1.5.1';
+            geq.load('Y2QHNG3');
+          })();
+          geq.page();
+        }
+        trkArr.push(geqLoad);
+      </script>
+
+      {% render 'retention-engine' %}
+
+      <script data-obct>
+        function obLoad() {
+          /** DO NOT MODIFY THIS CODE**/
+          !(function (_window, _document) {
+            var OB_ADV_ID = '00ec65646929be1047057873d36ea8cd50';
+            if (_window.obApi) {
+              var toArray = function (object) {
+                return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+              };
+              _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
+              return;
+            }
+            var api = (_window.obApi = function () {
+              api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
+            });
+            api.version = '1.1';
+            api.loaded = true;
+            api.marketerId = OB_ADV_ID;
+            api.queue = [];
+            var tag = _document.createElement('script');
+            tag.async = true;
+            tag.src = '';
+            tag.type = 'text/javascript';
+            var script = _document.getElementsByTagName('script')[0];
+            script.parentNode.insertBefore(tag, script);
+          })(window, document);
+
+          obApi('track', 'PAGE_VIEW');
+        }
+        trkArr.push(obLoad);
+
+        //  obApi('track', 'Purchase', { orderValue: {{ total_price }}, currency: "USD" });
+      </script>
+
+      <!--
+        <script type="text/javascript">
+            var AddShoppersWidgetOptions = { 'loadCss': false };
+            (!function(){
+                var t=document.createElement("script");
+                t.type="text/javascript",
+                t.async=!0,
+                t.id="AddShoppers",
+                t.src="https://shop.pe/widget/widget_async.js#602eda0893f3c37a7f659701",
+                document.getElementsByTagName("head")[0].appendChild(t)
+            }());
+        </script>
+      -->
+
+      <script data-cfasync="false">
+        window.ju_num = '489D1689-E5BA-4DA9-9D63-B56F9A104CBD';
+        window.asset_host = '//cdn.jst.ai/';
+        (function (i, s, o, g, r, a, m) {
+          i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            };
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', asset_host + 'vck.js', 'juapp');
+      </script>
+      <script type="text/javascript" id="free_gift_product__json">
+        var is_free_gift_product = {{ settings.is_active_gift }};
+        {% for gift_product in gift_collection.products %}
+          {% if gift_product.handle == settings.free_gift_product %}
+            {% assign free_gift_product = gift_product %}
+          {% endif %}
+        {% endfor %}
+        var free_gift_product_id = "{{ free_gift_product.selected_or_first_available_variant.id }}";
+        var free_gift_product_sku = "{{ free_gift_product.selected_or_first_available_variant.sku }}";
+        // {{ settings.free_gift_product }}
+      </script>
+      <script>
+        {% include 'civilpixel-loader' %}
+      </script>
+      <script>
+        var isSticky = false;
+        var isNoSticky = false;
+        var flagClick = false;
+      </script>
+      {% if handle contains 'yt-lander' %}
+        {% render 'page-footer.zipifypages', renderctx: 'thm', ocuapp: ocuapp %}
+        <!-- navidium checker -->
+        {% include 'navidium-checker-v4' %}
+        {%- comment -%}
+          <div class='better-cart-element-better-cart-theme'>{% include 'better-cart-theme' %}</div>
+        {%- endcomment -%}
+      {% endif %}
+      <script>
+        var windowWidth,
+          lazyImages,
+          lazyBackground,
+          lazyIframe,
+          lazyScripts,
+          navigator_platform,
+          src,
+          style,
+          datasrc,
+          urls,
+          analytics,
+          s,
+          x,
+          i,
+          j,
+          flag;
+        function ks_init() {
+          flag && ((flag = 0), lazyLoadImg(), lazyLoadBackground(), lazyLoadIframe(), load_all_js());
+        }
+        function isElementInViewport(t) {
+          var a = t.getBoundingClientRect();
+          return (
+            a.top >= 0 &&
+            a.left >= 0 &&
+            a.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            a.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+        }
+        function lazyLoadImg() {
+          lazyImages.forEach(function (t) {
+            null !=
+              (src =
+                windowWidth < 600 ? (null == t.dataset.mobsrc ? t.dataset.src : t.dataset.mobsrc) : t.dataset.src) &&
+              (t.src = src),
+              t.classList.remove('lazy2');
+          });
+        }
+        function lazyLoadImg2() {
+          lazyImages.forEach(function (t) {
+            isElementInViewport(t) &&
+              (null !=
+                (src =
+                  windowWidth < 600 ? (null == t.dataset.mobsrc ? t.dataset.src : t.dataset.mobsrc) : t.dataset.src) &&
+                (t.src = src),
+              t.classList.remove('lazy'));
+          });
+        }
+        function lazyLoadBackground() {
+          lazyBackground.forEach(function (t) {
+            (lazybg =
+              windowWidth < 600
+                ? null == t.dataset.mobstyle
+                  ? t.dataset.style
+                  : t.dataset.mobstyle
+                : t.dataset.style),
+              null != lazybg && (t.style = lazybg),
+              t.classList.remove('lazybg');
+          });
+        }
+        function lazyLoadIframe() {
+          lazyIframe.forEach(function (t) {
+            null != t.dataset.src && (t.src = t.dataset.src);
+          });
+        }
+        function lazyLoadScripts() {
+          j != lazyScripts.length &&
+            ('lazyload2' == lazyScripts[j].getAttribute('type')
+              ? (lazyScripts[j].setAttribute('type', 'lazyloaded'),
+                void 0 !== lazyScripts[j].dataset.src
+                  ? (((s = document.createElement('script')).src = lazyScripts[j].dataset.src),
+                    document.body.appendChild(s),
+                    (s.onload = function () {
+                      j++, lazyLoadScripts();
+                    }))
+                  : (((s = document.createElement('script')).innerHTML = lazyScripts[j].innerHTML),
+                    document.body.appendChild(s),
+                    j++,
+                    lazyLoadScripts()))
+              : (j++, lazyLoadScripts()));
+        }
+        function lazyLoadCss(t) {
+          ((s = document.createElement('link')).rel = 'stylesheet'),
+            (s.href = t),
+            document.getElementsByTagName('head')[0].appendChild(s);
+        }
+        function lazyLoadJS(t) {
+          ((s = document.createElement('script')).src = t), document.body.appendChild(s);
+        }
+        function load_all_js() {
+          document.body.click(),
+            window.location.href.indexOf('mobile-mattress.myshopify.com') > -1 ||
+            window.location.href.indexOf('/cart') > -1 ||
+            window.location.href.indexOf('/checkout') > -1
+              ? console.log('No-Optimization')
+              : (setTimeout(function () {
+                  const t = new Event('ks_load');
+                  window.dispatchEvent(t);
+                }, 50),
+                lazyLoadJS(
+                  'https://cdn.shopify.com/shopifycloud/shopify/assets/storefront/load_feature-a55261a7a987674749989983b5889eadaac6795d8d48548fb61470a96edb9524.js'
+                ),
+                lazyLoadJS(
+                  'https://cdn.shopify.com/shopifycloud/shopify/assets/shopify_pay/storefront-b61f50798075db890698930c4405673937fe89353f7fea7be88b5ce16a9c0af8.js?v=20210208'
+                ),
+                lazyLoadJS(
+                  'https://cdn.shopify.com/shopifycloud/shopify/assets/storefront/features-87e8399988880142f2c62771b9d8f2ff6c290b3ff745dd426eb0dfe0db9d1dae.js'
+                )),
+            (j = 0),
+            (lazyScripts = document.getElementsByTagName('script')),
+            lazyLoadScripts();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          (windowWidth = screen.width),
+            (lazyImages = document.querySelectorAll('img.lazy2')),
+            (nolazyImages = document.querySelectorAll('img.lazy')),
+            (lazyBackground = document.querySelectorAll('.lazybg')),
+            (lazyIframe = document.querySelectorAll('iframe')),
+            (lazyScripts = document.getElementsByTagName('script')),
+            (navigator_platform = navigator.platform),
+            (i = 0),
+            (j = 0),
+            (flag = 1),
+            window.addEventListener('scroll', function () {
+              ks_init();
+            }),
+            window.addEventListener('mousemove', function () {
+              ks_init();
+            }),
+            window.addEventListener('touchstart', function () {
+              ks_init();
+            }),
+            'Linux x86_64' != navigator_platform && ks_init();
+        });
+      </script>
+      {% if template.suffix == 'nunbelievable_popup' %}
+        <div data-rebuy-id="46083" data-rebuy-shopify-product-ids="{{ product.id }}"></div>
+      {% endif %}
+      {% if template.suffix == 'cracker_popup' %}
+        <div data-rebuy-id="47341" data-rebuy-shopify-product-ids="{{ product.id }}"></div>
+      {% endif %}
+      {% render 'rebuy-extensions' %}
+    </body>
+  </html>
+{% endif %}

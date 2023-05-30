@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="pretitle">{{ section.settings.pretitle }}</div>
+  <h2 class="title">{{ section.settings.title }}</h2>
+  <div class="title2">{{ section.settings.title2 }}</div>
+  <div class="subtitle">{{ section.settings.subtitle }}</div>
+  <div class="two-column-wrap">
+    <div class="half-column">
+      <img class="main-img" src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/SEC6.png?v=1632161700" alt="review image">            
+      <div class="t-content hide--mobile">{{ section.settings.content }}</div>
+      <div class="t-content hide--desktop">
+        <p><a href="#ingredients">See the full ingredient list here.</a></p>
+      </div>
+    </div>
+    <div class="half-column">
+      {% for block in section.blocks %}
+        <div class="block-item">
+          <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/SEC6_checkmark.png?v=1632161936" alt="Checkmark Image">
+          <div class="block-content">
+            {% if block.settings.item_title %}
+              <div class="block-item-title">{{ block.settings.item_title }}</div>
+            {% endif %}
+            <div class="block-item-subtitle">{{ block.settings.item_subtitle }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>   
+  </div>
+  <div class="t-content hide--desktop">{{ section.settings.content }}</div>
+  <a href="/products/keto-puffs?ut=gdn" class="btn">Pick Your Flavors</a>
+</div>
+{% schema %}
+{
+  "name": "YT Lander 7",
+  "class": "ytlander-7 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pretitle",
+      "label": "Pretitle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title2",
+      "label": "Title 2"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_title",
+          "label": "Item Title"
+        },
+        {
+          "type": "text",
+          "id": "item_subtitle",
+          "label": "Item Subtitle"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

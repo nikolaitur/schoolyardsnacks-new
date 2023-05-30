@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="title">{{ section.settings.title }}</h2>  
+  <div class="review-images">
+    <div class="half-column">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Jim_Fagan.png?v=1632239419" alt="review image">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Jenny_Burrows.png?v=1632239450" alt="review image">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Jenny_Burrows.png?v=1632239450" alt="review image">    
+    </div>
+    <div class="half-column">
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Jeri_Dyer_Russell.png?v=1632239667" alt="review image">    
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/JoAnn_Tenny-Taylor.png?v=1632239694" alt="review image">    
+      <img src="https://cdn.shopify.com/s/files/1/0048/4330/7123/files/Karen_Tenney.png?v=1632239722" alt="review image"> 
+    </div>   
+  </div>
+  <a href="#" class="review-link">Click here to view 1,901 reviews</a>
+  <div class="subtitle">{{ section.settings.subtitle }}</div>
+  <a href="/products/keto-puffs?ut=gdn" class="btn btn-flavor-select">Pick Your Flavors</a>  
+</div>
+{% schema %}
+{
+  "name": "YT Lander 8",
+  "class": "ytlander-8 ytlander-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ]
+}
+{% endschema %}
